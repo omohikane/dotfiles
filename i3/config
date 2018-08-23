@@ -49,7 +49,8 @@ bindsym $mod+Shift+k move up
 bindsym $mod+Shift+l move right
 
 # split in horizontal orientation
-bindsym $mod+h split h
+#bindsym $mod+h split h
+bindsym $mod+b split h
 
 # split in vertical orientation
 bindsym $mod+v split v
@@ -152,14 +153,14 @@ exec --no-startup-id fcitx
 
 ## ScreenShot
 bindsym Print exec --no-startip-id import -window root ~ /Pictures/screenshot'date "*%y%m%d%H%M"'.jpg
-bindsym Print+Alt exec gnome-screenshot -w
+bindsym Print+mod1 exec gnome-screenshot -w
 
 ## launch application 
 # file manager
-bindsym $mod+Alt+e exec nemo
+bindsym $mod+mod1+e exec nemo
 
 # web browser
-bindsyum $mod+Alt+v exec vivaldi
+bindsym $mod+mod1+v exec vivaldi
 
 
 
