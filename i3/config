@@ -151,16 +151,64 @@ exec --no-startup-id fcitx
 
 
 
+
+## Key config
+## Sound control
+# Pulse Audio controls
+bindsym XF86AudioRaiseVolume exec pactl set-sink-volume 0 +5% #increase sound volume
+bindsym XF86AudioLowerVolume exec pactl set-sink-volume 0 -- -5% #decrease sound volume
+bindsym XF86AudioMute exec pactl set-sink-mute 0 toggle # mute sound
+
+# Multimedia keys
+# Pulse Audio controls
+bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume 0 +5% #increase sound volume
+bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume 0 -5% #decrease sound volume
+bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute 0 toggle # mute sound
+
+# Sleep key
+bindsym XF86Sleep exec --no-startup-id systemctl suspend
+
+# Screen brightness controls
+bindsym XF86MonBrightnessUp exec xbacklight -inc 10 # increase screen brightness
+bindsym XF86MonBrightnessDown exec xbacklight -dec 10 # decrease screen brightness
+
+# Media player controls
+# bindsym XF86AudioPlay exec playerctl play
+# bindsym XF86AudioPause exec playerctl pause
+# bindsym XF86AudioNext exec playerctl next
+# bindsym XF86AudioPrev exec playerctl previous
+
+
 ## ScreenShot
 bindsym Print exec --no-startip-id import -window root ~ /Pictures/screenshot'date "*%y%m%d%H%M"'.jpg
 bindsym Print+mod1 exec gnome-screenshot -w
 
+
+
+
 ## launch application 
 # file manager
-bindsym $mod+mod1+e exec nemo
+bindsym mod1+e exec nemo
 
 # web browser
-bindsym $mod+mod1+v exec vivaldi
+bindsym mod1+v exec vivaldi
+bindsym mod1+f exec firefox
+
+
+
+
+##壁紙を設定する
+exec --no-startup-id "feh --bg-scale $HOME/.config/i3/wallpaper.jpg"
+
+
+#ウィンドウの半透明化を可能にする
+exec --no-startup-id compton -cbm 0.75
+
+
+#Rofi ランチャを起動する
+#bindsym $mod+d exec ~/bin/rofi_launch.sh
+#bindsym $mod+Shift+d exec ~/bin/rofi_launch.sh -show system
+
 
 
 
