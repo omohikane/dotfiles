@@ -21,7 +21,7 @@ bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcu
 bindsym $mod+Return exec gnome-terminal -e /usr/bin/fish
 
 # WallPaper
-exec --no-startup-id "feh --bg-scale $HOME/.config/i3/wallpaper.jpg"
+exec --no-startup-id "feh --bg-scale $HOME/Picture/wallpaper/wallpaper.jpg"
 
 # Transparent
 exec --no-startup-id compton -cbm 0.75
@@ -29,14 +29,15 @@ exec --no-startup-id compton -cbm 0.75
 #------------------------------------------------------------------
 ## Launcher
 # start dmenu (a program launcher)
-bindsym $mod+d exec dmenu_run
+#bindsym $mod+d exec dmenu_run
 # There also is the (new) i3-dmenu-desktop which only displays applications
 # shipping a .desktop file. It is a wrapper around dmenu, so you need that
 # installed.
 # bindsym $mod+d exec --no-startup-id i3-dmenu-desktop
 ## Rofi
 #bindsym $mod+d exec ~/bin/rofi_launch.sh
-#bindsym $mod+Shift+d exec ~/bin/rofi_launch.sh -show system
+bindsym $mod+d exec ~/.config/rofi/rofi_launch.sh
+bindsym $mod+Shift+d exec ~/bin/rofi_launch.sh -show system
 
 #------------------------------------------------------------------
 ## Status Bar
