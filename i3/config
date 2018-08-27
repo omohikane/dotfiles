@@ -71,6 +71,7 @@ floating_modifier $mod
 bindsym $mod+Shift+q kill
 bindsym $mod+F4 kill
 bindsym button2 kill
+bindsym $mod+mod1+c kill
 
 # change focus
 #bindsym $mod+j focus left
@@ -135,6 +136,10 @@ bindsym $mod+0 workspace 10
 # switch to workspace with up/down keys
 bindsym $mod+Prior  workspace prev
 bindsym $mod+Next  workspace next
+# switch to workspace with hl keys
+bindsym $mod+mod1+h  workspace prev
+bindsym $mod+mod1+l  workspace next
+
 # move workspace
 bindsym $mod+Shift+Prior move  workspace to output  up
 bindsym $mod+Shift+Next  move workspace  to output down
