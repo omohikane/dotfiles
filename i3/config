@@ -51,6 +51,9 @@ bar {
 #start up setting
 exec --no-startup-id fcitx
 
+## Lock Screen
+#bindsym mod1+l exec i3-lock
+
 ## launch application 
 # file manager
 bindsym mod1+e exec nemo
