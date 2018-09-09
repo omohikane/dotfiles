@@ -100,7 +100,7 @@ bindsym mod1+e exec nemo
 # web browser
 bindsym mod1+v exec vivaldi
 bindsym mod1+f exec firefox
-
+bindsym mod1+t exec thunderbird
 
 #==================================================================
 ### Wimdow setting
