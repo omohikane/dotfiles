@@ -14,7 +14,7 @@ else
     Hibernate)
         systemctl hibernate ;;
     Lock)
-	lock ;;    
+	i3lock-fancy -gpf Comic-Sans-MS -- scrot -z  ;;    
     *)
         ;;
     esac

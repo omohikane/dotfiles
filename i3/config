@@ -95,6 +95,8 @@ exec --no-startup-id fcitx
 bindsym mod1+l exec --no-startup-id i3lock-fancy -gpf Comic-Sans-MS -- scrot -z
 
 ## launch application 
+##bindsym mod1+ exec 
+
 # file manager
 bindsym mod1+e exec nemo
 
@@ -102,6 +104,15 @@ bindsym mod1+e exec nemo
 bindsym mod1+v exec vivaldi
 bindsym mod1+f exec firefox
 bindsym mod1+t exec thunderbird
+bindsym mod1+c exec chromium
+
+# message
+bindsym mod1+s exec skype
+bindsym mod1+a exec slack
+bindsym mod1+d exec discord
+
+# others
+bindsym mod1+x exec vmware-view
 
 #==================================================================
 ### Wimdow setting
