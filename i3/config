@@ -89,6 +89,7 @@ bar {
 #------------------------------------------------------------------
 #start up setting
 exec --no-startup-id fcitx
+exec --no-startup-id redshift-gtk
 
 
 ## Lock Screen
