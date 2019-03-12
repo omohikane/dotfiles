@@ -3,6 +3,9 @@
 #i3
 cp -r /home/ripple/git/dotfiles/i3 /home/ripple/.config/
 
+#i3-status
+cp -r /home/ripple/git/dotfiles/i3status /home/ripple/.config/
+
 #rofi
 cp -r /home/ripple/git/dotfiles/rofi /home/ripple/.config/
 

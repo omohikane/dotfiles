@@ -86,6 +86,10 @@ bar {
         status_command i3status
 }
 
+# polybar
+#exec_always --no-startup-id $HOME/.config/polybar/launch.sh
+
+
 #------------------------------------------------------------------
 #start up setting
 exec --no-startup-id fcitx
