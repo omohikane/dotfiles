@@ -1,4 +1,3 @@
-#vim:filetype=i3
 ### i3 config file (v4)
 ### Please see https://i3wm.org/docs/userguide.html for a complete reference!
 
@@ -47,13 +46,19 @@ bindsym $mod+Pause mode "$mode_system"
 
 ## Manual management of external displays
 # Set the shortcuts and what they do
-set $mode_display Ext Screen (v) VGA ON, (h) HDMI ON, (x) VGA OFF, (y) HDMI OFF
+set $mode_display Ext Screen (h) HDMI ON, (d) DP-0 ON,(f) DP-1 ON, (z) HDMI OFF, (x) DP-0 OFF,(c) DP-1 OFF
 mode "$mode_display" {
-    bindsym v exec --no-startup-id xrandr --output VGA1 --auto --right-of LVDS1, mode "default"
-    bindsym h exec --no-startup-id xrandr --output HDMI1 --auto --right-of LVDS1, mode "default"
-    bindsym x exec --no-startup-id xrandr --output VGA1 --auto --off, mode "default"
-    bindsym y exec --no-startup-id xrandr --output HDMI1 --auto --off, mode "default"
+#    bindsym v exec --no-startup-id xrandr --output VGA1 --auto --right-of LVDS1, mode "default"
+#    bindsym h exec --no-startup-id xrandr --output HDMI1 --auto --right-of LVDS1, mode "default"
+#    bindsym x exec --no-startup-id xrandr --output VGA1 --auto --off, mode "default"
+#    bindsym y exec --no-startup-id xrandr --output HDMI1 --auto --off, mode "default"
 
+    bindsym h exec --no-startup-id xrandr --output HDMI-A-0 --auto --right-of eDP --mode "default"
+    bindsym d exec --no-startup-id xrandr --output DisplayPort-0 --auto --right-of eDP --mode "default"
+    bindsym f exec --no-startup-id xrandr --output DisplayPort-1 --auto --right-of eDP --mode "default"
+    bindsym z exec --no-startup-id xrandr --output HDMI-A-0 --auto --off, mode "default"
+    bindsym x exec --no-startup-id xrandr --output DisplayPort-0 --auto --off, mode "default"
+    bindsym c exec --no-startup-id xrandr --output DisplayPort-1 --auto --off, mode "default"
     # back to normal: Enter or Escape
     bindsym Return mode "default"
     bindsym Escape mode "default"
@@ -94,6 +99,7 @@ bar {
 #start up setting
 exec --no-startup-id fcitx
 exec --no-startup-id redshift-gtk
+exec --no-startup-id redshift
 
 
 ## Lock Screen
@@ -264,7 +270,7 @@ bindsym XF86Sleep exec --no-startup-id systemctl suspend
 #bindsym XF86MonBrightnessUp exec  light -A 5 # increase screen brightness
 #bindsym XF86MonBrightnessDown exec light -U 5 # decrease screen brightness
 
-#For AMD-CPU`
+#For AMD-CPU
 bindsym XF86MonBrightnessUp exec  brightnessctl s +5 # increase screen brightness
 bindsym XF86MonBrightnessDown exec  brightnessctl s 5- # decrease screen brightness
 
@@ -280,8 +286,10 @@ bindsym XF86MonBrightnessDown exec  brightnessctl s 5- # decrease screen brightn
 
 
 ## ScreenShot
-bindsym Print exec --no-startip-id import -window root ~ /Pictures/screenshot'date "*%y%m%d%H%M"'.jpg
-bindsym Print+mod1 exec gnome-screenshot -w
+#bindsym Print exec --no-startip-id import -window root ~ /Pictures/screenshot'date "*%y%m%d%H%M"'.jpg
+#bindsym Print+mod1 exec gnome-screenshot -w
+bindsym Print exec maim -s | xclip -selection clipboard -t image/png
+
 #==================================================================
 
 #==================================================================
