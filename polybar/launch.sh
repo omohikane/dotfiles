@@ -4,9 +4,9 @@
 killall -q polybar
 
 # Wait until the processes have been shut down
-while pgrep -u $UID -x polybar >/dev/null; do sleep 1; done
+while pgrep -u $UID -x polybar >/dev/null; do sleep 0.1; done
 
-# Launch Polybar, using default config location ~/.config/polybar/config
-polybar &
+# Launch bar
+polybar main &
 
-echo "Polybar launched..."
+echo "Bars launched..."
