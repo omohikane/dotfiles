@@ -1,16 +1,16 @@
 #! /bin/sh
 
 #i3
-cp -r /home/ripple/git/dotfiles/i3 /home/ripple/.config/
+cp -r ./i3 ~/.config/
 
-#i3-status
-cp -r /home/ripple/git/dotfiles/i3status /home/ripple/.config/
+##i3-status
+cp -r ./i3status ~/.config/
 
-#rofi
-cp -r /home/ripple/git/dotfiles/rofi /home/ripple/.config/
+##rofi
+cp -r ./rofi ~/.config/
 
-#conky
-cp -r /home/ripple/git/dotfiles/conky /home/ripple/.config/ 
+##conky
+cp -r ./conky ~/.config/ 
 
-#polybar
-cp -r /home/ripple/git/dotfiles/polybar /home/ripple/.config/
+##polybar
+cp -r ./polybar ~/.config/
