@@ -5,7 +5,7 @@ rofi.show: combi
 rofi.lines: 8 
 rofi.width: 60
 rofi.padding: 10
-rofi.font: Ubuntu Mono 20
+rofi.font: MigMix 1M 20
 rofi.color-enabled: true
 rofi.fake-transparent: true
 rofi.fullscreen: false
@@ -15,10 +15,10 @@ rofi.sidebar-mode: true
 
 ## Key Binding
 rofi.kb-cancel        :Escape,Control+g,Control+bracketleft,Control+c
-rofi.kb-mode-next     :Shift+Right,Alt+l,Control+Tab
+rofi.kb-mode-next     :Shift+Right,Mod1+l,Control+Tab
 rofi.kb-mode-previous :Shift+Left,Alt+h
-rofi.kb-row-up        :Alt+k
-rofi.kb-row-down      :Alt+j
+rofi.kb-row-up        :Alt+k,Mod1+k,mod1+k
+rofi.kb-row-down      :Alt+j,Mod1+j
 
 ## rofi color scheme
 #rofi.theme:/hoge/huga/themas/hogehoge.rasi
