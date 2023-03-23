@@ -9,8 +9,8 @@
 set $mod Mod4
 
 # Disable TouchPad
-exec --no-startup-id xinput disable 10
-# bindsym $mod+p exec "xinput disable 10"
+exec --no-startup-id xinput disable 12
+# bindsym $mod+p exec "xinput disable 12"
 
 
 ## reload the configuration file
@@ -135,12 +135,17 @@ exec --no-startup-id pamac-tray
 exec --no-startup-id clipit
 # exec --no-startup-id blueman-applet
 # exec_always --no-startup-id sbxkb
+
+
+#---------------------------------------------------------------------------------------
+## Desktop Conky
 exec --no-startup-id start_conky_maia
 # exec --no-startup-id start_conky_green
 #exec --no-startup-id xautolock -time 10 -locker blurlock
 exec_always --no-startup-id ff-theme-util
 exec_always --no-startup-id fix_xcursor
 
+#---------------------------------------------------------------------------------------
 ## Input Method
 exec --no-startup-id fcitx
 
