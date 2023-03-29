@@ -12,6 +12,10 @@ set $mod Mod4
 exec --no-startup-id xinput disable 12
 # bindsym $mod+p exec "xinput disable 12"
 
+# DockingStation for Thinkdock
+exec --no-startup-id dockd --daemon
+
+
 
 ## reload the configuration file
 bindsym $mod+Shift+c reload
