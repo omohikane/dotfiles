@@ -1,0 +1,16 @@
+font:
+  normal:
+    family: MigMix 1M
+    style: Regular
+
+  bold:
+    family: MigMix 1M
+    style: Bold
+
+  italic:
+    family: MigMix 1M
+    style: Italic
+
+  bold_italic:
+    family: MigMix 1M
+    style: Bold Italic

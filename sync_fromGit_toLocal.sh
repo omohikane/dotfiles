@@ -1,16 +1,7 @@
 #! /bin/sh
 
-#i3
-cp -r ./i3 ~/.config/
+#directory
+cp -r ./config_dir/* ~/.config/
 
-##i3-status
-cp -r ./i3status ~/.config/
-
-##rofi
-cp -r ./rofi ~/.config/
-
-##conky
-cp -r ./conky ~/.config/ 
-
-##polybar
-cp -r ./polybar ~/.config/
+#files
+cp -r ./config_files/* ~/.config/
