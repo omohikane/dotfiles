@@ -1,0 +1,6 @@
+[user]
+	email = k-okino@nict.go.jp
+	name = kokino
+
+[include]
+	path = ~/.gitconfig-company

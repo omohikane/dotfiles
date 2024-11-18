@@ -1,0 +1,6 @@
+[user]
+	email = koki.okino765@gmail.com 
+	name = r1ppl3 
+
+[include]
+	path = ~/.gitconfig-company
