@@ -1,0 +1,8 @@
+// ~/.config/zellij/config.kdl
+
+// デフォルトシェルの設定
+default_shell "fish"
+
+// 他の設定があればここに追加
+// 例えば、キーのバインディングやテーマの設定など
+

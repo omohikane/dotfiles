@@ -1,0 +1,21 @@
+profile {
+  output eDP-1 mode 1920x1200 position 0,0 scale 1.0
+}
+
+profile {
+  output eDP-1 mode 1920x1200 position 0,1440 scale 1.0
+  output 'Eizo Nanao Corporation EV2795 53453072' mode 2560x1440 position 0,0 scale 1.0
+}
+
+profile {
+  output eDP-1 mode 1920x1200 position 0,1200 scale 1.0
+  output 'Eizo Nanao Corporation EV2450 24776026' mode 1920x1080 position 1920,0 scale 1.0
+  output 'Eizo Nanao Corporation EV2455 0x0533B657' mode 1920x1200 position 0,0 scale 1.0
+}
+
+profile {
+  output eDP-1 mode 1920x1200 position 0,1440 scale 1.0
+  output "Eizo Nanao Corporation EV2795 52324062" mode 2560x1440 position 0,0 scale 1.0
+  output "Eizo Nanao Corporation EV2795 52326062" mode 2560x1440 position 2560,0 scale 1.0
+}
+

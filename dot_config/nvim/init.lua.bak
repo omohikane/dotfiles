@@ -1,0 +1,242 @@
+-- Enable vim.loader
+vim.loader.enable()
+
+-- Define the path to lazy.nvim
+local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
+
+-- Clone lazy.nvim if it's not already installed
+if not vim.loop.fs_stat(lazypath) then
+  vim.fn.system({
+    "git",
+    "clone",
+    "--filter=blob:none",
+    "https://github.com/folke/lazy.nvim.git",
+    "--branch=stable", -- latest stable release
+    lazypath,
+  })
+end
+
+-- Prepend lazy.nvim to runtime path
+vim.opt.rtp:prepend(lazypath)
+
+-- Load lazy.nvim and configure plugins
+require("lazy").setup({
+
+    
+  -- Noice.nvim
+  {
+    "folke/noice.nvim",
+    event = "VeryLazy",
+    opts = {
+      -- add any options here
+    },
+    dependencies = {
+      "MunifTanjim/nui.nvim",
+      "rcarriga/nvim-notify", -- OPTIONAL: For notifications
+    },
+    config = function()
+        require("notify").setup({
+            background_colour = "#1e1e1e",  -- catppuccinテーマに合わせた背景色
+            render = "minimal",
+            stages = "fade"
+        })
+    end
+  },
+  -- Basic Markdown support
+  {
+    'plasticboy/vim-markdown',
+    dependencies = { 'godlygeek/tabular' },
+    config = function()
+      vim.g.vim_markdown_folding_disabled = 1
+      vim.g.vim_markdown_new_list_item_indent = 0
+    end
+  },
+  -- Markdown preview
+  {
+    'iamcco/markdown-preview.nvim',
+    run = 'cd app && npm install',
+    config = function()
+      vim.g.mkdp_auto_start = 1
+    end,
+    ft = {'markdown'}
+  },
+  -- Diagram support
+  'zhaozg/vim-diagram',
+
+  -- Shell script support
+  -- Syntax highlighting and indent
+  {
+    'sheerun/vim-polyglot'
+  },
+  -- LSP support
+  {
+    'neovim/nvim-lspconfig',
+    dependencies = {
+        'williamboman/mason.nvim',
+        'williamboman/mason-lspconfig.nvim',
+    },
+    config = function()
+        require('mason').setup()
+        require('mason-lspconfig').setup()
+        require('lspconfig').bashls.setup{}
+    end
+},
+
+  -- Lint and formatter
+  {
+    'dense-analysis/ale',
+    config = function()
+      vim.g.ale_linters = {
+        sh = {'shellcheck'}
+      }
+      vim.g.ale_fixers = {
+        sh = {'shfmt'}
+      }
+      vim.g.ale_fix_on_save = 1
+    end
+  },
+  -- Auto completion
+  {
+    'hrsh7th/nvim-cmp',
+    dependencies = {
+      'hrsh7th/cmp-nvim-lsp',
+      'hrsh7th/cmp-path',
+      'hrsh7th/cmp-buffer',
+      'hrsh7th/cmp-cmdline',
+      'saadparwaiz1/cmp_luasnip',
+      'L3MON4D3/LuaSnip',
+      'rafamadriz/friendly-snippets'
+    },
+    config = function()
+      local cmp = require'cmp'
+      cmp.setup({
+           -- window
+            window = {
+                completion = cmp.config.window.bordered(),
+                documentation = cmp.config.window.bordered(),
+            },
+            -- key mapping
+            mapping = cmp.mapping.preset.insert({
+                ['<C-b>'] = cmp.mapping.scroll_docs(-4),
+                ['<C-f>'] = cmp.mapping.scroll_docs(4),
+                ['<C-Space>'] = cmp.mapping.complete(),
+                ['<C-e>'] = cmp.mapping.abort(),
+                ['<CR>'] = cmp.mapping.confirm({ select = true }),
+            }),
+        snippet = {
+          expand = function(args)
+            require('luasnip').lsp_expand(args.body)
+          end
+        },
+        sources = {
+          { name = 'nvim_lsp' },
+          { name = 'buffer' },
+          { name = 'path' },
+          { name = 'cmdline' }
+        }
+      })
+    end
+  },
+  -- File tree
+  {
+    'kyazdani42/nvim-tree.lua',
+    dependencies = 'kyazdani42/nvim-web-devicons',
+    config = function()
+      require'nvim-tree'.setup {}
+      vim.api.nvim_set_keymap('n', '<C-m>', ':NvimTreeToggle<CR>', { noremap = true, silent = true })
+    end
+  },
+  -- Status line
+  {
+    'nvim-lualine/lualine.nvim',
+    dependencies = { 'kyazdani42/nvim-web-devicons', opt = true },
+    config = function()
+      require('lualine').setup {
+        options = {
+          theme = 'catppuccin',
+          section_separators = '',
+          component_separators = ''
+        }
+      }
+    end
+  },
+  -- Fuzzy Finder
+  {
+    'nvim-telescope/telescope.nvim',
+    dependencies = { 'nvim-lua/plenary.nvim' },
+    config = function()
+      require('telescope').setup {}
+      vim.api.nvim_set_keymap('n', '<Leader>ff', ':Telescope find_files<CR>', { noremap = true, silent = true })
+      vim.api.nvim_set_keymap('n', '<Leader>fg', ':Telescope live_grep<CR>', { noremap = true, silent = true })
+    end
+  },
+  -- Colorscheme
+      {
+    "catppuccin/nvim",
+    name = "catppuccin",
+    priority = 1000,
+    config = function()
+      require("catppuccin").setup()
+      vim.cmd.colorscheme "catppuccin"
+    end
+  },
+  --
+{
+    'nvim-treesitter/nvim-treesitter',
+    build = ':TSUpdate',
+    config = function()
+        require('nvim-treesitter.configs').setup({
+            ensure_installed = { "lua", "vim", "bash", "markdown" },
+            highlight = { enable = true },
+        })
+    end
+},
+})
+
+
+vim.api.nvim_set_hl(0, "Normal", { bg = "none" })
+vim.api.nvim_set_hl(0, "NormalFloat", { bg = "none" })
+
+
+
+-- Additional Keybindings and Options
+vim.api.nvim_set_keymap('n', '<Leader>mdp', ':MarkdownPreview<CR>', { noremap = true, silent = true })
+vim.api.nvim_set_keymap('n', '<Leader>mps', ':MarkdownPreviewStop<CR>', { noremap = true, silent = true })
+vim.api.nvim_set_keymap('n', '<Leader>mpo', ':MarkdownPreviewToggle<CR>', { noremap = true, silent = true })
+
+-- Set tab width to 2 spaces
+vim.opt.tabstop = 2
+vim.opt.shiftwidth = 2
+vim.opt.expandtab = true
+
+-- Enable line numbers
+vim.opt.number = true
+
+-- Additional recommended settings
+-- Enable relative line numbers
+vim.opt.relativenumber = true
+
+-- Enable auto and smart indent
+vim.opt.autoindent = true
+vim.opt.smartindent = true
+
+-- Search settings
+vim.opt.incsearch = true
+vim.opt.ignorecase = true
+vim.opt.smartcase = true
+
+-- Highlight current line
+vim.opt.cursorline = true
+
+-- Folding settings
+vim.opt.foldmethod = 'indent'
+vim.opt.foldlevel = 99
+
+-- Disable backup and swap files
+vim.opt.backup = false
+vim.opt.writebackup = false
+vim.opt.swapfile = false
+
+-- Clipboard integration
+vim.opt.clipboard = 'unnamedplus'
+

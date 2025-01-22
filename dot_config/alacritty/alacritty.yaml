@@ -1,0 +1,160 @@
+# テーマカラーとテキストカラーを定義します
+colors:
+  # デフォルトの背景色とテキスト色
+  primary:
+    background: '0x1e1e1e'
+    foreground: '0xe0e0e0'
+
+  # カーソルの色と形状
+  cursor:
+    text: '0x000000'
+    cursor: '0xffffff'
+
+  # 黒と白の16階調グレースケール
+  normal:
+    black: '0x000000'
+    red: '0xcc0000'
+    green: '0x4e9a06'
+    yellow: '0xc4a000'
+    blue: '0x3465a4'
+    magenta: '0x75507b'
+    cyan: '0x06989a'
+    white: '0xd3d7cf'
+
+  # 明るい色
+  bright:
+    black: '0x555753'
+    red: '0xef2929'
+    green: '0x8ae234'
+    yellow: '0xfce94f'
+    blue: '0x729fcf'
+    magenta: '0xad7fa8'
+    cyan: '0x34e2e2'
+    white: '0xeeeeec'
+
+# フォントとフォントのサイズを設定します
+font:
+  normal:
+    family: "HackGen Console NF"  
+    style: Regular
+  bold:
+    family: "HackGen Console NF"
+    style: Bold
+  italic:
+    family: "HackGen Console NF"
+    style: Italic
+  size: 12.0
+  offset:
+    x: 0
+    y: 1
+
+
+# 背景の透明度を設定します（0.0〜1.0の範囲）
+background_opacity: 1.0
+
+# キーバインディングを設定します
+key_bindings:
+  # カーソルの移動
+  - { key: Up,      mods: Alt, action: ScrollPageUp }
+  - { key: Down,    mods: Alt, action: ScrollPageDown }
+  - { key: PageUp,  mods: Alt, action: ScrollPageUp }
+  - { key: PageDown,mods: Alt, action: ScrollPageDown }
+  # 他のキーバインディングを追加
+  - { key: V,        mods: Control|Shift, action: Paste            }
+  - { key: C,        mods: Control|Shift, action: Copy             }
+  - { key: Insert,   mods: Shift,         action: PasteSelection   }
+  - { key: Key0,     mods: Control,       action: ResetFontSize    }
+  - { key: Plus,     mods: Control,       action: IncreaseFontSize }
+  - { key: Minus,    mods: Control,       action: DecreaseFontSize }
+
+# マウス操作を設定します
+mouse:
+  # ホイールスクロールの速度を設定します（行/回）
+  # スクロールしたい行数を指定します
+  # 0 は1行スクロールを意味します
+  # 1以上の数値はスクロール量を増加させ、負の数値は減少させます
+  wheel_scroll_lines: 3
+
+# ウィンドウサイズと動作を設定します
+window:
+  # ウィンドウの幅と高さ
+  dynamic_padding: false
+  dynamic_title: true
+  dimensions:
+    columns: 120
+    lines: 40
+  # ウィンドウの位置（ピクセル単位）
+  padding:
+    x: 8
+    y: 8
+  # ウィンドウを開く際のアニメーション
+  animate_on_open: true
+  # ウィンドウを閉じる際のアニメーション
+  animate_on_close: true
+  decorations: full
+  opacity: 0.95
+
+
+# Scroll settings
+scrolling:
+  history: 10000
+  multiplier: 3
+
+# カーソルの設定
+cursor:
+  style:
+    shape: Block
+    blinking: On
+  blink_interval: 750
+  unfocused_hollow: true
+# IMEの設定
+ime:
+  # 入力方式を設定します
+  enabled: true
+  # IMEにフォーカスを移すためのキーを指定します
+  activate_key: F10
+
+# スクリーンの設定
+screens:
+  # スクリーンのID（単一のモニターの場合は0）
+  0:
+    # DPIの設定
+    # dpi: 96
+
+    # スクリーンのサイズを指定します
+    # スクリーンの幅と高さをピクセル単位で指定します
+    # width: 1920
+    # height: 1080
+
+    # スクリーンの位置を設定します
+    # スクリーンの左上隅の座標を指定します
+    # x: 0
+    # y: 0
+
+    # ベゼルの補正を行うかどうかを設定します
+    # bezel_correction: false
+
+    # 他のスクリーンの背景をブラックアウトするかどうかを設定します
+    # blackout_background: true
+
+# GPUの設定
+# グラフィックスレンダリングを変更するオプションです
+# software_rendering: false
+
+# 起動時にzellijを立ち上げる設定  
+profiles:
+  default:
+    shell:
+      program: /usr/bin/zellij
+  my_other_profile:
+    # 他の設定
+    shell:
+      program: /usr/bin/fish
+      args:
+        - --login
+
+selection:
+  semantic_escape_chars: ",│`|:\"' ()[]{}<>\t"
+  save_to_clipboard: true
+
+live_config_reload: true
