@@ -1,0 +1,47 @@
+# ===================================
+# 🌟 Essential Plugins
+# ===================================
+[[plugins]]
+repo = "nvim-lua/plenary.nvim"
+# Lua utility library required by many plugins
+
+[[plugins]]
+repo = "nvim-tree/nvim-web-devicons" 
+# File icons for UI enhancement
+
+# ===================================
+# 🎨 UI / Appearance
+# ===================================
+[[plugins]]
+repo = "catppuccin/nvim" 
+# Aesthetic color scheme
+
+[[plugins]]
+repo = "nvim-lualine/lualine.nvim" 
+# Customizable status line
+
+# ===================================
+# 🖥️ File Management
+# ===================================
+[[plugins]]
+repo = "nvim-tree/nvim-tree.lua" 
+# File explorer for Neovim
+
+# ===================================
+# 🔍 Search / Navigation
+# ===================================
+[[plugins]]
+repo = "nvim-telescope/telescope.nvim" 
+# Powerful fuzzy finder
+
+# ===================================
+# 🛠️ Code Completion / Syntax Highlighting
+# ===================================
+[[plugins]]
+repo = "nvim-treesitter/nvim-treesitter" 
+# Advanced syntax highlighting & code parsing
+
+[[plugins]]
+repo = "hrsh7th/nvim-cmp" 
+# Completion engine for Neovim
+
