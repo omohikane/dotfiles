@@ -97,20 +97,42 @@ autocmd("TermOpen", {
 })
 
 -- ==========================
--- 🚀 Neovim の起動 & 終了時の処理
+-- 💾 セッションの保存と復元
 -- ==========================
 
--- Neovim 終了時に開いているタブを保存
-autocmd("VimLeave", {
-    group = generalGroup,
-    command = "mksession! ~/.cache/nvim/session.vim",
+local session_path = vim.fn.stdpath("cache") .. "/session.vim"
+
+-- Neovim 終了時にセッションを保存（安心のオートセーブ）
+vim.api.nvim_create_autocmd("VimLeave", {
+  group = vim.api.nvim_create_augroup("SessionSave", { clear = true }),
+  command = "silent! mksession! " .. session_path,
 })
 
--- Neovim 起動時に前回のタブ状態を復元
-autocmd("VimEnter", {
-    group = generalGroup,
-    command = "silent! source ~/.cache/nvim/session.vim",
+-- 起動時、ファイル指定がなければセッションを復元
+vim.api.nvim_create_autocmd("VimEnter", {
+  group = vim.api.nvim_create_augroup("SessionRestore", { clear = true }),
+  callback = function()
+    if vim.fn.argc() == 0 and vim.fn.filereadable(session_path) == 1 then
+      vim.cmd("silent! source " .. session_path)
+      vim.notify("🌸 セッションを復元いたしましたわ。", vim.log.levels.INFO)
+    end
+  end,
 })
+
+-- 保存前に不要バッファを自動で閉じる（例：空のバッファやterm）
+vim.api.nvim_create_autocmd("VimLeavePre", {
+  group = vim.api.nvim_create_augroup("CleanBeforeSession", { clear = true }),
+  callback = function()
+    -- 空バッファ（無題）を削除
+    for _, buf in ipairs(vim.api.nvim_list_bufs()) do
+      local name = vim.api.nvim_buf_get_name(buf)
+      if name == "" or name:match("^term://") then
+        vim.api.nvim_buf_delete(buf, { force = true })
+      end
+    end
+  end,
+})
+
 
 -- ==========================
 -- 🔍 半角スペース 2 個以上のハイライト
