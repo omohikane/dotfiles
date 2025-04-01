@@ -1,0 +1,7 @@
+[[plugins]]
+repo = "catppuccin/nvim"
+hook_add = '''
+  require("catppuccin").setup()
+  vim.cmd.colorscheme "catppuccin"
+'''
+
