@@ -1,6 +1,10 @@
 # env
 set -gx EDITOR nvim
 set -gx PATH $HOME/.local/bin $PATH
+set -g fish_auto_cd true
+set -g fish_color_autosuggestion brblack
+set -g fish_color_command green
+
 
 # keybind
 #bind \cf 'fzf'  # Ctrl+Fでfzfを起動
@@ -50,9 +54,6 @@ if status is-interactive
     abbr -a psg 'ps aux | rg'
 
     # ファイル操作の略語
-    abbr -a rm 'rm -i'
-    abbr -a cp 'cp -i'
-    abbr -a mv 'mv -i'
 end
 
 # plugin
