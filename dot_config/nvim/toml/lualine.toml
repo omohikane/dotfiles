@@ -32,5 +32,8 @@ hook_add = '''
       },
       lualine_x = {"encoding", "fileformat", "filetype"},
       lualine_y = {"progress"},
-      lualine_z_
+      lualine_z = {"location"}
+    }
+  })
+'''
 
