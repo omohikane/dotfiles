@@ -1,7 +1,4 @@
 [[plugins]]
 repo = "catppuccin/nvim"
-hook_add = '''
-  require("catppuccin").setup()
-  vim.cmd.colorscheme "catppuccin"
-'''
+hook_source = "../lua/plugins/catppuccin.lua"
 
