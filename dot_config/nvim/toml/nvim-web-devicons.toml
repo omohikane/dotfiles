@@ -1,6 +1,0 @@
-[[plugins]]
-repo = "nvim-tree/nvim-web-devicons"
-hook_add = '''
-  lua require("plugins.nvim-web-devicons")
-'''
-

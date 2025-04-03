@@ -1,6 +1,0 @@
-[[plugins]]
-repo = "catppuccin/nvim"
-hook_add = '''
-  lua require("plugins.catppuccin")
-'''
-
