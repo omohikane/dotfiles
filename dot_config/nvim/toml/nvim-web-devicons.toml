@@ -1,17 +1,6 @@
 [[plugins]]
 repo = "nvim-tree/nvim-web-devicons"
 hook_add = '''
-  require('nvim-web-devicons').setup({
-    default = true,
-    override = {
-      fish = {
-        icon = "🐟",
-        color = "#428850",
-        name = "Fish"
-      }
-    },
-    strict = true,
-    color_icons = true,
-  })
+  lua require("plugins.nvim-web-devicons")
 '''
 

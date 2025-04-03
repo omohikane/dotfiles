@@ -89,8 +89,6 @@ local function load_plugin_configs()
 	end
 end
 
-load_plugin_configs()
-
 -- `DppInstall` コマンド
 vim.api.nvim_create_user_command("DppInstall", function()
 	dpp.async_ext_action("installer", "install")
