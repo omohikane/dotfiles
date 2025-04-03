@@ -1,0 +1,134 @@
+[[plugins]]
+repo = "catppuccin/nvim"
+name = "catppuccin"
+hook_add = '''
+  lua require("plugins.catppuccin")
+'''
+
+[[plugins]]
+repo = "hrsh7th/nvim-cmp"
+name = "nvim-cmp"
+depends = [
+  "cmp-nvim-lsp",
+  "cmp-path",
+  "cmp-buffer",
+  "cmp-cmdline",
+  "cmp_luasnip",
+  "LuaSnip",
+  "friendly-snippets"
+]
+hook_add = '''
+  lua require("plugins.nvim-cmp")
+'''
+
+[[plugins]]
+repo = "hrsh7th/cmp-nvim-lsp"
+name = "cmp-nvim-lsp"
+
+[[plugins]]
+repo = "hrsh7th/cmp-path"
+name = "cmp-path"
+
+[[plugins]]
+repo = "hrsh7th/cmp-buffer"
+name = "cmp-buffer"
+
+[[plugins]]
+repo = "hrsh7th/cmp-cmdline"
+name = "cmp-cmdline"
+
+[[plugins]]
+repo = "saadparwaiz1/cmp_luasnip"
+name = "cmp_luasnip"
+
+[[plugins]]
+repo = "L3MON4D3/LuaSnip"
+name = "LuaSnip"
+
+[[plugins]]
+repo = "rafamadriz/friendly-snippets"
+name = "friendly-snippets"
+
+[[plugins]]
+repo = "nvim-lualine/lualine.nvim"
+name = "lualine"
+depends = ["nvim-web-devicons"]
+hook_add = '''
+  lua require("plugins.lualine")
+'''
+
+[[plugins]]
+repo = "nvim-tree/nvim-tree.lua"
+name = "nvim-tree"
+depends = ["nvim-web-devicons"]
+hook_add = '''
+  lua require("plugins.nvim-tree")
+'''
+
+[[plugins]]
+repo = "nvim-treesitter/nvim-treesitter-textobjects"
+name = "nvim-treesitter-textobjects"
+
+[[plugins]]
+repo = "windwp/nvim-ts-autotag"
+name = "nvim-ts-autotag"
+
+[[plugins]]
+repo = "nvim-treesitter/nvim-treesitter"
+name = "nvim-treesitter"
+depends = [
+  "nvim-treesitter-textobjects",
+  "nvim-ts-autotag"
+]
+hook_add = '''
+  lua require("plugins.nvim-treesitter")
+'''
+hook_post_update = '''
+  mkdir -p ~/.cache/nvim/dpp/nvim/.dpp/parser
+  TSUpdate
+'''
+
+[[plugins]]
+repo = "nvim-tree/nvim-web-devicons"
+name = "nvim-web-devicons"
+hook_add = '''
+  lua require("plugins.nvim-web-devicons")
+'''
+
+[[plugins]]
+repo = "nvim-lua/plenary.nvim"
+name = "plenary.nvim"
+
+[[plugins]]
+repo = "nvim-telescope/telescope.nvim"
+name = "telescope.nvim"
+depends = ["plenary.nvim"]
+hook_add = '''
+  lua require("plugins.telescope")
+'''
+
+[[plugins]]
+repo = "folke/noice.nvim"
+name = "noice.nvim"
+event = "VeryLazy"
+depends = ["nui.nvim", "nvim-notify"]
+hook_post_source = '''
+  lua require("plugins.noice")
+'''
+
+[[plugins]]
+repo = "MunifTanjim/nui.nvim"
+name = "nui.nvim"
+
+[[plugins]]
+repo = "rcarriga/nvim-notify"
+name = "nvim-notify"
+
+[[plugins]]
+repo = "plasticboy/vim-markdown"
+name = "vim-markdown"
+ft = ["markdown"]
+hook_add = '''
+  lua require("plugins.vim-markdown")
+'''
+

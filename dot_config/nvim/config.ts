@@ -24,7 +24,7 @@ export class Config extends BaseConfig {
     for await (const file of expandGlob(`${tomlDir}/*.toml`)) {
       const toml = await args.dpp.extAction(args.denops, context, options, "toml", "load", {
         path: file.path,
-        options: { lazy: file.path.includes("lazy") },
+        options: {},
       });
       if (toml) {
         tomls.push(...toml.plugins);
