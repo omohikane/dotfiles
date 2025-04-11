@@ -1,0 +1,6 @@
+function serial
+    set -l port $argv[1]
+    set -l baudrate (or $argv[2] 9600)
+    picocom -b $baudrate $port
+end
+
