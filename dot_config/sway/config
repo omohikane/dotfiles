@@ -53,6 +53,10 @@ exec_always swayidle \
 
 bindsym $mod+Alt+l exec swaylock -i ~/Pictures/1920x1200.png
 
+# clipbord
+exec_always clipman store --no-persist
+
+
 # Output Display position
 #output DP-5 pos 0 0
 #output DP-6 pos 0 0
@@ -148,6 +152,10 @@ input <identifier> xkb_model "pc101"
 #
 # Workspaces:
 #
+
+    # Set Workspace position
+    workspace 1 output eDP-1
+
     # Switch to workspace
     bindsym $mod+1 workspace number 1
     bindsym $mod+2 workspace number 2

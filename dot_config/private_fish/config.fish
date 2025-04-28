@@ -53,8 +53,22 @@ if status is-interactive
     abbr -a psa 'ps aux'
     abbr -a psg 'ps aux | rg'
 
-    # ファイル操作の略語
+    # kubernetes
+    abbr -a k 'kubectl'
+    abbr -a kgp 'kubectl get pods'
+    abbr -a kgpa 'kubectl get pods -A'
+    abbr -a kga 'kubectl get all'
+    abbr -a kaf 'kubectl apply -f'
+    abbr -a ktx 'kubectx'
+    abbr -a kns 'kubens'
+    abbr -a kd 'kubectl describe'
+    abbr -a kl 'kubectl logs'
+    abbr -a klf 'kubectl logs -f'
+    abbr -a kdel 'kubectl delete'
+    abbr -a ke 'kubectl edit'
+
 end
+
 
 # plugin
 fzf_configure_bindings --history=ctrl-r
