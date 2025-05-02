@@ -6,7 +6,6 @@
     min-height: 0;
     padding: 0 8px;
     margin: 2px;
-    background: transparent;
     color: #ffffff;
 }
 
@@ -17,8 +16,8 @@
 #battery.charging:hover,
 #clock:hover,
 #tray:hover {
-    background-color: rgba(76, 86, 106, 0.9) !important;
-    color: #ffffff !important;
+    background-color: rgba(76, 86, 106, 0.9);
+    color: #ffffff ;
 }
 
 
