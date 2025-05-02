@@ -12,11 +12,13 @@
 
 #pulseaudio:hover,
 #network:hover,
+#network.wifi:hover,
 #battery:hover,
+#battery.charging:hover,
 #clock:hover,
 #tray:hover {
-    background-color: rgba(76, 86, 106, 0.9);
-    color: #ffffff;
+    background-color: rgba(76, 86, 106, 0.9) !important;
+    color: #ffffff !important;
 }
 
 
@@ -25,10 +27,19 @@ window#waybar {
     border-bottom: 1px solid #444;
 }
 
+
+#workspaces{
+  padding: 0 4px;
+  margin: 0 4px;
+}
+
 #workspaces button {
-    padding: 4px 8px;
-    color: #bbb;
-    background: transparent;
+  padding: 2px 6px;
+  margin: 0 2px;
+  min-width: 0;
+  font-size: 11px;
+  background: transparent;
+  color: #bbb;
 }
 
 #workspaces button.focused {
