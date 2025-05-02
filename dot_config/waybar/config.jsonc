@@ -33,14 +33,14 @@
   },
   "pulseaudio": {
     "format": "{volume}% ",
-    "scroll-step": 5
+    "scroll-step": 5,
     "on-click": "pavucontrol"
   },
   "network": {
     "format-wifi": "  {signalStrength}%",
     "format-ethernet": "",
     "format-disconnected": "",
-    "tooltip-format": "{ifname} via {essid} ({ipaddr})"
+    "tooltip-format": "{ifname} via {essid} ({ipaddr})",
     "on-click": "nm-connection-editor"
   },
   "battery": {
