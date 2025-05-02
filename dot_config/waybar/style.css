@@ -10,6 +10,16 @@
     color: #ffffff;
 }
 
+#pulseaudio:hover,
+#network:hover,
+#battery:hover,
+#clock:hover,
+#tray:hover {
+    background-color: rgba(76, 86, 106, 0.9);
+    color: #ffffff;
+}
+
+
 window#waybar {
     background: rgba(34, 34, 34, 0.9);
     border-bottom: 1px solid #444;
