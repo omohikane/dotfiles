@@ -45,13 +45,23 @@ output * bg /usr/share/backgrounds/sway/Sway_Wallpaper_Blue_1920x1080.png fill
 # your displays after another 300 seconds, and turn your screens back on when
 # resumed. It will also lock your screen before your computer goes to sleep.
 
+## System Theme
+exec_always export GTK_THEME=Adwaita:dark
+exec_always export XDG_CURRENT_DESKTOP=sway
+exec_always export XDG_SESSION_TYPE=wayland
+exec_always export XDG_SESSION_DESKTOP=sway
+exec_always export XDG_DATA_DIRS="/usr/local/share:/usr/share:/var/lib/flatpak/exports/share:/var/lib/snapd/desktop:/usr/share/applications:$HOME/.local/share/applications"
+
+
+## Screen Lock 
 exec_always swayidle \
-    timeout 600 'swaylock -i ~/Pictures/1920x1200.png' \
+    timeout 3000 'LC_TIME=en_US.UTF-8 swaylock --screenshots --effect-blur 7x5 --clock --indicator' \
     timeout 900 'swaymsg "output * dpms off"' \
     resume 'swaymsg "output * dpms on"' \
-    before-sleep 'swaylock -i ~/Pictures/1920x1200.png'
+    before-sleep 'LC_TIME=en_US.UTF-8 swaylock --screenshots --effect-blur 7x5 --clock --indicator'
 
-bindsym $mod+Alt+l exec swaylock -i ~/Pictures/1920x1200.png
+bindsym $mod+Alt+l exec LC_TIME=en_US.UTF-8 swaylock --screenshots --effect-blur 7x5 --clock --indicator
+
 
 # clipbord
 exec_always clipman store --no-persist
@@ -105,8 +115,8 @@ input <identifier> xkb_model "pc101"
     bindsym $mod+Shift+q kill
 
     # Start your launcher
-    bindsym $mod+d exec wofi --show run
-    bindsym mod1+space exec fuzzel
+    bindsym mod1+space exec wofi --show run
+    bindsym Mod1+Shift+space exec bash ~/.config/wofi/launcher.sh
 
 
 

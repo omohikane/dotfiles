@@ -2,10 +2,6 @@
 profile solo-edp {
   output eDP-1 {
     mode 1920x1200
-    status enable
-  }
-  output "*" {
-    status disable
   }
 }
 
@@ -13,14 +9,9 @@ profile solo-edp {
 profile single-ev2795-53453072 {
   output eDP-1 {
     mode 1920x1200
-    status enable
   }
   output "Eizo Nanao Corporation EV2795 53453072" {
     mode 2560x1440
-    status enable
-  }
-  output "*" {
-    status disable
   }
 }
 
@@ -28,18 +19,12 @@ profile single-ev2795-53453072 {
 profile dual-ev2450-ev2455 {
   output eDP-1 {
     mode 1920x1200
-    status enable
   }
   output "Eizo Nanao Corporation EV2450 24776026" {
     mode 1920x1080
-    status enable
   }
   output "Eizo Nanao Corporation EV2455 0x0533B657" {
     mode 1920x1200
-    status enable
-  }
-  output "*" {
-    status disable
   }
 }
 
@@ -47,21 +32,15 @@ profile dual-ev2450-ev2455 {
 profile home-dual-ev2795 {
   output eDP-1 {
     mode 1920x1200
-    position 0,1440
-    status enable
-  }
-  output "Eizo Nanao Corporation EV2795 52324062" {
-    mode 2560x1440
-    position 0,0
-    status enable
+    position 640,1440
   }
   output "Eizo Nanao Corporation EV2795 52326062" {
     mode 2560x1440
     position 2560,0
-    status enable
   }
-  output "*" {
-    status disable
+  output "Eizo Nanao Corporation EV2795 52324062" {
+    mode 2560x1440
+    position 0,0
   }
 }
 
@@ -69,11 +48,9 @@ profile home-dual-ev2795 {
 profile fallback-anywhere {
   output eDP-1 {
     mode 1920x1200
-    status enable
   }
   output "*" {
     mode 1920x1200
-    status enable
   }
 }
 
