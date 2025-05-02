@@ -15,19 +15,19 @@
     "format-alt": "{:%A %H:%M:%S}",
     "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>",
     "calendar": {
-      "mode": "month",              // 月単位で表示（初期）
-      "mode-mon-col": 3,            // 月を横に3つ並べる
-      "weeks-pos": "left",          // 週番号を左に配置
-      "on-scroll": 1,               // スクロールで前月・翌月に移動
-      "on-click": "mode",           // 左クリックで表示モード切り替え（year/month）
-      "on-click-right": "today",    // 右クリックで今日に戻る
-      "on-click-middle": "reset",   // 中クリックでカレンダーリセット
+      "mode": "month",
+      "mode-mon-col": 3,
+      "weeks-pos": "left",
+      "on-scroll": 1,
+      "on-click": "mode",
+      "on-click-right": "today",
+      "on-click-middle": "reset",
       "format": {
-        "months":   "<span color='#ffcc99'><b>{}</b></span>",
-        "days":     "<span color='#c0caf5'>{}</span>",
-        "weeks":    "<span color='#7dcfff'>W{}</span>",
+        "months": "<span color='#ffcc99'><b>{}</b></span>",
+        "days": "<span color='#c0caf5'>{}</span>",
+        "weeks": "<span color='#7dcfff'>W{}</span>",
         "weekdays": "<span color='#e0af68'>{}</span>",
-        "today":    "<span color='#ff5370'><b><u>{}</u></b></span>"
+        "today": "<span color='#ff5370'><b><u>{}</u></b></span>"
       }
     }
   },
