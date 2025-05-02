@@ -56,29 +56,18 @@ exec_always export XDG_DATA_DIRS="/usr/local/share:/usr/share:/var/lib/flatpak/e
 ## Screen Lock 
 exec_always swayidle \
     timeout 3000 'LC_TIME=en_US.UTF-8 swaylock --screenshots --effect-blur 7x5 --clock --indicator' \
-    timeout 900 'swaymsg "output * dpms off"' \
+    timeout 300 'swaymsg "output * dpms off"' \
     resume 'swaymsg "output * dpms on"' \
     before-sleep 'LC_TIME=en_US.UTF-8 swaylock --screenshots --effect-blur 7x5 --clock --indicator'
 
 bindsym $mod+Alt+l exec LC_TIME=en_US.UTF-8 swaylock --screenshots --effect-blur 7x5 --clock --indicator
 
 
-# clipbord
+## clipbord
 exec_always clipman store --no-persist
 
 
-# Output Display position
-#output DP-5 pos 0 0
-#output DP-6 pos 0 0
-#output DP-7 pos 1920 0
-#output eDP-1 pos 0 1200
-
-#output eDP-1 mode 1920x1080 position 0,1440 scale 1.0
-#output "Eizo Nanao Corporation EV2795 52326062" mode 2560x1440 position 2560,0 scale 1.0
-#output "Eizo Nanao Corporation EV2795 52324062" mode 2560x1440 position 0,0 scale 1.0
-
 ## Output Display management
-
 exec_always "pkill kanshi; exec kanshi"
 
 ### Input configuration
@@ -252,24 +241,8 @@ mode "resize" {
 }
 bindsym $mod+r mode "resize"
 
-#
 # Status Bar:
-#
-# Read `man 5 sway-bar` for more information about this section.
-bar {
-    swaybar_command waybar
-    position top
-
-    # When the status_command prints a new line to stdout, swaybar updates.
-    # The default just shows the current date and time.
-    #status_command while date +'%Y-%m-%d %X'; do sleep 1; done
-
-    colors {
-        statusline #ffffff
-        background #323232
-        inactive_workspace #32323200 #32323200 #5c5c5c
-    }
-}
+exec_always waybar
 
 # Media keys
 # Volume control
