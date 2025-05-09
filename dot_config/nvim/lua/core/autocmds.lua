@@ -108,16 +108,6 @@ vim.api.nvim_create_autocmd("VimLeave", {
   command = "silent! mksession! " .. session_path,
 })
 
--- 起動時、ファイル指定がなければセッションを復元
-vim.api.nvim_create_autocmd("VimEnter", {
-  group = vim.api.nvim_create_augroup("SessionRestore", { clear = true }),
-  callback = function()
-    if vim.fn.argc() == 0 and vim.fn.filereadable(session_path) == 1 then
-      vim.cmd("silent! source " .. session_path)
-      vim.notify("🌸 セッションを復元いたしましたわ。", vim.log.levels.INFO)
-    end
-  end,
-})
 
 -- 保存前に不要バッファを自動で閉じる（例：空のバッファやterm）
 vim.api.nvim_create_autocmd("VimLeavePre", {
