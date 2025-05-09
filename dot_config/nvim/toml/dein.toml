@@ -132,3 +132,10 @@ hook_add = '''
   lua require("plugins.vim-markdown")
 '''
 
+[[plugins]]
+repo = 'goolord/alpha-nvim'
+lazy = false
+hook_add = '''
+lua require("core.dashboard").setup()
+'''
+
