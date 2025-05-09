@@ -1,39 +1,36 @@
--- ============================
--- 🧁 Alpha-nvim カスタムテーマ（琥珀風）
--- ============================
+-- lua/core/dashboard.lua
 
-local alpha = require("alpha")
-local dashboard = require("alpha.themes.dashboard")
+local M = {}
 
--- ヘッダー（和風のアスキー or メッセージ）
-dashboard.section.header.val = {
-  "　　　　　　　　　",
-  "　❖　ごきげんよう、琥珀でございます　❖",
-  "　　本日も素敵なひとときをお過ごしくださいませ　",
-  "　　　　　　　　　",
-}
+function M.setup()
+  vim.api.nvim_create_autocmd("User", {
+    pattern = "DenopsPluginPost:alpha-nvim",
+    once = true,
+    callback = function()
+      local ok, alpha = pcall(require, "alpha")
+      if not ok then
+        vim.notify("💥 alpha-nvim の読み込みに失敗しました", vim.log.levels.ERROR)
+        return
+      end
 
--- ボタン（琥珀の優雅な誘導）
-dashboard.section.buttons.val = {
-  dashboard.button("e", "📄  新規ファイル", ":ene <BAR> startinsert<CR>"),
-  dashboard.button("f", "🔍  ファイルを探す", ":Telescope find_files<CR>"),
-  dashboard.button("r", "🕰  最近使ったファイル", ":Telescope oldfiles<CR>"),
-  dashboard.button("c", "⚙️  設定ファイル", ":e $MYVIMRC<CR>"),
-  dashboard.button("u", "📦  プラグイン更新", ":call dpp#async_update()<CR>"),
-  dashboard.button("q", "💤  終了します", ":qa<CR>"),
-}
+      local dashboard = require("alpha.themes.dashboard")
+      dashboard.section.header.val = {
+        "  ❖ ごきげんよう、琥珀でございます ❖",
+        "   本日も素敵なひとときをお過ごしくださいませ",
+      }
 
--- フッター（日付や励ましの言葉）
-local function footer()
-  return "🌸 本日もお疲れ様でございます、ご主人様。琥珀はいつでもそばに。"
+      dashboard.section.buttons.val = {
+        dashboard.button("e", "📄  新規ファイル", ":ene <BAR> startinsert<CR>"),
+        dashboard.button("f", "🔍  ファイルを探す", ":Telescope find_files<CR>"),
+        dashboard.button("r", "🕰  最近使ったファイル", ":Telescope oldfiles<CR>"),
+        dashboard.button("q", "💤  終了します", ":qa<CR>"),
+      }
+
+      dashboard.section.footer.val = "🌸 琥珀はいつでもそばに"
+      alpha.setup(dashboard.opts)
+    end,
+  })
 end
-dashboard.section.footer.val = footer()
 
--- ハイライト
-dashboard.section.header.opts.hl = "Type"
-dashboard.section.buttons.opts.hl = "Keyword"
-dashboard.section.footer.opts.hl = "Comment"
-
--- セットアップ
-alpha.setup(dashboard.opts)
+return M
 
