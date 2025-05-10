@@ -6,8 +6,17 @@ local dpp_path = vim.fn.stdpath("cache") .. "/nvim/dpp/repos/github.com"
 package.path = package.path .. ";" .. dpp_path .. "/?/init.lua;" .. dpp_path .. "/?.lua"
 package.cpath = package.cpath .. ";" .. dpp_path .. "/?.so"
 
--- health check disable
-vim.g["denops#disable_healthcheck"] = 1
+-- SSH 
+if vim.env.NVIM_SSH_MODE == "1" then
+  vim.g["denops#disable_healthcheck"] = 1
+  vim.g["denops#server#start"] = 0
+
+  vim.cmd([[
+    function! denops#_internal#rpc#nvim#healthcheck(...) abort
+    endfunction
+  ]])
+end
+
 
 -- dpp.vim を runtimepath に追加
 vim.opt.runtimepath:prepend(dppSrc)
