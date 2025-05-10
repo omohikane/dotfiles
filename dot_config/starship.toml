@@ -7,9 +7,9 @@ command_timeout = 500
 palette = "catppuccin_mocha"
 
 format = """
-[](grey35)\
+[](surface0)\
 $directory\
-[](grey35)\
+[](surface0)\
 $git_branch\
 $git_status\
 $cmd_duration\
@@ -29,8 +29,8 @@ cmd_indicator = "[cmd](#a3daff)"
 [directory]
 #truncation_length = 1000
 #truncate_to_repo = false
-style = "bold medium_purple3"
-read_only = " "
+style = "bold lavender"
+format = "[📁 $path ]($style)"
 truncation_length = 3
 truncation_symbol = "…/"
 
@@ -98,7 +98,7 @@ format = "took [⏱ $duration ](grey70)"
 
 
 [username]
-style_user = "white bold"
+style_user = "blue"
 disabled = false
 show_always = true
 
