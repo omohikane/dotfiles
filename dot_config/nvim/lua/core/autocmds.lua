@@ -127,18 +127,41 @@ vim.api.nvim_create_autocmd("VimLeavePre", {
 -- ==========================
 -- 🔍 半角スペース 2 個以上のハイライト
 -- ==========================
+vim.api.nvim_create_autocmd("VimEnter", {
+  group = vim.api.nvim_create_augroup("HighlightSpaces", {}),
+  pattern = "*",
+  callback = function()
+    local colorscheme = vim.g.colors_name or ""
+    local filetype = vim.bo.filetype
+    local is_gui = vim.fn.has("gui_running") == 1 or vim.fn.has("termguicolors") == 1
 
-local autocmd = vim.api.nvim_create_autocmd
-local augroup = vim.api.nvim_create_augroup
+    local guibg = "#3a1f2c"  -- デフォルト：ワインレッド
+    local ctermbg = 52
 
--- 半角スペースが 2 個以上続く場合を強調表示
-autocmd("VimEnter", {
-    group = augroup("HighlightSpaces", {}),
-    pattern = "*",
-    callback = function()
-        vim.cmd([[highlight ExtraWhitespace ctermbg=red guibg=red]])
-        vim.cmd([[match ExtraWhitespace /\v  +/]])
-    end,
+    -- 💡 カラースキームによって変更
+    if colorscheme:match("catppuccin") then
+      guibg = "#5b4b6e"  -- Catppuccinに馴染む色
+      ctermbg = 60
+    elseif colorscheme:match("tokyonight") then
+      guibg = "#313244"
+      ctermbg = 236
+    end
+
+    -- 📄 ファイルタイプによって微調整（例：markdownなら軽めに）
+    if filetype == "markdown" then
+      guibg = "#3f3f3f"
+      ctermbg = 238
+    end
+
+    -- ☀️ GUI 以外なら背景色は控えめに（下線だけ）
+    if not is_gui then
+      vim.cmd("highlight ExtraWhitespace gui=underline guisp=#ff8888 cterm=underline")
+    else
+      vim.cmd("highlight ExtraWhitespace guibg=" .. guibg .. " ctermbg=" .. ctermbg)
+    end
+
+    -- ハイライト適用
+    vim.cmd([[match ExtraWhitespace /\v  +/]])
+  end
 })
-
 
