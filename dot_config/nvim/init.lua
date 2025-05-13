@@ -1,3 +1,7 @@
+-- Leader mapping
+vim.g.mapleader = " "
+vim.g.maplocalleader = ","
+
 -- キャッシュディレクトリのパス設定
 local cache_path = vim.fs.joinpath(vim.fn.stdpath("cache"), "dpp", "repos", "github.com")
 local dppSrc = vim.fs.joinpath(cache_path, "Shougo", "dpp.vim")
