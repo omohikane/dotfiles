@@ -4,11 +4,13 @@
   "modules-left": ["sway/workspaces"],
   "modules-center": ["sway/window"],
   "modules-right": [
-    "pulseaudio",
-    "network",
-    "battery",
-    "clock",
-    "tray"
+  "cpu",
+  "temperature",
+  "pulseaudio",
+  "network",
+  "battery",
+  "clock",
+  "tray"
   ],
   "clock": {
     "format": "{:%Y-%m-%d %H:%M}",
@@ -51,5 +53,15 @@
   "tray": {
     "icon-size": 16,
     "spacing": 10
+  },
+  "cpu": {
+    "format": " {usage}%",
+    "tooltip": true
+  },
+  
+  "temperature": {
+    "critical-threshold": 80,
+    "format": "🌡️ {temperatureC}°C",
+    "tooltip": true
   }
 }
