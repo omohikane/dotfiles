@@ -4,6 +4,7 @@
   "modules-left": ["sway/workspaces"],
   "modules-center": ["sway/window"],
   "modules-right": [
+  "custom/updates",
   "cpu",
   "temperature",
   "pulseaudio",
