@@ -4,6 +4,7 @@
   "modules-left": ["sway/workspaces"],
   "modules-center": ["sway/window"],
   "modules-right": [
+  "custom/vpn",
   "custom/updates",
   "cpu",
   "temperature",
@@ -70,5 +71,12 @@
     "interval": 3600,
     "format": "{}",
     "tooltip": true
-  }
+  },
+  "custom/vpn": {
+  "exec": "~/.config/waybar/scripts/vpn_status.sh",
+  "interval": 30,
+  "format": "{}",
+  "return-type": "json",
+  "tooltip": true
+}
 }
