@@ -1,0 +1,10 @@
+[bindings]
+accept = Return
+cancel = Escape
+delete-next = Control+d
+delete-prev = Control+h
+cursor-left = Control+b
+cursor-right = Control+f
+history-prev = Control+k
+history-next = Control+j
+
