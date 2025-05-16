@@ -104,7 +104,7 @@ input <identifier> xkb_model "pc101"
     bindsym $mod+Shift+q kill
 
     # Start your launcher
-    bindsym mod1+space exec wofi --show run
+    bindsym mod1+space exec fuzzel
     bindsym Mod1+Shift+space exec bash ~/.config/wofi/launcher.sh
 
 
