@@ -72,4 +72,10 @@ window#waybar {
   color: #ffffff;
 }
 
+#custom-updates {
+  color: #a3be8c;
+  background-color: #2e3440;
+  padding: 0 10px;
+  border-radius: 6px;
+}
 
