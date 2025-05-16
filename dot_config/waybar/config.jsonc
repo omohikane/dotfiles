@@ -63,5 +63,11 @@
     "critical-threshold": 80,
     "format": "🌡️ {temperatureC}°C",
     "tooltip": true
+  },
+    "custom/updates": {
+    "exec": "~/.config/waybar/scripts/updates.sh",
+    "interval": 3600,
+    "format": "{}",
+    "tooltip": true
   }
 }
