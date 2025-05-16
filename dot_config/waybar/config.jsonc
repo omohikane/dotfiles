@@ -70,7 +70,9 @@
     "exec": "~/.config/waybar/scripts/updates.sh",
     "interval": 3600,
     "format": "{}",
+    "return-type": "json",
     "tooltip": true
+    "on-click": "alacritty -e yay -Syu"
   },
   "custom/vpn": {
   "exec": "~/.config/waybar/scripts/vpn_status.sh",
