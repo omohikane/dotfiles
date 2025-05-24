@@ -21,6 +21,7 @@ lua require("plugins.lualine")
 [[plugins]]
 repo = 'nvim-tree/nvim-web-devicons'
 name = 'nvim-web-devicons'
+lazy = false
 hook_add = '''
 lua require("plugins.nvim-web-devicons")
 '''
