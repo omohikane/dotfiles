@@ -222,3 +222,36 @@ hook_add = '''
 lua require("plugins.vim-sandwich")
 '''
 
+[[plugins]]
+repo = 'Shougo/ddu.vim'
+name = 'ddu.vim'
+lazy = true
+hook_add = '''
+lua require("plugins.ddu")
+'''
+
+[[plugins]]
+repo = 'Shougo/ddu-ui-ff'
+name = 'ddu-ui-ff'
+lazy = true
+
+[[plugins]]
+repo = 'Shougo/ddu-source-file_rec'
+name = 'ddu-source-file_rec'
+lazy = true
+
+[[plugins]]
+repo = 'Shougo/ddu-source-mr'
+name = 'ddu-source-mr'
+lazy = true
+
+[[plugins]]
+repo = 'Shougo/ddu-filter-matcher_substring'
+name = 'ddu-filter-matcher_substring'
+lazy = true
+
+[[plugins]]
+repo = 'Shougo/ddu-filter-sorter_alpha'
+name = 'ddu-filter-sorter_alpha'
+lazy = true
+
