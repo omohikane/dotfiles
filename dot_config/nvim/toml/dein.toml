@@ -1,7 +1,7 @@
--- dein.toml
+# dein.toml
 
 #######################################################################
--- 🎨 UI / Appearance
+# 🎨 UI / Appearance
 #######################################################################
 [[plugins]]
 repo = 'catppuccin/nvim'
@@ -55,7 +55,7 @@ repo = 'echasnovski/mini.nvim'
 name = 'mini.nvim'
 
 #######################################################################
--- 🧠 LSP / Diagnostics
+# 🧠 LSP / Diagnostics
 #######################################################################
 [[plugins]]
 repo = 'folke/trouble.nvim'
@@ -73,7 +73,7 @@ lua require("plugins.vim-markdown")
 '''
 
 #######################################################################
--- 🧩 Completion Engines
+# 🧩 Completion Engines
 #######################################################################
 [[plugins]]
 repo = 'hrsh7th/nvim-cmp'
@@ -119,7 +119,7 @@ lua require("plugins.ddc")
 '''
 
 #######################################################################
--- 🔍 Fuzzy Finder / Ddu
+# 🔍 Fuzzy Finder / Ddu
 #######################################################################
 [[plugins]]
 repo = 'Shougo/ddu.vim'
@@ -141,7 +141,7 @@ repo = 'nvim-lua/plenary.nvim'
 name = 'plenary.nvim'
 
 #######################################################################
--- 🌲 Treesitter
+# 🌲 Treesitter
 #######################################################################
 [[plugins]]
 repo = 'nvim-treesitter/nvim-treesitter'
@@ -164,7 +164,7 @@ repo = 'windwp/nvim-ts-autotag'
 name = 'nvim-ts-autotag'
 
 #######################################################################
--- 🗂 File Explorer / Navigation
+# 🗂 File Explorer / Navigation
 #######################################################################
 [[plugins]]
 repo = 'nvim-tree/nvim-tree.lua'
@@ -179,7 +179,7 @@ repo = 'lambdalisue/fern.vim'
 name = 'fern.vim'
 
 #######################################################################
--- 🖥 Terminal
+# 🖥 Terminal
 #######################################################################
 [[plugins]]
 repo = 'akinsho/toggleterm.nvim'
@@ -189,7 +189,7 @@ lua require("plugins.toggleterm")
 '''
 
 #######################################################################
--- 🕹 Navigation / Jump
+# 🕹 Navigation / Jump
 #######################################################################
 [[plugins]]
 repo = 'hrsh7th/vim-eft'
@@ -200,7 +200,7 @@ repo = 'yuki-yano/fuzzy-motion.vim'
 name = 'fuzzy-motion.vim'
 
 #######################################################################
--- 🧙 Bracket / Input Helper
+# 🧙 Bracket / Input Helper
 #######################################################################
 [[plugins]]
 repo = 'cohama/lexima.vim'
@@ -225,7 +225,7 @@ lua require("plugins.vim-ambicmd")
 '''
 
 #######################################################################
--- 📜 Keymap Helper
+# 📜 Keymap Helper
 #######################################################################
 [[plugins]]
 repo = 'folke/which-key.nvim'
