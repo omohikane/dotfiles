@@ -183,14 +183,6 @@ lua require("plugins.ddc")
 '''
 
 [[plugins]]
-repo = 'Shougo/ddu.vim'
-name = 'ddu.vim'
-lazy = true
-hook_add = '''
-lua require("plugins.ddu")
-'''
-
-[[plugins]]
 repo = 'thinca/vim-ambicmd'
 name = 'vim-ambicmd'
 lazy = true
@@ -217,7 +209,7 @@ lua require("plugins.lexima")
 [[plugins]]
 repo = 'machakann/vim-sandwich'
 name = 'vim-sandwich'
-lazy = true
+lazy = false
 hook_add = '''
 lua require("plugins.vim-sandwich")
 '''
