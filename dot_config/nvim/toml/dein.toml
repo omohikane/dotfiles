@@ -1,139 +1,50 @@
+-- dein.toml
+
+-----------------------------------------------------------------------
+-- 🎨 UI / Appearance
+-----------------------------------------------------------------------
 [[plugins]]
-repo = "catppuccin/nvim"
-name = "catppuccin"
+repo = 'catppuccin/nvim'
+name = 'catppuccin'
 hook_add = '''
-  lua require("plugins.catppuccin")
+lua require("plugins.catppuccin")
 '''
 
 [[plugins]]
-repo = "hrsh7th/nvim-cmp"
-name = "nvim-cmp"
-depends = [
-  "cmp-nvim-lsp",
-  "cmp-path",
-  "cmp-buffer",
-  "cmp-cmdline",
-  "cmp_luasnip",
-  "LuaSnip",
-  "friendly-snippets"
-]
+repo = 'nvim-lualine/lualine.nvim'
+name = 'lualine'
+depends = ['nvim-web-devicons']
 hook_add = '''
-  lua require("plugins.nvim-cmp")
+lua require("plugins.lualine")
 '''
 
 [[plugins]]
-repo = "hrsh7th/cmp-nvim-lsp"
-name = "cmp-nvim-lsp"
-
-[[plugins]]
-repo = "hrsh7th/cmp-path"
-name = "cmp-path"
-
-[[plugins]]
-repo = "hrsh7th/cmp-buffer"
-name = "cmp-buffer"
-
-[[plugins]]
-repo = "hrsh7th/cmp-cmdline"
-name = "cmp-cmdline"
-
-[[plugins]]
-repo = "saadparwaiz1/cmp_luasnip"
-name = "cmp_luasnip"
-
-[[plugins]]
-repo = "L3MON4D3/LuaSnip"
-name = "LuaSnip"
-
-[[plugins]]
-repo = "rafamadriz/friendly-snippets"
-name = "friendly-snippets"
-
-[[plugins]]
-repo = "nvim-lualine/lualine.nvim"
-name = "lualine"
-depends = ["nvim-web-devicons"]
+repo = 'nvim-tree/nvim-web-devicons'
+name = 'nvim-web-devicons'
 hook_add = '''
-  lua require("plugins.lualine")
+lua require("plugins.nvim-web-devicons")
 '''
 
 [[plugins]]
-repo = "nvim-tree/nvim-tree.lua"
-name = "nvim-tree"
-depends = ["nvim-web-devicons"]
-hook_add = '''
-  lua require("plugins.nvim-tree")
-'''
+repo = 'rcarriga/nvim-notify'
+name = 'nvim-notify'
 
 [[plugins]]
-repo = "nvim-treesitter/nvim-treesitter-textobjects"
-name = "nvim-treesitter-textobjects"
-
-[[plugins]]
-repo = "windwp/nvim-ts-autotag"
-name = "nvim-ts-autotag"
-
-[[plugins]]
-repo = "nvim-treesitter/nvim-treesitter"
-name = "nvim-treesitter"
-depends = [
-  "nvim-treesitter-textobjects",
-  "nvim-ts-autotag"
-]
-hook_add = '''
-  lua require("plugins.nvim-treesitter")
-'''
-hook_post_update = '''
-  mkdir -p ~/.cache/nvim/dpp/nvim/.dpp/parser
-  TSUpdate
-'''
-
-[[plugins]]
-repo = "nvim-tree/nvim-web-devicons"
-name = "nvim-web-devicons"
-hook_add = '''
-  lua require("plugins.nvim-web-devicons")
-'''
-
-[[plugins]]
-repo = "nvim-lua/plenary.nvim"
-name = "plenary.nvim"
-
-[[plugins]]
-repo = "nvim-telescope/telescope.nvim"
-name = "telescope.nvim"
-depends = ["plenary.nvim"]
-hook_add = '''
-  lua require("plugins.telescope")
-'''
-
-[[plugins]]
-repo = "folke/noice.nvim"
-name = "noice.nvim"
-event = "VeryLazy"
-depends = ["nui.nvim", "nvim-notify"]
+repo = 'folke/noice.nvim'
+name = 'noice.nvim'
+event = 'VeryLazy'
+depends = ['nui.nvim', 'nvim-notify']
 hook_post_source = '''
-  lua require("plugins.noice")
+lua require("plugins.noice")
 '''
 
 [[plugins]]
-repo = "MunifTanjim/nui.nvim"
-name = "nui.nvim"
-
-[[plugins]]
-repo = "rcarriga/nvim-notify"
-name = "nvim-notify"
-
-[[plugins]]
-repo = "plasticboy/vim-markdown"
-name = "vim-markdown"
-ft = ["markdown"]
-hook_add = '''
-  lua require("plugins.vim-markdown")
-'''
+repo = 'MunifTanjim/nui.nvim'
+name = 'nui.nvim'
 
 [[plugins]]
 repo = 'goolord/alpha-nvim'
+name = 'alpha-nvim'
 lazy = false
 hook_add = '''
 lua require("core.dashboard").setup()
@@ -142,66 +53,158 @@ lua require("core.dashboard").setup()
 [[plugins]]
 repo = 'echasnovski/mini.nvim'
 name = 'mini.nvim'
-lazy = true
+
+-----------------------------------------------------------------------
+-- 🧠 LSP / Diagnostics
+-----------------------------------------------------------------------
+[[plugins]]
+repo = 'folke/trouble.nvim'
+name = 'trouble.nvim'
 hook_add = '''
-lua require("plugins.mini")
+lua require("plugins.trouble")
 '''
 
 [[plugins]]
-repo = 'hrsh7th/vim-eft'
-name = 'vim-eft'
-on_event = 'CursorMoved'
-lazy = true
+repo = 'plasticboy/vim-markdown'
+name = 'vim-markdown'
+ft = ['markdown']
 hook_add = '''
-lua require("plugins.vim-eft")
+lua require("plugins.vim-markdown")
+'''
+
+-----------------------------------------------------------------------
+-- 🧩 Completion Engines
+-----------------------------------------------------------------------
+[[plugins]]
+repo = 'hrsh7th/nvim-cmp'
+name = 'nvim-cmp'
+depends = ['cmp-nvim-lsp','cmp-path','cmp-buffer','cmp-cmdline','cmp_luasnip','LuaSnip','friendly-snippets']
+hook_add = '''
+lua require("plugins.nvim-cmp")
+'''
+
+[[plugins]]
+repo = 'hrsh7th/cmp-nvim-lsp'
+name = 'cmp-nvim-lsp'
+
+[[plugins]]
+repo = 'hrsh7th/cmp-path'
+name = 'cmp-path'
+
+[[plugins]]
+repo = 'hrsh7th/cmp-buffer'
+name = 'cmp-buffer'
+
+[[plugins]]
+repo = 'hrsh7th/cmp-cmdline'
+name = 'cmp-cmdline'
+
+[[plugins]]
+repo = 'saadparwaiz1/cmp_luasnip'
+name = 'cmp_luasnip'
+
+[[plugins]]
+repo = 'L3MON4D3/LuaSnip'
+name = 'LuaSnip'
+
+[[plugins]]
+repo = 'rafamadriz/friendly-snippets'
+name = 'friendly-snippets'
+
+[[plugins]]
+repo = 'Shougo/ddc.vim'
+name = 'ddc.vim'
+hook_add = '''
+lua require("plugins.ddc")
+'''
+
+-----------------------------------------------------------------------
+-- 🔍 Fuzzy Finder / Ddu
+-----------------------------------------------------------------------
+[[plugins]]
+repo = 'Shougo/ddu.vim'
+name = 'ddu.vim'
+hook_add = '''
+lua require("plugins.ddu")
+'''
+
+[[plugins]]
+repo = 'nvim-telescope/telescope.nvim'
+name = 'telescope.nvim'
+depends = ['plenary.nvim']
+hook_add = '''
+lua require("plugins.telescope")
+'''
+
+[[plugins]]
+repo = 'nvim-lua/plenary.nvim'
+name = 'plenary.nvim'
+
+-----------------------------------------------------------------------
+-- 🌲 Treesitter
+-----------------------------------------------------------------------
+[[plugins]]
+repo = 'nvim-treesitter/nvim-treesitter'
+name = 'nvim-treesitter'
+depends = ['nvim-treesitter-textobjects','nvim-ts-autotag']
+hook_add = '''
+lua require("plugins.nvim-treesitter")
+'''
+hook_post_update = '''
+  mkdir -p ~/.cache/nvim/dpp/nvim/.dpp/parser
+  TSUpdate
+'''
+
+[[plugins]]
+repo = 'nvim-treesitter/nvim-treesitter-textobjects'
+name = 'nvim-treesitter-textobjects'
+
+[[plugins]]
+repo = 'windwp/nvim-ts-autotag'
+name = 'nvim-ts-autotag'
+
+-----------------------------------------------------------------------
+-- 🗂 File Explorer / Navigation
+-----------------------------------------------------------------------
+[[plugins]]
+repo = 'nvim-tree/nvim-tree.lua'
+name = 'nvim-tree'
+depends = ['nvim-web-devicons']
+hook_add = '''
+lua require("plugins.nvim-tree")
 '''
 
 [[plugins]]
 repo = 'lambdalisue/fern.vim'
 name = 'fern.vim'
-on_event = 'BufEnter'
-lazy = true
+
+-----------------------------------------------------------------------
+-- 🖥 Terminal
+-----------------------------------------------------------------------
+[[plugins]]
+repo = 'akinsho/toggleterm.nvim'
+name = 'toggleterm.nvim'
 hook_add = '''
-lua require("plugins.fern")
+lua require("plugins.toggleterm")
 '''
 
+-----------------------------------------------------------------------
+-- 🕹 Navigation / Jump
+-----------------------------------------------------------------------
 [[plugins]]
-repo = 'lambdalisue/gin.vim'
-name = 'gin.vim'
-on_event = 'BufEnter'
-lazy = true
-hook_add = '''
-lua require("plugins.gin")
-'''
-
-[[plugins]]
-repo = 'Shougo/ddc.vim'
-name = 'ddc.vim'
-lazy = true
-hook_add = '''
-lua require("plugins.ddc")
-'''
-
-[[plugins]]
-repo = 'thinca/vim-ambicmd'
-name = 'vim-ambicmd'
-lazy = true
-hook_add = '''
-lua require("plugins.vim-ambicmd")
-'''
+repo = 'hrsh7th/vim-eft'
+name = 'vim-eft'
 
 [[plugins]]
 repo = 'yuki-yano/fuzzy-motion.vim'
 name = 'fuzzy-motion.vim'
-lazy = true
-hook_add = '''
-lua require("plugins.fuzzy-motion")
-'''
 
+-----------------------------------------------------------------------
+-- 🧙 Bracket / Input Helper
+-----------------------------------------------------------------------
 [[plugins]]
 repo = 'cohama/lexima.vim'
 name = 'lexima.vim'
-lazy = true
 hook_add = '''
 lua require("plugins.lexima")
 '''
@@ -215,59 +218,19 @@ lua require("plugins.vim-sandwich")
 '''
 
 [[plugins]]
-repo = 'Shougo/ddu.vim'
-name = 'ddu.vim'
-lazy = true
+repo = 'thinca/vim-ambicmd'
+name = 'vim-ambicmd'
 hook_add = '''
-lua require("plugins.ddu")
+lua require("plugins.vim-ambicmd")
 '''
 
-[[plugins]]
-repo = 'Shougo/ddu-ui-ff'
-name = 'ddu-ui-ff'
-lazy = true
-
-[[plugins]]
-repo = 'Shougo/ddu-source-file_rec'
-name = 'ddu-source-file_rec'
-lazy = true
-
-[[plugins]]
-repo = 'Shougo/ddu-source-mr'
-name = 'ddu-source-mr'
-lazy = true
-
-[[plugins]]
-repo = 'Shougo/ddu-filter-matcher_substring'
-name = 'ddu-filter-matcher_substring'
-lazy = true
-
-[[plugins]]
-repo = 'Shougo/ddu-filter-sorter_alpha'
-name = 'ddu-filter-sorter_alpha'
-lazy = true
-
+-----------------------------------------------------------------------
+-- 📜 Keymap Helper
+-----------------------------------------------------------------------
 [[plugins]]
 repo = 'folke/which-key.nvim'
 name = 'which-key.nvim'
-lazy = true
 hook_add = '''
 lua require("plugins.which-key")
-'''
-
-[[plugins]]
-repo = 'akinsho/toggleterm.nvim'
-name = 'toggleterm.nvim'
-lazy = true
-hook_add = '''
-lua require("plugins.toggleterm")
-'''
-
-[[plugins]]
-repo = 'folke/trouble.nvim'
-name = 'trouble.nvim'
-lazy = true
-hook_add = '''
-lua require("plugins.trouble")
 '''
 
