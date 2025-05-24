@@ -247,3 +247,27 @@ repo = 'Shougo/ddu-filter-sorter_alpha'
 name = 'ddu-filter-sorter_alpha'
 lazy = true
 
+[[plugins]]
+repo = 'folke/which-key.nvim'
+name = 'which-key.nvim'
+lazy = true
+hook_add = '''
+lua require("plugins.which-key")
+'''
+
+[[plugins]]
+repo = 'akinsho/toggleterm.nvim'
+name = 'toggleterm.nvim'
+lazy = true
+hook_add = '''
+lua require("plugins.toggleterm")
+'''
+
+[[plugins]]
+repo = 'folke/trouble.nvim'
+name = 'trouble.nvim'
+lazy = true
+hook_add = '''
+lua require("plugins.trouble")
+'''
+
