@@ -176,3 +176,15 @@ vim.api.nvim_create_autocmd("VimEnter", {
   end
 })
 
+-- ==========================
+-- ✨ 挿入モード中に直前の単語を大文字化
+-- ==========================
+
+vim.api.nvim_create_autocmd("FileType", {
+  group = vim.api.nvim_create_augroup("InsertUpperCase", { clear = true }),
+  pattern = "*",
+  callback = function()
+    vim.keymap.set("i", "<C-u>", "<C-g>u<Esc>mzgUiw`za", { buffer = true, desc = "直前の単語を大文字に変換" })
+  end,
+})
+
