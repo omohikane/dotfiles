@@ -19,5 +19,29 @@ return function()
       align = "center"
     }
   }
+
+  -- keymap settings
+  wk.register({
+    ["<leader>"] = {
+      f = {
+        name = "+file",
+        f = { "<cmd>Telescope find_files<cr>", "Find File" },
+        r = { "<cmd>Telescope oldfiles<cr>", "Recent Files" },
+      },
+      b = {
+        name = "+buffer",
+        n = { "<cmd>enew<cr>", "New Buffer" },
+        d = { "<cmd>bdelete<cr>", "Delete Buffer" },
+      },
+      g = {
+        name = "+git",
+        s = { "<cmd>GinStatus<cr>", "Git Status" },
+      },
+      t = {
+        name = "+terminal",
+        t = { "<cmd>ToggleTerm<cr>", "Toggle Terminal" },
+      },
+    },
+  })
 end
 
