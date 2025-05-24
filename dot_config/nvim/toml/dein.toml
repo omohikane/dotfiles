@@ -139,3 +139,86 @@ hook_add = '''
 lua require("core.dashboard").setup()
 '''
 
+[[plugins]]
+repo = 'echasnovski/mini.nvim'
+name = 'mini.nvim'
+lazy = true
+hook_add = '''
+lua require("plugins.mini")
+'''
+
+[[plugins]]
+repo = 'hrsh7th/vim-eft'
+name = 'vim-eft'
+on_event = 'CursorMoved'
+lazy = true
+hook_add = '''
+lua require("plugins.vim-eft")
+'''
+
+[[plugins]]
+repo = 'lambdalisue/fern.vim'
+name = 'fern.vim'
+on_event = 'BufEnter'
+lazy = true
+hook_add = '''
+lua require("plugins.fern")
+'''
+
+[[plugins]]
+repo = 'lambdalisue/gin.vim'
+name = 'gin.vim'
+on_event = 'BufEnter'
+lazy = true
+hook_add = '''
+lua require("plugins.gin")
+'''
+
+[[plugins]]
+repo = 'Shougo/ddc.vim'
+name = 'ddc.vim'
+lazy = true
+hook_add = '''
+lua require("plugins.ddc")
+'''
+
+[[plugins]]
+repo = 'Shougo/ddu.vim'
+name = 'ddu.vim'
+lazy = true
+hook_add = '''
+lua require("plugins.ddu")
+'''
+
+[[plugins]]
+repo = 'thinca/vim-ambicmd'
+name = 'vim-ambicmd'
+lazy = true
+hook_add = '''
+lua require("plugins.vim-ambicmd")
+'''
+
+[[plugins]]
+repo = 'yuki-yano/fuzzy-motion.vim'
+name = 'fuzzy-motion.vim'
+lazy = true
+hook_add = '''
+lua require("plugins.fuzzy-motion")
+'''
+
+[[plugins]]
+repo = 'cohama/lexima.vim'
+name = 'lexima.vim'
+lazy = true
+hook_add = '''
+lua require("plugins.lexima")
+'''
+
+[[plugins]]
+repo = 'machakann/vim-sandwich'
+name = 'vim-sandwich'
+lazy = true
+hook_add = '''
+lua require("plugins.vim-sandwich")
+'''
+
