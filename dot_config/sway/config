@@ -1,11 +1,6 @@
-# Default config for sway
-#
-# Copy this to ~/.config/sway/config and edit it to your liking.
-#
-# Read `man 5 sway` for a complete reference.
-
+#####################################################################
 ### Variables
-#
+#####################################################################
 # Logo key. Use Mod1 for Alt.
 set $mod Mod4
 # Home row direction keys, like vim
@@ -21,31 +16,16 @@ set $term alacritty
 # on the original workspace that the command was run on.
 set $menu dmenu_path | wmenu | xargs swaymsg exec --
 
+#####################################################################
 ### Output configuration
-#
+#####################################################################
 # Default wallpaper (more resolutions are available in /usr/share/backgrounds/sway/)
 output * bg /usr/share/backgrounds/sway/Sway_Wallpaper_Blue_1920x1080.png fill
-#
-# Example configuration:
-#
-#   output HDMI-A-1 resolution 1920x1080 position 1920,0
-#
-# You can get the names of your outputs by running: swaymsg -t get_outputs
 
-### Idle configuration
-#
-# Example configuration:
-#
-# exec swayidle -w \
-#          timeout 300 'swaylock -f -c 000000' \
-#          timeout 600 'swaymsg "output * power off"' resume 'swaymsg "output * power on"' \
-#          before-sleep 'swaylock -f -c 000000'
-#
-# This will lock your screen after 300 seconds of inactivity, then turn off
-# your displays after another 300 seconds, and turn your screens back on when
-# resumed. It will also lock your screen before your computer goes to sleep.
 
+#####################################################################
 ## System Theme
+#####################################################################
 exec_always export GTK_THEME=Adwaita:dark
 exec_always export XDG_CURRENT_DESKTOP=sway
 exec_always export XDG_SESSION_TYPE=wayland
@@ -53,7 +33,9 @@ exec_always export XDG_SESSION_DESKTOP=sway
 exec_always export XDG_DATA_DIRS="/usr/local/share:/usr/share:/var/lib/flatpak/exports/share:/var/lib/snapd/desktop:/usr/share/applications:$HOME/.local/share/applications"
 
 
+#####################################################################
 ## Screen Lock 
+#####################################################################
 exec_always swayidle \
     timeout 3000 'LC_TIME=en_US.UTF-8 swaylock --screenshots --effect-blur 7x5 --clock --indicator' \
     timeout 300 'swaymsg "output * dpms off"' \
@@ -63,27 +45,20 @@ exec_always swayidle \
 bindsym $mod+Alt+l exec LC_TIME=en_US.UTF-8 swaylock --screenshots --effect-blur 7x5 --clock --indicator
 
 
+#####################################################################
 ## clipbord
+#####################################################################
 exec_always clipman store --no-persist
 
 
+#####################################################################
 ## Output Display management
+#####################################################################
 exec_always "pkill kanshi; exec kanshi"
 
-### Input configuration
-#
-# Example configuration:
-#
-#   input "2:14:SynPS/2_Synaptics_TouchPad" {
-#       dwt enabled
-#       tap enabled
-#       natural_scroll enabled
-#       middle_emulation enabled
-#   }
-#
-# You can get the names of your inputs by running: swaymsg -t get_inputs
-# Read `man 5 sway-input` for more information about this section.
-
+#####################################################################
+## Input layout 
+#####################################################################
 input * {
     xkb_layout "jp"
     #xkb_layout "us"
@@ -93,7 +68,9 @@ input * {
 
 input <identifier> xkb_model "pc101"
 
+#####################################################################
 ### Key bindings
+#####################################################################
 #
 # Basics:
 #
@@ -109,11 +86,13 @@ input <identifier> xkb_model "pc101"
 
 
 
+#####################################################################
     # Drag floating windows by holding down $mod and left mouse button.
     # Resize them with right mouse button + $mod.
     # Despite the name, also works for non-floating windows.
     # Change normal to inverse to use left mouse button for resizing and right
     # mouse button for dragging.
+#####################################################################
     floating_modifier $mod normal
 
     # Reload the configuration file
@@ -121,9 +100,10 @@ input <identifier> xkb_model "pc101"
 
     # Exit sway (logs you out of your Wayland session)
     bindsym $mod+Shift+e exec swaynag -t warning -m 'You pressed the exit shortcut. Do you really want to exit sway? This will end your Wayland session.' -B 'Yes, exit sway' 'swaymsg exit'
-#
+
+#####################################################################
 # Moving around:
-#
+#####################################################################
     # Move your focus around
     bindsym $mod+$left focus left
     bindsym $mod+$down focus down
@@ -148,10 +128,10 @@ input <identifier> xkb_model "pc101"
     # Switch Workspace with next-prev key
     #bindsym $mod+XF86ScrollUp workspace Prior
     #bindsym $mod+XF86ScrollDown workspace Next
-#
-# Workspaces:
-#
 
+#####################################################################
+# Workspaces:
+#####################################################################
     # Set Workspace position
     workspace 1 output eDP-1
 
@@ -179,9 +159,10 @@ input <identifier> xkb_model "pc101"
     bindsym $mod+Shift+0 move container to workspace number 10
     # Note: workspaces can have any name you want, not just numbers.
     # We just use 1-10 as the default.
-#
+
+#####################################################################
 # Layout stuff:
-#
+#####################################################################
     # You can "split" the current object of your focus with
     # $mod+b or $mod+v, for horizontal and vertical splitsgrp:win_space_toggle
     # respectively.
@@ -205,7 +186,9 @@ input <identifier> xkb_model "pc101"
     # Move focus to the parent container
     bindsym $mod+a focus parent
 #
+#####################################################################
 # Scratchpad:
+#####################################################################
 #
     # Sway has a "scratchpad", which is a bag of holding for windows.
     # You can send windows there and get them back later.
@@ -217,7 +200,9 @@ input <identifier> xkb_model "pc101"
     # If there are multiple scratchpad windows, this command cycles through them.
     bindsym $mod+minus scratchpad show
 #
+#####################################################################
 # Resizing containers:
+#####################################################################
 #
 mode "resize" {
     # left will shrink the containers width
@@ -241,12 +226,15 @@ mode "resize" {
 }
 bindsym $mod+r mode "resize"
 
+#####################################################################
 # Status Bar:
+#####################################################################
 exec_always bash -c '[ "$(pidof waybar)" ] && pkill waybar; exec waybar'
 
 
-
+#####################################################################
 # Media keys
+#####################################################################
 # Volume control
 bindsym XF86AudioRaiseVolume exec amixer set Master 5%+
 bindsym XF86AudioLowerVolume exec amixer set Master 5%-
@@ -263,33 +251,41 @@ bindsym XF86MonBrightnessUp exec brightnessctl set +5%
 bindsym XF86MonBrightnessDown exec brightnessctl set 5%-
 
 
-#
-# Launch apps: 
-#
-#bindsym mod1+ exec 
 
+#####################################################################
+# Launch apps: 
+#####################################################################
 # system app
     bindsym mod1+e exec dolphin
 
 # other apps
     bindsym mod1+s exec gtk-launch slack
 
-    bindsym mod1+n exec $term --class nvim -e nvim
-        for_window [app_id="nvim"] {
-          border pixel 2
-          floating disable
-          inhibit_idle focus
-        }
+bindsym mod1+n exec $term --class nvim-plain -e nvim
+assign [app_id=nvim-plain] 1
+for_window [app_id="nvim-plain"] {
+  border pixel 2
+  floating disable
+  inhibit_idle focus
+}
+
+bindsym Mod1+c exec google-chrome-stable
+assign [app_id='google-chrome'] 2
+
+bindsym Mod1+v exec vivaldi
+assign [app_id='vivaldi'] 4
+
+bindsym Mod1+o exec obsidian
+assign [app_id='obsidian'] 8
 
 # Printキーでスクリーンショットを矩形選択してクリップボードにコピー
     bindsym Print exec grim -g "$(slurp)" - | wl-copy
 
 
 
-#
+#####################################################################
 # Auto Start apps: 
-#
-
+#####################################################################
 
 # Auto Start Input Method
 exec fcitx5
