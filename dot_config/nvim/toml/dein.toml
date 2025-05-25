@@ -231,7 +231,8 @@ lua require("plugins.vim-ambicmd")
 [[plugins]]
 repo = 'folke/which-key.nvim'
 name = 'which-key.nvim'
+lazy = false
 hook_add = '''
-lua require("plugins.which-key")
+lua require("plugins.which-key")()
 '''
 
