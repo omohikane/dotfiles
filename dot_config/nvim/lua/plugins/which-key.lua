@@ -1,7 +1,7 @@
 -- lua/plugins/which-key.lua
 
 return function()
-  local ok, wk = pcall(require, "whichkey")
+  local ok, wk = pcall(require, "which-key")
   if not ok then
     vim.notify("which-key.nvim が読み込めませんでした", vim.log.levels.ERROR)
     return
