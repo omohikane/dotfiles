@@ -160,10 +160,6 @@ repo = 'Shougo/ddc-source-around'
 name = 'ddc-source-around'
 
 [[plugins]]
-repo = 'Shougo/ddc-source-file'
-name = 'ddc-source-file'
-
-[[plugins]]
 repo = 'Shougo/ddc-source-cmdline'
 name = 'ddc-source-cmdline'
 
