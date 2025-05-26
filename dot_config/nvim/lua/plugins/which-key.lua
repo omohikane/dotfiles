@@ -13,7 +13,6 @@ return function()
     },
     win = {
       border = "single",
-      position = "bottom",
     },
     layout = {
       align = "center",
