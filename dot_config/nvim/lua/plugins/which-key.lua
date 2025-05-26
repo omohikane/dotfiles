@@ -1,4 +1,4 @@
--- plugins/which-key.lua
+-- lua/plugins/which-key.lua
 
 return function()
   local ok, wk = pcall(require, "which-key")
@@ -7,44 +7,41 @@ return function()
     return
   end
 
-  -- Setup
-  wk.setup {
+  wk.setup({
     plugins = {
       spelling = { enabled = true },
     },
     win = {
-      border = "single",  -- deprecated: "window" → "win" に修正済み
+      border = "single",
       position = "bottom",
     },
     layout = {
-      align = "center"
-    }
-  }
-
-  -- Register groups for which-key
-  wk.register({
-  { "<leader>f", group = "file" },
-  { "<leader>b", group = "buffer" },
-  { "<leader>g", group = "git" },
-  { "<leader>t", group = "terminal" },
+      align = "center",
+    },
   })
 
-  -- Define keymaps with descriptions
-  local map = vim.keymap.set
-  local opts = { noremap = true, silent = true }
-
-  -- File
-  map("n", "<leader>ff", "<cmd>Telescope find_files<cr>", vim.tbl_extend("force", opts, { desc = "Find File" }))
-  map("n", "<leader>fr", "<cmd>Telescope oldfiles<cr>",   vim.tbl_extend("force", opts, { desc = "Recent Files" }))
-
-  -- Buffer
-  map("n", "<leader>bn", "<cmd>enew<cr>",                 vim.tbl_extend("force", opts, { desc = "New Buffer" }))
-  map("n", "<leader>bd", "<cmd>bdelete<cr>",              vim.tbl_extend("force", opts, { desc = "Delete Buffer" }))
-
-  -- Git
-  map("n", "<leader>gs", "<cmd>GinStatus<cr>",            vim.tbl_extend("force", opts, { desc = "Git Status" }))
-
-  -- Terminal
-  map("n", "<leader>tt", "<cmd>ToggleTerm<cr>",           vim.tbl_extend("force", opts, { desc = "Toggle Terminal" }))
+  -- keymap registration in recommended format
+  wk.register({
+    ["<leader>"] = {
+      f = {
+        name = "+file",
+        f = { "<cmd>Telescope find_files<cr>", "Find File" },
+        r = { "<cmd>Telescope oldfiles<cr>", "Recent Files" },
+      },
+      b = {
+        name = "+buffer",
+        n = { "<cmd>enew<cr>", "New Buffer" },
+        d = { "<cmd>bdelete<cr>", "Delete Buffer" },
+      },
+      g = {
+        name = "+git",
+        s = { "<cmd>GinStatus<cr>", "Git Status" },
+      },
+      t = {
+        name = "+terminal",
+        t = { "<cmd>ToggleTerm<cr>", "Toggle Terminal" },
+      },
+    },
+  })
 end
 
