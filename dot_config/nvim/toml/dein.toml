@@ -97,6 +97,13 @@ hook_add = '''
 lua require("plugins.lint")
 '''
 
+[[plugins]]
+repo = 'ray-x/lsp_signature.nvim'
+name = 'lsp_signature.nvim'
+hook_add = '''
+lua require("plugins.lsp-signature")
+'''
+
 
 #######################################################################
 # 🧩 Completion Engines
