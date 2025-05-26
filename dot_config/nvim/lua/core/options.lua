@@ -1,9 +1,21 @@
 local opt = vim.opt -- 設定のショートカット
 
 -- mason path
-vim.env.PATH = vim.env.PATH
-  .. ":" .. vim.fn.stdpath("data") .. "/mason/bin"
+vim.env.PATH = vim.env.PATH .. ":" .. vim.fn.stdpath("data") .. "/mason/bin"
 
+-- clipboard
+vim.g.clipboard = {
+	name = "OSC 52",
+	copy = {
+		["+"] = require("vim.ui.clipboard.osc52").copy("+"),
+		["*"] = require("vim.ui.clipboard.osc52").copy("*"),
+	},
+	paste = {
+		["+"] = require("vim.ui.clipboard.osc52").paste("+"),
+		["*"] = require("vim.ui.clipboard.osc52").paste("*"),
+	},
+}
+vim.opt.clipboard = "unnamedplus"
 
 -- ==========================
 -- 🌟 基本エディタ設定
@@ -139,5 +151,3 @@ vim.opt.fileencodings = { "utf-8", "sjis", "euc-jp" }
 
 -- 日本語の文字幅を適切に調整
 vim.opt.ambiwidth = "double"
-
-
