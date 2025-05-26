@@ -59,6 +59,16 @@ name = 'mini.nvim'
 # 🧠 LSP / Diagnostics
 #######################################################################
 [[plugins]]
+repo = 'williamboman/mason.nvim'
+name = 'mason.nvim'
+hook_add = 'lua require("plugins.mason")'
+
+[[plugins]]
+repo = 'williamboman/mason-lspconfig.nvim'
+name = 'mason-lspconfig.nvim'
+depends = ['mason.nvim']
+
+[[plugins]]
 repo = 'folke/trouble.nvim'
 name = 'trouble.nvim'
 hook_add = '''
