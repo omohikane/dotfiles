@@ -96,6 +96,8 @@ vim.cmd("syntax on")
 require("core.options")
 require("core.keymaps")
 require("core.autocmds")
+require("lsp")
+
 
 -- プラグイン設定をロード
 local function load_plugin_configs()
