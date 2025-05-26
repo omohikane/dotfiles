@@ -155,6 +155,18 @@ lua require("plugins.ddc")
 repo = 'Shougo/ddc-source-nvim-lsp'
 name = 'ddc-source-nvim-lsp'
 
+[[plugins]]
+repo = 'Shougo/ddc-source-around'
+name = 'ddc-source-around'
+
+[[plugins]]
+repo = 'Shougo/ddc-source-file'
+name = 'ddc-source-file'
+
+[[plugins]]
+repo = 'Shougo/ddc-source-cmdline'
+name = 'ddc-source-cmdline'
+
 #######################################################################
 # 🔍 Fuzzy Finder / Ddu
 #######################################################################
