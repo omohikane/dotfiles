@@ -1,45 +1,50 @@
--- lua/plugins/which-key.lua
+-- plugins/which-key.lua
 
 return function()
-  local ok, which_key = pcall(require, "which-key")
+  local ok, wk = pcall(require, "which-key")
   if not ok then
     vim.notify("which-key.nvim が読み込めませんでした", vim.log.levels.ERROR)
     return
   end
 
-  which_key.setup({
+  -- Setup
+  wk.setup {
     plugins = {
       spelling = { enabled = true },
     },
-    win = {  -- ✅ 最新仕様
-      border = "single",
+    win = {
+      border = "single",  -- deprecated: "window" → "win" に修正済み
       position = "bottom",
     },
     layout = {
-      align = "center",
-    },
-  })
-
-  -- 推奨形式でキーマッピング登録
-  local mappings = {
-    { "<leader>f", group = "file" },
-    { "<leader>ff", "<cmd>Telescope find_files<cr>", desc = "Find File" },
-    { "<leader>fr", "<cmd>Telescope oldfiles<cr>", desc = "Recent Files" },
-    { "<leader>b", group = "buffer" },
-    { "<leader>bn", "<cmd>enew<cr>", desc = "New Buffer" },
-    { "<leader>bd", "<cmd>bdelete<cr>", desc = "Delete Buffer" },
-    { "<leader>g", group = "git" },
-    { "<leader>gs", "<cmd>GinStatus<cr>", desc = "Git Status" },
-    { "<leader>t", group = "terminal" },
-    { "<leader>tt", "<cmd>ToggleTerm<cr>", desc = "Toggle Terminal" },
+      align = "center"
+    }
   }
 
-  for _, map in ipairs(mappings) do
-    if map.group then
-      which_key.register({ [map[1]] = { name = map.group } })
-    else
-      which_key.register({ [map[1]] = { map[2], map.desc } })
-    end
-  end
+  -- Register groups for which-key
+  wk.register({
+    ["<leader>f"] = { name = "+file" },
+    ["<leader>b"] = { name = "+buffer" },
+    ["<leader>g"] = { name = "+git" },
+    ["<leader>t"] = { name = "+terminal" },
+  })
+
+  -- Define keymaps with descriptions
+  local map = vim.keymap.set
+  local opts = { noremap = true, silent = true }
+
+  -- File
+  map("n", "<leader>ff", "<cmd>Telescope find_files<cr>", vim.tbl_extend("force", opts, { desc = "Find File" }))
+  map("n", "<leader>fr", "<cmd>Telescope oldfiles<cr>",   vim.tbl_extend("force", opts, { desc = "Recent Files" }))
+
+  -- Buffer
+  map("n", "<leader>bn", "<cmd>enew<cr>",                 vim.tbl_extend("force", opts, { desc = "New Buffer" }))
+  map("n", "<leader>bd", "<cmd>bdelete<cr>",              vim.tbl_extend("force", opts, { desc = "Delete Buffer" }))
+
+  -- Git
+  map("n", "<leader>gs", "<cmd>GinStatus<cr>",            vim.tbl_extend("force", opts, { desc = "Git Status" }))
+
+  -- Terminal
+  map("n", "<leader>tt", "<cmd>ToggleTerm<cr>",           vim.tbl_extend("force", opts, { desc = "Toggle Terminal" }))
 end
 
