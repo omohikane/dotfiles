@@ -13,6 +13,12 @@ return function()
     return
   end
 
+  local ok_lspconfig, lspconfig = pcall(require, "lspconfig")
+  if not ok_lspconfig then
+    vim.notify("lspconfig の読み込みに失敗しました", vim.log.levels.ERROR)
+    return
+  end
+
   mason.setup()
 
   mason_lspconfig.setup {
@@ -29,7 +35,7 @@ return function()
     function(server_name)
       local ok, config = pcall(require, "lsp." .. server_name)
       if ok then
-        vim.lsp.start(config)
+        lspconfig[server_name].setup(config)
       else
         vim.notify("LSP 設定 'lsp/" .. server_name .. ".lua' が見つかりません", vim.log.levels.WARN)
       end
