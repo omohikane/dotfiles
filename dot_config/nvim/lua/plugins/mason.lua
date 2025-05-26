@@ -28,6 +28,10 @@ return function()
       "tsserver",
       "bashls",
       "jsonls",
+      "yamlls",
+      "dockerls",
+      "taplo",
+      "marksman",
     },
   }
 
