@@ -83,6 +83,13 @@ hook_add = '''
 lua require("plugins.vim-markdown")
 '''
 
+[[plugins]]
+repo = 'stevearc/conform.nvim'
+name = 'conform.nvim'
+hook_add = '''
+lua require("plugins.conform")
+'''
+
 #######################################################################
 # 🧩 Completion Engines
 #######################################################################
