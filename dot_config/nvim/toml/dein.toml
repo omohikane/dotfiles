@@ -90,6 +90,14 @@ hook_add = '''
 lua require("plugins.conform")
 '''
 
+[[plugins]]
+repo = 'mfussenegger/nvim-lint'
+name = 'nvim-lint'
+hook_add = '''
+lua require("plugins.lint")
+'''
+
+
 #######################################################################
 # 🧩 Completion Engines
 #######################################################################
