@@ -119,6 +119,10 @@ hook_add = '''
 lua require("plugins.ddc")
 '''
 
+[[plugins]]
+repo = 'Shougo/ddc-source-nvim-lsp'
+name = 'ddc-source-nvim-lsp'
+
 #######################################################################
 # 🔍 Fuzzy Finder / Ddu
 #######################################################################
@@ -215,7 +219,7 @@ repo = 'machakann/vim-sandwich'
 name = 'vim-sandwich'
 lazy = false
 on_event = 'VimEnter'
-hook_add = '''
+hook_source = '''
 lua require("plugins.vim-sandwich")
 '''
 
