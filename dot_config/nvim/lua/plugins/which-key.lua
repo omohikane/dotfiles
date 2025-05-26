@@ -19,28 +19,17 @@ return function()
     },
   })
 
-  -- keymap registration in recommended format
-  wk.register({
-    ["<leader>"] = {
-      f = {
-        name = "+file",
-        f = { "<cmd>Telescope find_files<cr>", "Find File" },
-        r = { "<cmd>Telescope oldfiles<cr>", "Recent Files" },
-      },
-      b = {
-        name = "+buffer",
-        n = { "<cmd>enew<cr>", "New Buffer" },
-        d = { "<cmd>bdelete<cr>", "Delete Buffer" },
-      },
-      g = {
-        name = "+git",
-        s = { "<cmd>GinStatus<cr>", "Git Status" },
-      },
-      t = {
-        name = "+terminal",
-        t = { "<cmd>ToggleTerm<cr>", "Toggle Terminal" },
-      },
-    },
-  })
+wk.register({
+  { "<leader>b", group = "buffer" },
+  { "<leader>bd", "<cmd>bdelete<cr>", desc = "Delete Buffer" },
+  { "<leader>bn", "<cmd>enew<cr>", desc = "New Buffer" },
+  { "<leader>f", group = "file" },
+  { "<leader>ff", "<cmd>Telescope find_files<cr>", desc = "Find File" },
+  { "<leader>fr", "<cmd>Telescope oldfiles<cr>", desc = "Recent Files" },
+  { "<leader>g", group = "git" },
+  { "<leader>gs", "<cmd>GinStatus<cr>", desc = "Git Status" },
+  { "<leader>t", group = "terminal" },
+  { "<leader>tt", "<cmd>ToggleTerm<cr>", desc = "Toggle Terminal" },
+})
 end
 
