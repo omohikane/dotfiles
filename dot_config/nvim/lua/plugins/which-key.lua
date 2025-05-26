@@ -1,26 +1,27 @@
 -- lua/plugins/which-key.lua
 
 return function()
-  local ok, wk = pcall(require, "which-key")
+  local ok, which_key = pcall(require, "which-key")
   if not ok then
     vim.notify("which-key.nvim が読み込めませんでした", vim.log.levels.ERROR)
     return
   end
 
-  wk.setup {
+  which_key.setup({
     plugins = {
       spelling = { enabled = true },
     },
-    win = {
+    win = {  -- ✅ 最新仕様
       border = "single",
       position = "bottom",
     },
     layout = {
-      align = "center"
-    }
-  }
+      align = "center",
+    },
+  })
 
-  wk.register({
+  -- 推奨形式でキーマッピング登録
+  local mappings = {
     { "<leader>f", group = "file" },
     { "<leader>ff", "<cmd>Telescope find_files<cr>", desc = "Find File" },
     { "<leader>fr", "<cmd>Telescope oldfiles<cr>", desc = "Recent Files" },
@@ -31,6 +32,14 @@ return function()
     { "<leader>gs", "<cmd>GinStatus<cr>", desc = "Git Status" },
     { "<leader>t", group = "terminal" },
     { "<leader>tt", "<cmd>ToggleTerm<cr>", desc = "Toggle Terminal" },
-  })
+  }
+
+  for _, map in ipairs(mappings) do
+    if map.group then
+      which_key.register({ [map[1]] = { name = map.group } })
+    else
+      which_key.register({ [map[1]] = { map[2], map.desc } })
+    end
+  end
 end
 
