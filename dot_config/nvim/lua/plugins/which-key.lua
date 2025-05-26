@@ -23,10 +23,10 @@ return function()
 
   -- Register groups for which-key
   wk.register({
-    ["<leader>f"] = { name = "+file" },
-    ["<leader>b"] = { name = "+buffer" },
-    ["<leader>g"] = { name = "+git" },
-    ["<leader>t"] = { name = "+terminal" },
+  { "<leader>f", group = "file" },
+  { "<leader>b", group = "buffer" },
+  { "<leader>g", group = "git" },
+  { "<leader>t", group = "terminal" },
   })
 
   -- Define keymaps with descriptions
