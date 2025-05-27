@@ -158,6 +158,7 @@ name = 'ddc-source-nvim-lsp'
 [[plugins]]
 repo = 'Shougo/ddc-source-around'
 name = 'ddc-source-around'
+proto = "ssh"
 
 [[plugins]]
 repo = 'Shougo/ddc-source-buffer'
