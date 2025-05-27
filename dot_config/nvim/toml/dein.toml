@@ -160,8 +160,12 @@ repo = 'Shougo/ddc-source-around'
 name = 'ddc-source-around'
 
 [[plugins]]
-repo = 'Shougo/ddc-source-cmdline'
-name = 'ddc-source-cmdline'
+repo = 'Shougo/ddc-source-buffer'
+name = 'ddc-source-buffer'
+
+[[plugins]]
+repo = 'Shougo/ddc-ui-native'
+name = 'ddc-ui-native'
 
 #######################################################################
 # 🔍 Fuzzy Finder / Ddu
