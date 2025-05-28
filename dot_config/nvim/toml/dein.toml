@@ -244,6 +244,9 @@ lua require("plugins.toggleterm")
 [[plugins]]
 repo = 'hrsh7th/vim-eft'
 name = 'vim-eft'
+hook_add = '''
+lua require("plugins.vim-eft")
+'''
 
 [[plugins]]
 repo = 'yuki-yano/fuzzy-motion.vim'
