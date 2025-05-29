@@ -101,10 +101,3 @@ vim.keymap.set("i", "<C-j>", function()
 end, { expr = true, noremap = true })
 
 vim.keymap.set("i", "<C-k>", [[vim.fn["ddc#pum#visible"]() ? '<C-p>' : '']], { expr = true, noremap = true })
--- 以下の重複したキーマッピングブロックは削除されました
-			matchers = { "matcher_head" },
-			sorters = { "sorter_rank" },
-			converters = {},
-		}
-	}
-})
