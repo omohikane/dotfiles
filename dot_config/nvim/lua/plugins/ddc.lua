@@ -10,7 +10,7 @@ vim.fn["ddc#custom#patch_global"]({
 			converters = { "converter_remove_overlap" },
 		},
 		["nvim-lsp"] = {
-			mark = "LSP",
+			mark = "lsp",
 			forceCompletionPattern = "\\.\\w*|:\\w*|->\\w*",
 		},
 		["around"] = { mark = "A" },
@@ -39,7 +39,17 @@ vim.api.nvim_create_autocmd("InsertEnter", {
 })
 
 -- ui setting
-vim.fn["ddc#custom#patch_global"]("ui", "native")
+vim.fn["ddc#custom#patch_global"]({
+	ui = "native",
+	sources = { "nvim-lsp", "around", "buffer" },
+	sourceOptions = {
+		_ = {
+			matchers = { "matcher_head" },
+			sorters = { "sorter_rank" },
+			converters = {},
+		},
+	},
+})
 
 -- キーマッピング
 vim.keymap.set("i", "<Tab>", function()
