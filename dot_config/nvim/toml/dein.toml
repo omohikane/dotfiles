@@ -288,7 +288,7 @@ lua require("plugins.lexima")
 repo = 'machakann/vim-sandwich'
 name = 'vim-sandwich'
 lazy = false
-hook_source = '''
+hook_post_source = '''
 lua require("plugins.vim-sandwich")
 '''
 
