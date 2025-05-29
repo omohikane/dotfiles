@@ -1,5 +1,8 @@
 # dein.toml
 
+[[plugins]]
+repo = 'vim-denops/denops.vim'
+
 #######################################################################
 # 🎨 UI / Appearance
 #######################################################################
@@ -54,6 +57,20 @@ lua require("core.dashboard").setup()
 [[plugins]]
 repo = 'echasnovski/mini.nvim'
 name = 'mini.nvim'
+
+[[plugins]]
+repo = 'akinsho/bufferline.nvim'
+name = 'bufferline.nvim'
+hook_add = '''
+lua require("plugins.bufferline")
+'''
+
+[[plugins]]
+repo = 'lukas-reineke/indent-blankline.nvim'
+name = 'indent-blankline.nvim'
+hook_add = '''
+lua require("plugins.indent-blankline")
+'''
 
 #######################################################################
 # 🧠 LSP / Diagnostics
@@ -154,6 +171,7 @@ lua require("plugins.ddc")
 [[plugins]]
 repo = 'Shougo/ddc-source-nvim-lsp'
 name = 'ddc-source-nvim-lsp'
+proto = "ssh"
 
 [[plugins]]
 repo = 'Shougo/ddc-source-around'
