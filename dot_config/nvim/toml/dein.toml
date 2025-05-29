@@ -76,6 +76,10 @@ lua require("plugins.indent-blankline")
 # 🧠 LSP / Diagnostics
 #######################################################################
 [[plugins]]
+repo = 'neovim/nvim-lspconfig'
+name = 'nvim-lspconfig'
+
+[[plugins]]
 repo = 'williamboman/mason.nvim'
 name = 'mason.nvim'
 hook_add = 'lua require("plugins.mason")'
@@ -83,7 +87,7 @@ hook_add = 'lua require("plugins.mason")'
 [[plugins]]
 repo = 'williamboman/mason-lspconfig.nvim'
 name = 'mason-lspconfig.nvim'
-depends = ['mason.nvim']
+depends = ['mason.nvim', 'nvim-lspconfig']
 
 [[plugins]]
 repo = 'folke/trouble.nvim'
@@ -284,7 +288,6 @@ lua require("plugins.lexima")
 repo = 'machakann/vim-sandwich'
 name = 'vim-sandwich'
 lazy = false
-on_event = 'VimEnter'
 hook_source = '''
 lua require("plugins.vim-sandwich")
 '''
