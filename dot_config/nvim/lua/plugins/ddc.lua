@@ -63,7 +63,12 @@ vim.api.nvim_create_autocmd("User", {
 		setup_ddc_global_options()
 		vim.fn["ddc#enable_cmdline_completion"]()
 		-- LSPがアタッチされないバッファのためのデフォルトソース
-		vim.fn["ddc#custom#patch_global"]("sources", { "around", "buffer", "file" })
+		vim.fn["ddc#custom#patch_global"]("sources", { "around", "buffer", "file" }) -- Ensure these source plugins are loaded
+		-- パッチソースの設定も DenopsReady 後に行う
+		vim.fn["ddc#custom#patch_source"]("_", {
+			matchers = { "matcher_head", "matcher_kensaku" }, -- kensaku.vim / ddc-filter-kensaku がロードされている必要あり
+			sorters = { "sorter_rank" },
+		})
 		vim.fn["ddc#enable"]() -- ddc をグローバルに有効化
 		vim.notify("[ddc] Global settings applied and ddc enabled.", vim.log.levels.INFO)
 	end,
@@ -78,11 +83,6 @@ vim.api.nvim_create_autocmd("LspAttach", {
 			setup_ddc_buffer_sources()
 		end
 	end,
-})
-
-vim.fn["ddc#custom#patch_source"]("_", {
-	matchers = { "matcher_head", "matcher_kensaku" },
-	sorters = { "sorter_rank" },
 })
 
 -- キーマッピング (変更なし、ただし pum#visible() の代わりに ddc#pum#visible() を検討)
