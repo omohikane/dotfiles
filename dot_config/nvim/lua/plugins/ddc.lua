@@ -12,8 +12,8 @@ local function setup_ddc_global_options()
 		},
 		cmdlineSources = {
 			":",
-			{ name = "cmdline", params = {}},
-			{ name = "cmdline-history", params = {}},
+			{ name = "cmdline", params = {} },
+			{ name = "cmdline-history", params = {} },
 		},
 		sourceOptions = {
 			_ = { -- デフォルトのソースオプション
@@ -25,7 +25,7 @@ local function setup_ddc_global_options()
 			},
 			around = { mark = "[Ard]" },
 			buffer = { mark = "[Buf]" },
-			file = { mark = "[File]" , isVolatile = true, forceCompletionPattern = "\\S/\\S*" },
+			file = { mark = "[File]", isVolatile = true, forceCompletionPattern = "\\S/\\S*" },
 			cmdline = { mark = "[Cmd]" },
 			["cmdline-history"] = { mark = "[Hist]" },
 		},
@@ -47,7 +47,11 @@ local function setup_ddc_buffer_sources()
 			-- kindLabels = vim.lsp.protocol.CompletionItemKind, -- 必要に応じて
 		},
 	})
-	vim.cmd("echomsg '[ddc] DEBUG: Attempted to patch buffer sources with nvim-lsp for buffer " .. vim.api.nvim_get_current_buf() .. "'") -- デバッグ用メッセージ
+	vim.cmd(
+		"echomsg '[ddc] DEBUG: Attempted to patch buffer sources with nvim-lsp for buffer "
+			.. vim.api.nvim_get_current_buf()
+			.. "'"
+	) -- デバッグ用メッセージ
 	vim.notify("[ddc] nvim-lsp source enabled for this buffer.", vim.log.levels.INFO)
 end
 
@@ -74,6 +78,11 @@ vim.api.nvim_create_autocmd("LspAttach", {
 			setup_ddc_buffer_sources()
 		end
 	end,
+})
+
+vim.fn["ddc#custom#patch_source"]("_", {
+	matchers = { "matcher_head", "matcher_kensaku" },
+	sorters = { "sorter_rank" },
 })
 
 -- キーマッピング (変更なし、ただし pum#visible() の代わりに ddc#pum#visible() を検討)

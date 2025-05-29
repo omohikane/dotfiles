@@ -1,5 +1,15 @@
 # dein.toml
 
+#######################################################################
+# sample
+#[[plugins]]
+#repo = ''
+#name = ''
+#hook_add = '''
+#lua require("")
+#'''
+#######################################################################
+
 [[plugins]]
 repo = 'vim-denops/denops.vim'
 
@@ -71,6 +81,10 @@ name = 'indent-blankline.nvim'
 hook_add = '''
 lua require("plugins.indent-blankline")
 '''
+
+[[plugins]]
+repo = 'vim-jp/vimdoc-ja'
+name = 'vimdoc-ja'
 
 #######################################################################
 # 🧠 LSP / Diagnostics
@@ -190,6 +204,11 @@ name = 'ddc-source-buffer'
 repo = 'Shougo/ddc-ui-native'
 name = 'ddc-ui-native'
 
+[[plugins]]
+repo = 'Shougo/ddc-fileter-kensaku'
+name = 'ddc-fileter-kensaku'
+depends = ['kensaku.vim']
+
 #######################################################################
 # 🔍 Fuzzy Finder / Ddu
 #######################################################################
@@ -211,6 +230,18 @@ lua require("plugins.telescope")
 [[plugins]]
 repo = 'nvim-lua/plenary.nvim'
 name = 'plenary.nvim'
+
+[[plugins]]
+repo = 'lambdalisue/kensaku.vim'
+name = 'kensaku.vim'
+hook_add = '''
+lua require("plugins.kensaku")
+'''
+
+[[plugins]]
+repo = 'lambdalisue/kensaku-search.vim'
+name = 'kensaku-search.vim'
+depends = ['kensaku.vim']
 
 #######################################################################
 # 🌲 Treesitter
