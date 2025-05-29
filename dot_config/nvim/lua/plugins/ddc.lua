@@ -23,11 +23,6 @@ local function setup_ddc_global_options()
 				minAutoCompleteLength = 2,
 				ignoreCase = true,
 			},
-			["nvim-lsp"] = {
-				mark = "[LSP]",
-				forceCompletionPattern = "\\.\\w*|:\\w*|->\\w*",
-				-- kindLabels = vim.lsp.protocol.CompletionItemKind, -- 必要に応じて
-			},
 			around = { mark = "[Ard]" },
 			buffer = { mark = "[Buf]" },
 			file = { mark = "[File]" , isVolatile = true, forceCompletionPattern = "\\S/\\S*" },
@@ -44,6 +39,14 @@ end
 local function setup_ddc_buffer_sources()
 	-- バッファローカルなソース設定 (LSPがアタッチされた場合)
 	vim.fn["ddc#custom#patch_buffer"]("sources", { "nvim-lsp", "around", "buffer" })
+	-- nvim-lsp 用の sourceOptions もここで設定
+	vim.fn["ddc#custom#patch_buffer"]("sourceOptions", {
+		["nvim-lsp"] = {
+			mark = "[LSP]",
+			forceCompletionPattern = "\\.\\w*|:\\w*|->\\w*",
+			-- kindLabels = vim.lsp.protocol.CompletionItemKind, -- 必要に応じて
+		},
+	})
 	vim.cmd("echomsg '[ddc] DEBUG: Attempted to patch buffer sources with nvim-lsp for buffer " .. vim.api.nvim_get_current_buf() .. "'") -- デバッグ用メッセージ
 	vim.notify("[ddc] nvim-lsp source enabled for this buffer.", vim.log.levels.INFO)
 end
