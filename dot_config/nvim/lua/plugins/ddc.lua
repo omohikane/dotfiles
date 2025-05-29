@@ -44,6 +44,7 @@ end
 local function setup_ddc_buffer_sources()
 	-- バッファローカルなソース設定 (LSPがアタッチされた場合)
 	vim.fn["ddc#custom#patch_buffer"]("sources", { "nvim-lsp", "around", "buffer" })
+	vim.cmd("echomsg '[ddc] DEBUG: Attempted to patch buffer sources with nvim-lsp for buffer " .. vim.api.nvim_get_current_buf() .. "'") -- デバッグ用メッセージ
 	vim.notify("[ddc] nvim-lsp source enabled for this buffer.", vim.log.levels.INFO)
 end
 
@@ -83,41 +84,24 @@ vim.api.nvim_create_autocmd("LspAttach", {
 -- 注意: pum#visible() は ddc.vim の PUM と互換性がない可能性があります。
 -- ddc.vim のドキュメントで推奨される PUM 可視性チェック関数 (例: ddc#pum#visible()) を使用してください。
 vim.keymap.set("i", "<Tab>", function()
-	return vim.fn["pum#visible"]() == 1 and "<C-n>" -- 要確認: ddc#pum#visible() など
+	return vim.fn["ddc#pum#visible"]() and "<C-n>"
 		or (vim.fn.col(".") <= 1 or vim.fn.getline("."):sub(vim.fn.col(".") - 1, vim.fn.col(".") - 1):match("%s")) and "<Tab>"
 		or vim.fn["ddc#map#manual_complete"]()
 end, { expr = true, noremap = true })
 
-vim.keymap.set("i", "<S-Tab>", [[pum#visible() ? '<C-p>' : '<C-h>']], { expr = true, noremap = true }) -- 要確認
+vim.keymap.set("i", "<S-Tab>", [[vim.fn["ddc#pum#visible"]() ? '<C-p>' : '<C-h>']], { expr = true, noremap = true })
 
 vim.keymap.set("i", "<C-j>", function()
-	return vim.fn["pum#visible"]() == 1 and "<Space>" -- 要確認
+	return vim.fn["ddc#pum#visible"]() and "<Space>" -- または <CR> で確定など、お好みに合わせて
 		or (vim.fn.col(".") <= 1 or vim.fn.getline("."):sub(vim.fn.col(".") - 1, vim.fn.col(".") - 1):match("%s")) and "<Tab>"
 		or vim.fn["ddc#map#manual_complete"]()
 end, { expr = true, noremap = true })
 
-vim.keymap.set("i", "<C-k>", [[pum#visible() ? '<C-p>' : '']], { expr = true, noremap = true }) -- 要確認
+vim.keymap.set("i", "<C-k>", [[vim.fn["ddc#pum#visible"]() ? '<C-p>' : '']], { expr = true, noremap = true })
+-- 以下の重複したキーマッピングブロックは削除されました
 			matchers = { "matcher_head" },
 			sorters = { "sorter_rank" },
 			converters = {},
-		},
-	},
+		}
+	}
 })
-
--- キーマッピング
-vim.keymap.set("i", "<Tab>", function()
-	return vim.fn["pum#visible"]() == 1 and "<C-n>"
-		or (vim.fn.col(".") <= 1 or vim.fn.getline("."):sub(vim.fn.col(".") - 1, vim.fn.col(".") - 1):match("%s")) and "<Tab>"
-		or vim.fn["ddc#map#manual_complete"]()
-end, { expr = true, noremap = true })
-
-vim.keymap.set("i", "<S-Tab>", [[pum#visible() ? '<C-p>' : '<C-h>']], { expr = true, noremap = true })
-
--- <C-j>
-vim.keymap.set("i", "<C-j>", function()
-	return vim.fn["pum#visible"]() == 1 and "<Space>"
-		or (vim.fn.col(".") <= 1 or vim.fn.getline("."):sub(vim.fn.col(".") - 1, vim.fn.col(".") - 1):match("%s")) and "<Tab>"
-		or vim.fn["ddc#map#manual_complete"]()
-end, { expr = true, noremap = true })
-
-vim.keymap.set("i", "<C-k>", [[pum#visible() ? '<C-p>' : '']], { expr = true, noremap = true })
