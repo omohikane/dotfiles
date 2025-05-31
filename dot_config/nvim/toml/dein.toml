@@ -217,6 +217,10 @@ repo = 'Shougo/ddc-ui-native'
 name = 'ddc-ui-native'
 
 [[plugins]]
+repo = 'Shougo/ddc-ui-pum'
+on_event = 'DenopsReady'
+
+[[plugins]]
 repo = 'Shougo/ddc-fileter-kensaku'
 name = 'ddc-fileter-kensaku'
 depends = ['kensaku.vim']
