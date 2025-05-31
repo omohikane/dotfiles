@@ -14,6 +14,17 @@
 repo = 'vim-denops/denops.vim'
 
 #######################################################################
+#  AI Coding 
+#######################################################################
+[[plugins]]
+repo = 'Exafunction/codeium.nvim'
+build = './install.sh'
+hook_add = '''
+  let g:codeium_disable_bindings = v:true
+  lua require("ai.codeium")
+'''
+
+#######################################################################
 # 🎨 UI / Appearance
 #######################################################################
 [[plugins]]
@@ -182,6 +193,7 @@ name = 'friendly-snippets'
 [[plugins]]
 repo = 'Shougo/ddc.vim'
 name = 'ddc.vim'
+depends = ['denops.vim']
 hook_add = '''
 lua require("plugins.ddc")
 '''
