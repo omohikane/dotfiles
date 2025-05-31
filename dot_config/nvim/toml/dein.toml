@@ -222,7 +222,9 @@ name = 'ddc-ui-native'
 repo = 'Shougo/ddc-ui-pum'
 on_event = 'DenopsReady'
 hook_add = """
-call ddc#custom#patch_global('ui', 'pum')
+if exists('*ddc#custom#patch_global')
+  call ddc#custom#patch_global('ui', 'pum')
+endif
 """
 
 [[plugins]]
