@@ -72,7 +72,10 @@ vim.api.nvim_create_autocmd("LspAttach", {
 
 -- 補完用のキーマッピング（pum可視性のチェック修正済）
 local function pum_visible()
-	return vim.fn["ddc#ui#pum#visible"]() == 1
+	if vim.fn["ddc#ui#pum#visible"]() == 1 then
+		return vim.fn["ddc#ui#pum#visible"]() == 1
+	end
+	return false
 end
 
 vim.keymap.set("i", "<Tab>", function()

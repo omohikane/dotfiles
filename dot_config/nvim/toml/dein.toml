@@ -20,8 +20,10 @@ repo = 'vim-denops/denops.vim'
 repo = 'Exafunction/codeium.nvim'
 build = './install.sh'
 hook_add = '''
-  let g:codeium_disable_bindings = v:true
-  lua require("ai.codeium")
+lua << EOF
+vim.g.codeium_disable_bindings = true
+require("ai.codeium")
+EOF
 '''
 
 #######################################################################
@@ -224,8 +226,8 @@ call ddc#custom#patch_global('ui', 'pum')
 """
 
 [[plugins]]
-repo = 'Shougo/ddc-fileter-kensaku'
-name = 'ddc-fileter-kensaku'
+repo = 'Shougo/ddc-filter-kensaku'
+name = 'ddc-filter-kensaku'
 depends = ['kensaku.vim']
 
 #######################################################################
