@@ -21,7 +21,6 @@ repo = 'Exafunction/codeium.nvim'
 build = './install.sh'
 hook_add = '''
 lua << EOF
-vim.g.codeium_disable_bindings = true
 require("ai.codeium")
 EOF
 '''
