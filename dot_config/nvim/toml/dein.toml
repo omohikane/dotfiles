@@ -17,8 +17,8 @@ repo = 'vim-denops/denops.vim'
 #  AI Coding 
 #######################################################################
 [[plugins]]
-repo = 'Exafunction/windsurf.nvim'
-name = 'windsurf.nvim'
+repo = 'Exafunction/windsurf.vim'
+name = 'windsurf.vim'
 build = './install.sh'
 hook_add = '''
 lua << EOF
