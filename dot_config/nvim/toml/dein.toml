@@ -1,10 +1,10 @@
-# dein.toml
 
 #######################################################################
 # sample
 #[[plugins]]
 #repo = ''
 #name = ''
+#proto = 'ssh'
 #hook_add = '''
 #lua require("")
 #'''
@@ -197,8 +197,7 @@ name = 'friendly-snippets'
 [[plugins]]
 repo = 'Shougo/ddc.vim'
 name = 'ddc.vim'
-proto = 'ssh'
-on_event = 'DenopsReady'
+on_event = 'InsertEnter'
 depends = ['denops.vim']
 hook_add = '''
 lua require("plugins.ddc")
@@ -217,14 +216,13 @@ proto = "ssh"
 on_event = 'DenopsReady'
 
 [[plugins]]
-repo = 'Shougo/ddc-source-buffer'
+repo = 'matsui54/ddc-source-buffer'
 name = 'ddc-source-buffer'
 proto = "ssh"
-on_event = 'InsertEnter'
 
 [[plugins]]
-repo = "Shougo/ddc-source-cmdline"
-name = "ddc-source-cmdline"
+repo = "Shougo/ddc-source_cmdline"
+name = "ddc-source_cmdline"
 proto = "ssh"
 on_event = 'DenopsReady'
 
@@ -235,21 +233,22 @@ proto = "ssh"
 
 [[plugins]]
 repo = 'Shougo/ddc-filter-matcher_head'
+name = 'ddc-filter-matcher_head'
 proto = 'ssh'
-on_event = 'InsertEnter'
 
 [[plugins]]
 repo = 'Shougo/ddc-filter-sorter_rank'
+name = 'ddc-filter-sorter_rank'
 proto = 'ssh'
-on_event = 'InsertEnter'
 
 [[plugins]]
 repo = 'Shougo/ddc-filter-converter_remove_overlap'
+name = 'ddc-filter-converter_remove_overlap'
 proto = 'ssh'
-on_event = 'InsertEnter'
 
 [[plugins]]
-repo = 'Shougo/ddc-source-cmdline-history'
+repo = 'Shougo/ddc-source-cmdline_history'
+name = 'ddc-source-cmdline_history'
 proto = 'ssh'
 on_event = 'CmdlineEnter'
 
@@ -260,26 +259,30 @@ on_event = 'VeryLazy'
 
 [[plugins]]
 repo = 'Shougo/ddc-source-file'
+name = 'ddc-source-file'
 proto = 'ssh'
-on_event = 'InsertEnter'
 
 
 [[plugins]]
 repo = 'Shougo/ddc-filter-matcher_fuzzy'
+name = 'ddc-filter-matcher_fuzzy'
 proto = 'ssh'
 
 
 [[plugins]]
 repo = 'Shougo/ddc-filter-sorter_fuzzy'
+name = 'ddc-filter-sorter_fuzzy'
 proto = 'ssh'
 
 
 [[plugins]]
 repo = 'Shougo/ddc-filter-converter_fuzzy'
+name = 'ddc-filter-converter_fuzzy'
 proto = 'ssh'
 
 [[plugins]]
 repo = 'Shougo/ddc-ui-pum'
+name = 'ddc-ui-pum'
 proto = 'ssh'
 
 #######################################################################
