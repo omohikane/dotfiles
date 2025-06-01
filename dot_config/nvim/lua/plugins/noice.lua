@@ -46,4 +46,9 @@ noice.setup({
 		inc_rename = false,
 		lsp_doc_border = false,
 	},
+	defaults = { -- 追加: デフォルト設定を上書き
+		view = {
+			border = "single", -- すべてのビューのデフォルト境界線を "single" に変更
+		},
+	},
 })
