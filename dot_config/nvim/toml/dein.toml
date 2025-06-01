@@ -17,12 +17,12 @@ repo = 'vim-denops/denops.vim'
 #  AI Coding 
 #######################################################################
 [[plugins]]
-repo = 'Exafunction/codeium.nvim'
-name = 'codeium.nvim'
+repo = 'Exafunction/windsurf.nvim'
+name = 'windsurf.nvim'
 build = './install.sh'
 hook_add = '''
 lua << EOF
-require("ai.codeium")
+require("ai.windsurf")
 EOF
 '''
 
