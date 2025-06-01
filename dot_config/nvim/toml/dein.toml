@@ -221,10 +221,10 @@ name = 'ddc-source-buffer'
 proto = "ssh"
 
 [[plugins]]
-repo = "Shougo/ddc-source_cmdline"
-name = "ddc-source_cmdline"
+repo = "Shougo/ddc-source-cmdline"
+name = "ddc-source-cmdline"
 proto = "ssh"
-on_event = 'DenopsReady'
+on_event = 'CmdlineEnter'
 
 [[plugins]]
 repo = 'Shougo/ddc-ui-native'
@@ -257,10 +257,10 @@ repo = 'Shougo/ddc-ui-none'
 proto = 'ssh'
 on_event = 'VeryLazy'
 
-[[plugins]]
-repo = 'Shougo/ddc-source-file'
-name = 'ddc-source-file'
-proto = 'ssh'
+#[[plugins]]
+#repo = 'Shougo/ddc-source-file'
+#name = 'ddc-source-file'
+#proto = 'ssh'
 
 
 [[plugins]]
@@ -398,7 +398,7 @@ lua require("plugins.lexima")
 repo = 'machakann/vim-sandwich'
 name = 'vim-sandwich'
 lazy = false
-hook_post_source = '''
+hook_add = '''
 lua require("plugins.vim-sandwich")
 '''
 
