@@ -204,7 +204,6 @@ depends = [
   'ddc-source-nvim-lsp',
   'ddc-source-around',
   'ddc-source-buffer', # matsui54/ddc-source-buffer
-##  'ddc-source-cmdline',
   'ddc-source-cmdline_history',
   'ddc-filter-matcher_head',
   'ddc-filter-sorter_rank',
@@ -233,19 +232,11 @@ on_event = 'DenopsReady'
 repo = 'matsui54/ddc-source-buffer'
 name = 'ddc-source-buffer'
 proto = "ssh"
-# on_event は ddc.vim の depends で管理
-
-#[[plugins]]
-#repo = "Shougo/ddc-source-cmdline"
-#name = "ddc-source-cmdline"
-#proto = "ssh"
-# on_event は ddc.vim の depends で管理
 
 [[plugins]]
 repo = 'Shougo/ddc-ui-native'
 name = 'ddc-ui-native'
 proto = "ssh"
-# on_event は ddc.vim の depends で管理
 
 [[plugins]]
 repo = 'Shougo/ddc-filter-matcher_head'
@@ -403,8 +394,20 @@ lua require("plugins.lexima")
 repo = 'machakann/vim-sandwich'
 name = 'vim-sandwich'
 lazy = false
-hook_add = '''
-lua require("plugins.vim-sandwich")
+hook_source = '''
+augroup SandwichInit
+  autocmd!
+  autocmd VimEnter * call s:setup_sandwich()
+augroup END
+
+function! s:setup_sandwich() abort
+  let g:sandwich#recipes = deepcopy(sandwich#default_recipes#load())
+  call add(g:sandwich#recipes, {
+    \   'buns': ['【', '】'],
+    \   'input': ['<C-b>'],
+    \   'filetype': ['markdown'],
+    \ })
+endfunction
 '''
 
 [[plugins]]
