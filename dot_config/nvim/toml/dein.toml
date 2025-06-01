@@ -197,8 +197,25 @@ name = 'friendly-snippets'
 [[plugins]]
 repo = 'Shougo/ddc.vim'
 name = 'ddc.vim'
-on_event = 'InsertEnter'
-depends = ['denops.vim']
+on_event = 'DenopsReady' # DDCの初期化タイミングに合わせる
+depends = [
+  'denops.vim',
+  'ddc-ui-native',
+  'ddc-source-nvim-lsp',
+  'ddc-source-around',
+  'ddc-source-buffer', # matsui54/ddc-source-buffer
+  'ddc-source-file',
+  'ddc-source-cmdline',
+  'ddc-source-cmdline-history',
+  'ddc-filter-matcher_head',
+  'ddc-filter-sorter_rank',
+  'ddc-filter-converter_remove_overlap',
+  'ddc-filter-matcher_fuzzy',    # ddc.lua の setup_ddc_global_options で使用
+  'ddc-filter-sorter_fuzzy',     # ddc.lua の setup_ddc_global_options で使用
+  'ddc-filter-converter_fuzzy',  # ddc.lua の setup_ddc_global_options で使用
+  'kensaku.vim',                 # ddc-matcher_kensaku の依存
+  'ddc-matcher_kensaku'          # ddc.lua の DenopsReady 内の patch_source で使用
+]
 hook_add = '''
 lua require("plugins.ddc")
 '''
@@ -219,54 +236,62 @@ on_event = 'DenopsReady'
 repo = 'matsui54/ddc-source-buffer'
 name = 'ddc-source-buffer'
 proto = "ssh"
+# on_event は ddc.vim の depends で管理
 
 [[plugins]]
 repo = "Shougo/ddc-source-cmdline"
 name = "ddc-source-cmdline"
 proto = "ssh"
-on_event = 'CmdlineEnter'
+# on_event は ddc.vim の depends で管理
 
 [[plugins]]
 repo = 'Shougo/ddc-ui-native'
 name = 'ddc-ui-native'
 proto = "ssh"
+# on_event は ddc.vim の depends で管理
 
 [[plugins]]
 repo = 'Shougo/ddc-filter-matcher_head'
 name = 'ddc-filter-matcher_head'
 proto = 'ssh'
+# on_event は ddc.vim の depends で管理
 
 [[plugins]]
 repo = 'Shougo/ddc-filter-sorter_rank'
 name = 'ddc-filter-sorter_rank'
 proto = 'ssh'
+# on_event は ddc.vim の depends で管理
 
 [[plugins]]
 repo = 'Shougo/ddc-filter-converter_remove_overlap'
 name = 'ddc-filter-converter_remove_overlap'
 proto = 'ssh'
+# on_event は ddc.vim の depends で管理
 
 [[plugins]]
 repo = 'Shougo/ddc-source-cmdline_history'
 name = 'ddc-source-cmdline_history'
 proto = 'ssh'
-on_event = 'CmdlineEnter'
+# on_event は ddc.vim の depends で管理
 
 [[plugins]]
 repo = 'Shougo/ddc-ui-none'
+name = 'ddc-ui-none' # name属性を追加
 proto = 'ssh'
 on_event = 'VeryLazy'
 
-#[[plugins]]
-#repo = 'Shougo/ddc-source-file'
-#name = 'ddc-source-file'
-#proto = 'ssh'
+[[plugins]]
+repo = 'Shougo/ddc-source-file' # コメントアウトを解除
+name = 'ddc-source-file'
+proto = 'ssh'
+# on_event は ddc.vim の depends で管理
 
 
 [[plugins]]
 repo = 'Shougo/ddc-filter-matcher_fuzzy'
 name = 'ddc-filter-matcher_fuzzy'
 proto = 'ssh'
+# on_event は ddc.vim の depends で管理
 
 
 [[plugins]]
@@ -274,15 +299,23 @@ repo = 'Shougo/ddc-filter-sorter_fuzzy'
 name = 'ddc-filter-sorter_fuzzy'
 proto = 'ssh'
 
+# on_event は ddc.vim の depends で管理
 
 [[plugins]]
 repo = 'Shougo/ddc-filter-converter_fuzzy'
 name = 'ddc-filter-converter_fuzzy'
 proto = 'ssh'
+# on_event は ddc.vim の depends で管理
 
 [[plugins]]
 repo = 'Shougo/ddc-ui-pum'
 name = 'ddc-ui-pum'
+proto = 'ssh'
+# on_event は ddc.vim の depends で管理
+
+[[plugins]] # ddc-matcher_kensaku のために追加
+repo = 'Shougo/ddc-matcher_kensaku'
+name = 'ddc-matcher_kensaku'
 proto = 'ssh'
 
 #######################################################################
@@ -310,6 +343,7 @@ name = 'plenary.nvim'
 [[plugins]]
 repo = 'lambdalisue/kensaku.vim'
 name = 'kensaku.vim'
+# depends = ['denops.vim'] # denops.vim に依存
 hook_add = '''
 lua require("plugins.kensaku")
 '''
@@ -431,5 +465,3 @@ on_ft = ['markdown']
 hook_add = '''
 lua require("plugins.obsidian")
 '''
-
-
