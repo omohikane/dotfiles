@@ -209,9 +209,7 @@ depends = [
   'ddc-filter-matcher_head',
   'ddc-filter-sorter_rank',
   'ddc-filter-converter_remove_overlap',
-  'ddc-filter-matcher_fuzzy',    # ddc.lua の setup_ddc_global_options で使用
-  'ddc-filter-sorter_fuzzy',     # ddc.lua の setup_ddc_global_options で使用
-  'ddc-filter-converter_fuzzy',  # ddc.lua の setup_ddc_global_options で使用
+  'ddc-matcher_fuzzy',
   'kensaku.vim',                 # ddc-matcher_kensaku の依存
   'ddc-matcher_kensaku'          # ddc.lua の DenopsReady 内の patch_source で使用
 ]
@@ -253,60 +251,40 @@ proto = "ssh"
 repo = 'Shougo/ddc-filter-matcher_head'
 name = 'ddc-filter-matcher_head'
 proto = 'ssh'
-# on_event は ddc.vim の depends で管理
 
 [[plugins]]
 repo = 'Shougo/ddc-filter-sorter_rank'
 name = 'ddc-filter-sorter_rank'
 proto = 'ssh'
-# on_event は ddc.vim の depends で管理
 
 [[plugins]]
 repo = 'Shougo/ddc-filter-converter_remove_overlap'
 name = 'ddc-filter-converter_remove_overlap'
 proto = 'ssh'
-# on_event は ddc.vim の depends で管理
 
 [[plugins]]
 repo = 'Shougo/ddc-source-cmdline_history'
 name = 'ddc-source-cmdline_history'
 proto = 'ssh'
-# on_event は ddc.vim の depends で管理
 
 [[plugins]]
 repo = 'Shougo/ddc-ui-none'
-name = 'ddc-ui-none' # name属性を追加
+name = 'ddc-ui-none'
 proto = 'ssh'
 on_event = 'VeryLazy'
 
 
 [[plugins]]
-repo = 'Shougo/ddc-filter-matcher_fuzzy'
-name = 'ddc-filter-matcher_fuzzy'
+repo = 'matsui54/ddc-matcher_fuzzy'
+name = 'ddc-matcher_fuzzy'
 proto = 'ssh'
-# on_event は ddc.vim の depends で管理
-
-
-[[plugins]]
-repo = 'Shougo/ddc-filter-sorter_fuzzy'
-name = 'ddc-filter-sorter_fuzzy'
-proto = 'ssh'
-
-# on_event は ddc.vim の depends で管理
-
-[[plugins]]
-repo = 'Shougo/ddc-filter-converter_fuzzy'
-name = 'ddc-filter-converter_fuzzy'
-proto = 'ssh'
-# on_event は ddc.vim の depends で管理
 
 [[plugins]]
 repo = 'Shougo/ddc-ui-pum'
 name = 'ddc-ui-pum'
 proto = 'ssh'
-# on_event は ddc.vim の depends で管理
 
-[[plugins]] # ddc-matcher_kensaku のために追加
+[[plugins]] 
 repo = 'Shougo/ddc-matcher_kensaku'
 name = 'ddc-matcher_kensaku'
 proto = 'ssh'

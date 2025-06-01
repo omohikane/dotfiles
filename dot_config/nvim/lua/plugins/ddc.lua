@@ -17,8 +17,8 @@ local function setup_ddc_global_options()
 		sourceOptions = {
 			_ = {
 				matchers = { "matcher_head", "matcher_fuzzy" },
-				sorters = { "sorter_rank", "sorter_fuzzy" },
-				converters = { "converter_remove_overlap", "converter_fuzzy" },
+				sorters = { "sorter_rank" },
+				converters = { "converter_remove_overlap" },
 				minAutoCompleteLength = 2,
 				ignoreCase = true,
 			},
