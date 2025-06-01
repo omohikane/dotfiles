@@ -17,15 +17,15 @@ lazy = false
 #######################################################################
 #  AI Coding 
 #######################################################################
-[[plugins]]
-repo = 'Exafunction/windsurf.vim'
-name = 'windsurf.vim'
-build = './install.sh'
-hook_add = '''
-lua << EOF
-require("ai.windsurf")
-EOF
-'''
+#[[plugins]]
+#repo = 'Exafunction/windsurf.vim'
+#name = 'windsurf.vim'
+#build = './install.sh'
+#hook_add = '''
+#lua << EOF
+#require("ai.windsurf")
+#EOF
+#'''
 
 #######################################################################
 # 🎨 UI / Appearance
@@ -85,6 +85,7 @@ name = 'mini.nvim'
 [[plugins]]
 repo = 'akinsho/bufferline.nvim'
 name = 'bufferline.nvim'
+proto = "ssh"
 hook_add = '''
 lua require("plugins.bufferline")
 '''
@@ -217,35 +218,44 @@ on_event = 'DenopsReady'
 [[plugins]]
 repo = 'Shougo/ddc-source-buffer'
 name = 'ddc-source-buffer'
-on_event = 'DenopsReady'
+proto = "ssh"
+on_event = 'InsertEnter'
 
 [[plugins]]
 repo = "Shougo/ddc-source-cmdline"
 name = "ddc-source-cmdline"
-on_event = 'DenopsReady'
-
-[[plugins]]
-repo = "Shougo/ddc-source-cmdline-history"
-name = "ddc-source-cmdline-history"
+proto = "ssh"
 on_event = 'DenopsReady'
 
 [[plugins]]
 repo = 'Shougo/ddc-ui-native'
 name = 'ddc-ui-native'
+proto = "ssh"
 
 [[plugins]]
-repo = 'Shougo/ddc-ui-pum'
-on_event = 'DenopsReady'
-hook_add = """
-if exists('*ddc#custom#patch_global')
-  call ddc#custom#patch_global('ui', 'pum')
-endif
-"""
+repo = 'Shougo/ddc-filter-matcher_head'
+proto = 'ssh'
+on_event = 'InsertEnter'
 
 [[plugins]]
-repo = 'Shougo/ddc-filter-kensaku'
-name = 'ddc-filter-kensaku'
-depends = ['kensaku.vim']
+repo = 'Shougo/ddc-filter-sorter_rank'
+proto = 'ssh'
+on_event = 'InsertEnter'
+
+[[plugins]]
+repo = 'Shougo/ddc-filter-converter_remove_overlap'
+proto = 'ssh'
+on_event = 'InsertEnter'
+
+[[plugins]]
+repo = 'Shougo/ddc-source-cmdline-history'
+proto = 'ssh'
+on_event = 'CmdlineEnter'
+
+[[plugins]]
+repo = 'Shougo/ddc-ui-none'
+proto = 'ssh'
+on_event = 'VeryLazy'
 
 #######################################################################
 # 🔍 Fuzzy Finder / Ddu

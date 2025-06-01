@@ -121,3 +121,11 @@ vim.api.nvim_create_user_command("DppUpdate", function(opts)
 	dpp.async_ext_action("installer", "update", { names = opts.fargs })
 	vim.notify("Updated: " .. plugins, vim.log.levels.INFO)
 end, { nargs = "*" })
+
+-- 'SaveMessages'
+vim.api.nvim_create_user_command("WriteMessages", function()
+	vim.cmd("redir > ~/messages.log")
+	vim.cmd("silent messages")
+	vim.cmd("redir END")
+	print("Messages written to ~/messages.log")
+end, {})

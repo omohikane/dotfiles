@@ -10,9 +10,9 @@ local function setup_ddc_global_options()
 			"CmdlineChanged",
 		},
 		cmdlineSources = {
-			":",
-			{ name = "cmdline" },
-			{ name = "cmdline-history" },
+			[":"] = { "cmdline", "cmdline-history" },
+			["/"] = { "around" },
+			["?"] = { "around" },
 		},
 		sourceOptions = {
 			_ = {
