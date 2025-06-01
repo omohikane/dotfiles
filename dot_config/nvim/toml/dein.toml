@@ -215,6 +215,14 @@ repo = 'Shougo/ddc-source-buffer'
 name = 'ddc-source-buffer'
 
 [[plugins]]
+repo = "Shougo/ddc-source-cmdline"
+name = "ddc-source-cmdline"
+
+[[plugins]]
+repo = "Shougo/ddc-source-cmdline-history"
+name = "ddc-source-cmdline-history"
+
+[[plugins]]
 repo = 'Shougo/ddc-ui-native'
 name = 'ddc-ui-native'
 
