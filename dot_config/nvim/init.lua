@@ -129,3 +129,4 @@ vim.api.nvim_create_user_command("WriteMessages", function()
 	vim.cmd("redir END")
 	print("Messages written to ~/messages.log")
 end, {})
+

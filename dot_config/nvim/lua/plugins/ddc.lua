@@ -72,8 +72,12 @@ vim.api.nvim_create_autocmd("LspAttach", {
 
 -- 補完用のキーマッピング（pum可視性のチェック修正済）
 local function pum_visible()
-	if vim.fn["ddc#ui#pum#visible"]() == 1 then
+	-- Check if the function exists before calling it
+	if vim.fn.exists("*ddc#ui#pum#visible") == 1 then
 		return vim.fn["ddc#ui#pum#visible"]() == 1
+		-- For ddc.vim 5.0+, it might be pum#visible()
+		-- elseif vim.fn.exists("*pum#visible") == 1 then
+		--  return vim.fn["pum#visible"]() == 1
 	end
 	return false
 end

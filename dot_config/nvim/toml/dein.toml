@@ -197,6 +197,7 @@ name = 'friendly-snippets'
 [[plugins]]
 repo = 'Shougo/ddc.vim'
 name = 'ddc.vim'
+proto = 'ssh'
 on_event = 'DenopsReady'
 depends = ['denops.vim']
 hook_add = '''
@@ -256,6 +257,30 @@ on_event = 'CmdlineEnter'
 repo = 'Shougo/ddc-ui-none'
 proto = 'ssh'
 on_event = 'VeryLazy'
+
+[[plugins]]
+repo = 'Shougo/ddc-source-file'
+proto = 'ssh'
+on_event = 'InsertEnter'
+
+
+[[plugins]]
+repo = 'Shougo/ddc-filter-matcher_fuzzy'
+proto = 'ssh'
+
+
+[[plugins]]
+repo = 'Shougo/ddc-filter-sorter_fuzzy'
+proto = 'ssh'
+
+
+[[plugins]]
+repo = 'Shougo/ddc-filter-converter_fuzzy'
+proto = 'ssh'
+
+[[plugins]]
+repo = 'Shougo/ddc-ui-pum'
+proto = 'ssh'
 
 #######################################################################
 # 🔍 Fuzzy Finder / Ddu
