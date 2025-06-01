@@ -204,9 +204,9 @@ depends = [
   'ddc-source-nvim-lsp',
   'ddc-source-around',
   'ddc-source-buffer', # matsui54/ddc-source-buffer
-  'ddc-source-file',
-  'ddc-source-cmdline',
-  'ddc-source-cmdline-history',
+#  'ddc-source-file',
+##  'ddc-source-cmdline',
+  'ddc-source-cmdline_history',
   'ddc-filter-matcher_head',
   'ddc-filter-sorter_rank',
   'ddc-filter-converter_remove_overlap',
@@ -238,10 +238,10 @@ name = 'ddc-source-buffer'
 proto = "ssh"
 # on_event は ddc.vim の depends で管理
 
-[[plugins]]
-repo = "Shougo/ddc-source-cmdline"
-name = "ddc-source-cmdline"
-proto = "ssh"
+#[[plugins]]
+#repo = "Shougo/ddc-source-cmdline"
+#name = "ddc-source-cmdline"
+#proto = "ssh"
 # on_event は ddc.vim の depends で管理
 
 [[plugins]]
@@ -269,8 +269,8 @@ proto = 'ssh'
 # on_event は ddc.vim の depends で管理
 
 [[plugins]]
-repo = 'Shougo/ddc-source-cmdline-history'
-name = 'ddc-source-cmdline-history'
+repo = 'Shougo/ddc-source-cmdline_history'
+name = 'ddc-source-cmdline_history'
 proto = 'ssh'
 # on_event は ddc.vim の depends で管理
 
