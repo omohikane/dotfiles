@@ -288,6 +288,9 @@ name = 'nvim-treesitter-textobjects'
 [[plugins]]
 repo = 'windwp/nvim-ts-autotag'
 name = 'nvim-ts-autotag'
+hook_add = '''
+lua require("plugins.nvim-ts-autotag")
+'''
 
 #######################################################################
 # 🗂 File Explorer / Navigation
