@@ -1,5 +1,3 @@
--- lua/plugins/noice.lua
-
 local ok, noice = pcall(require, "noice")
 if not ok then
 	vim.notify("Noice not loaded", vim.log.levels.WARN)
@@ -7,78 +5,21 @@ if not ok then
 end
 
 noice.setup({
-	lsp = {
-		override = {
-			["vim.lsp.util.convert_input_to_markdown_lines"] = true,
-			["vim.lsp.util.stylize_markdown"] = true,
-			["cmp.entry.get_documentation"] = true,
-		},
-		progress = { enabled = true },
-	},
-
-	messages = {
-		enabled = true,
-		view = "notify",
-		view_error = "notify",
-		view_warn = "notify",
-		view_history = "messages",
-		view_search = "virtualtext",
-	},
-
 	cmdline = {
-		enabled = true,
-		view = "cmdline_popup",
-		format = {
-			cmdline = {},
-			search_down = {},
-			search_up = {},
-			filter = {},
-			lua = {},
-			help = {},
-		},
+		enabled = false, -- popup を明示的に切る
 	},
-
-	views = {
-		cmdline_popup = {
-			border = {
-				--				style = { "─", "│", "─", "│", "╭", "╮", "╯", "╰" },
-			},
-			position = {
-				row = 5,
-				col = "50%",
-			},
-			size = {
-				width = 60,
-				height = "auto",
-			},
-			win_options = {
-				winhighlight = { Normal = "Normal", FloatBorder = "FloatBorder" },
-			},
-		},
-		popupmenu = {
-			relative = "editor",
-			position = {
-				row = 8,
-				col = "50%",
-			},
-			size = {
-				width = 60,
-				height = 10,
-			},
-			border = {
-				-- style = { "─", "│", "─", "│", "╭", "╮", "╯", "╰" },
-			},
-			win_options = {
-				winhighlight = { Normal = "Normal", FloatBorder = "FloatBorder" },
-			},
-		},
+	messages = {
+		enabled = false,
 	},
-
-	presets = {
-		bottom_search = true,
-		command_palette = true,
-		long_message_to_split = true,
-		inc_rename = false,
-		lsp_doc_border = true,
+	popupmenu = {
+		enabled = false,
 	},
+	lsp = {
+		progress = {
+			enabled = false,
+		},
+		override = {},
+	},
+	views = {}, -- 空の views を指定して、何も描画させない
+	presets = {}, -- プリセットも完全無効
 })
