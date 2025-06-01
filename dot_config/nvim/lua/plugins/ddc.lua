@@ -51,7 +51,7 @@ vim.api.nvim_create_autocmd("User", {
 	callback = function()
 		setup_ddc_global_options()
 		vim.fn["ddc#enable_cmdline_completion"]()
-		vim.fn["ddc#custom#patch_global"]("sources", { "around", "buffer", "file" })
+		vim.fn["ddc#custom#patch_global"]("sources", { "around", "buffer" })
 		vim.fn["ddc#custom#patch_source"]("_", {
 			matchers = { "matcher_head", "matcher_kensaku" },
 			sorters = { "sorter_rank" },
