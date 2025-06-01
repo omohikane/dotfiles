@@ -6,21 +6,20 @@ vim.g.maplocalleader = ","
 local cache_path = vim.fs.joinpath(vim.fn.stdpath("cache"), "dpp", "repos", "github.com")
 local dppSrc = vim.fs.joinpath(cache_path, "Shougo", "dpp.vim")
 local denopsSrc = vim.fs.joinpath(cache_path, "vim-denops", "denops.vim")
-local dpp_path = vim.fn.stdpath("cache") .. "/nvim/dpp/repos/github.com"
+local dpp_path = vim.fn.stdpath("cache") .. "/dpp/repos/github.com"
 package.path = package.path .. ";" .. dpp_path .. "/?/init.lua;" .. dpp_path .. "/?.lua"
 package.cpath = package.cpath .. ";" .. dpp_path .. "/?.so"
 
--- SSH 
+-- SSH
 if vim.env.NVIM_SSH_MODE == "1" then
-  vim.g["denops#disable_healthcheck"] = 1
-  vim.g["denops#server#start"] = 0
+	vim.g["denops#disable_healthcheck"] = 1
+	vim.g["denops#server#start"] = 0
 
-  vim.cmd([[
+	vim.cmd([[
     function! denops#_internal#rpc#nvim#healthcheck(...) abort
     endfunction
   ]])
 end
-
 
 -- dpp.vim を runtimepath に追加
 vim.opt.runtimepath:prepend(dppSrc)
@@ -99,7 +98,6 @@ require("core.autocmds")
 require("core.diagnostics")
 require("lsp")
 
-
 -- プラグイン設定をロード
 local function load_plugin_configs()
 	local plugins_path = vim.fn.stdpath("config") .. "/lua/plugins"
@@ -123,4 +121,3 @@ vim.api.nvim_create_user_command("DppUpdate", function(opts)
 	dpp.async_ext_action("installer", "update", { names = opts.fargs })
 	vim.notify("Updated: " .. plugins, vim.log.levels.INFO)
 end, { nargs = "*" })
-
