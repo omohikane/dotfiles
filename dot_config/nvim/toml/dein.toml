@@ -269,8 +269,8 @@ proto = 'ssh'
 # on_event は ddc.vim の depends で管理
 
 [[plugins]]
-repo = 'Shougo/ddc-source-cmdline_history'
-name = 'ddc-source-cmdline_history'
+repo = 'Shougo/ddc-source-cmdline-history'
+name = 'ddc-source-cmdline-history'
 proto = 'ssh'
 # on_event は ddc.vim の depends で管理
 
