@@ -12,6 +12,7 @@
 
 [[plugins]]
 repo = 'vim-denops/denops.vim'
+lazy = false
 
 #######################################################################
 #  AI Coding 
@@ -195,6 +196,7 @@ name = 'friendly-snippets'
 [[plugins]]
 repo = 'Shougo/ddc.vim'
 name = 'ddc.vim'
+on_event = 'DenopsReady'
 depends = ['denops.vim']
 hook_add = '''
 lua require("plugins.ddc")
@@ -204,23 +206,28 @@ lua require("plugins.ddc")
 repo = 'Shougo/ddc-source-nvim-lsp'
 name = 'ddc-source-nvim-lsp'
 proto = "ssh"
+on_event = 'DenopsReady'
 
 [[plugins]]
 repo = 'Shougo/ddc-source-around'
 name = 'ddc-source-around'
 proto = "ssh"
+on_event = 'DenopsReady'
 
 [[plugins]]
 repo = 'Shougo/ddc-source-buffer'
 name = 'ddc-source-buffer'
+on_event = 'DenopsReady'
 
 [[plugins]]
 repo = "Shougo/ddc-source-cmdline"
 name = "ddc-source-cmdline"
+on_event = 'DenopsReady'
 
 [[plugins]]
 repo = "Shougo/ddc-source-cmdline-history"
 name = "ddc-source-cmdline-history"
+on_event = 'DenopsReady'
 
 [[plugins]]
 repo = 'Shougo/ddc-ui-native'
