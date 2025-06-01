@@ -41,7 +41,8 @@ noice.setup({
 	views = {
 		cmdline_popup = {
 			border = {
-				style = { "─", "│", "─", "│", "╭", "╮", "╯", "╰" },
+				--				style = { "─", "│", "─", "│", "╭", "╮", "╯", "╰" },
+				style = "none",
 			},
 			position = {
 				row = 5,
@@ -66,7 +67,8 @@ noice.setup({
 				height = 10,
 			},
 			border = {
-				style = { "─", "│", "─", "│", "╭", "╮", "╯", "╰" },
+				-- style = { "─", "│", "─", "│", "╭", "╮", "╯", "╰" },
+				style = "none",
 			},
 			win_options = {
 				winhighlight = { Normal = "Normal", FloatBorder = "FloatBorder" },
