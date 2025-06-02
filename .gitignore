@@ -1,3 +1,4 @@
 # Local/private plugin settings
+dot_config/nvim/.env
 dot_config/nvim/lua/plugins/obsidian.lua
 

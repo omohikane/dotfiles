@@ -26,15 +26,13 @@ require("ai.windsurf")
 EOF
 '''
 
-#[[plugins]]
-#repo = 'WindSoilderX/neocodeium.nvim'
-#name = 'neocodeium.nvim'
-#proto = 'ssh'
-#lazy = false
-#hook_add = '''
-#lua require("ai.neocodeium")
-#'''
-
+[[plugins]]
+repo = "olimorris/codecompanion.nvim"
+name = "codecompanion.nvim"
+lazy = false
+hook_add = '''
+lua require("ai.codecompanion")
+'''
 
 #######################################################################
 # 🎨 UI / Appearance

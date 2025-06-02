@@ -9,6 +9,8 @@ local denopsSrc = vim.fs.joinpath(cache_path, "vim-denops", "denops.vim")
 local dpp_path = vim.fn.stdpath("cache") .. "/dpp/repos/github.com"
 package.path = package.path .. ";" .. dpp_path .. "/?/init.lua;" .. dpp_path .. "/?.lua"
 package.cpath = package.cpath .. ";" .. dpp_path .. "/?.so"
+-- read env-file
+require("core.env").load(vim.fn.stdpath("config") .. "/.env")
 
 -- SSH
 if vim.env.NVIM_SSH_MODE == "1" then
@@ -129,4 +131,3 @@ vim.api.nvim_create_user_command("WriteMessages", function()
 	vim.cmd("redir END")
 	print("Messages written to ~/messages.log")
 end, {})
-
