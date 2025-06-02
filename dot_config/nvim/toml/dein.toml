@@ -394,20 +394,14 @@ lua require("plugins.lexima")
 repo = 'machakann/vim-sandwich'
 name = 'vim-sandwich'
 lazy = false
-hook_source = '''
-augroup SandwichInit
-  autocmd!
-  autocmd VimEnter * call s:setup_sandwich()
-augroup END
-
-function! s:setup_sandwich() abort
-  let g:sandwich#recipes = deepcopy(sandwich#default_recipes#load())
-  call add(g:sandwich#recipes, {
-    \   'buns': ['【', '】'],
-    \   'input': ['<C-b>'],
-    \   'filetype': ['markdown'],
-    \ })
-endfunction
+#hook_source = '''
+hook_add = '''
+let g:sandwich#recipes = []
+call add(g:sandwich#recipes, {
+\   'buns': ['【', '】'],
+\   'input': ['<C-b>'],
+\   'filetype': ['markdown'],
+\ })
 '''
 
 [[plugins]]
