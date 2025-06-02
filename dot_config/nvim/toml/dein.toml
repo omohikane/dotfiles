@@ -1,4 +1,3 @@
-
 #######################################################################
 # sample
 #[[plugins]]
@@ -17,15 +16,25 @@ lazy = false
 #######################################################################
 #  AI Coding 
 #######################################################################
+[[plugins]]
+repo = 'Exafunction/windsurf.vim'
+name = 'windsurf.vim'
+build = './install.sh'
+hook_add = '''
+lua << EOF
+require("ai.windsurf")
+EOF
+'''
+
 #[[plugins]]
-#repo = 'Exafunction/windsurf.vim'
-#name = 'windsurf.vim'
-#build = './install.sh'
+#repo = 'WindSoilderX/neocodeium.nvim'
+#name = 'neocodeium.nvim'
+#proto = 'ssh'
+#lazy = false
 #hook_add = '''
-#lua << EOF
-#require("ai.windsurf")
-#EOF
+#lua require("ai.neocodeium")
 #'''
+
 
 #######################################################################
 # 🎨 UI / Appearance
@@ -276,8 +285,8 @@ name = 'ddc-ui-pum'
 proto = 'ssh'
 
 [[plugins]] 
-repo = 'Shougo/ddc-matcher_kensaku'
-name = 'ddc-matcher_kensaku'
+repo = 'lambdalisue/vim-kensaku'
+name = 'vim-kensaku'
 proto = 'ssh'
 
 #######################################################################
