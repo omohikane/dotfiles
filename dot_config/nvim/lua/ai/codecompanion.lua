@@ -34,26 +34,31 @@ local models = {
 		name = "🌊 DeepSeek R1 0528",
 		provider = "openrouter",
 		model = "deepseek/deepseek-r1-0528",
+		apikey = vim.env.OPENROUTER_API_KEY,
 	},
 	{
 		name = "🌸 Gemini 2.0 Flash",
 		provider = "openrouter",
 		model = "google/gemini-flash-2",
+		apikey = vim.env.OPENROUTER_API_KEY,
 	},
 	{
 		name = "🔮 DeepSeek R1T Chimera",
 		provider = "openrouter",
 		model = "tngtech/deepseek-r1t-chimera",
+		apikey = vim.env.OPENROUTER_API_KEY,
 	},
 	{
 		name = "🧠 Devstral Small",
 		provider = "openrouter",
 		model = "mistralai/devstral-small-2505",
+		apikey = vim.env.OPENROUTER_API_KEY,
 	},
 	{
 		name = "🛡 MAI DS R1 (Microsoft)",
 		provider = "openrouter",
 		model = "microsoft/mai-ds-r1",
+		apikey = vim.env.OPENROUTER_API_KEY,
 	},
 }
 
@@ -83,4 +88,4 @@ local function choose_model()
 	end)
 end
 
-vim.keymap.set("n", "<leader>ai", choose_model, { desc = "🧠 Chose AI Model" })
+vim.keymap.set("n", "<leader>ai", choose_model, { desc = "🧠 Choose AI Model" })

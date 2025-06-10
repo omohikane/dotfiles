@@ -18,10 +18,10 @@ cmp.setup({
     end,
   },
   sources = cmp.config.sources({
+    { name = "luasnip" }, -- スニペットを候補に表示
     { name = "nvim_lsp" },
     { name = "buffer" },
     { name = "path" },
     { name = "cmdline" }
   }),
 })
-

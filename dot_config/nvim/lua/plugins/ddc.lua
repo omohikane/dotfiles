@@ -84,11 +84,10 @@ end
 
 vim.keymap.set("i", "<Tab>", function()
 	if pum_visible() then
-		return "<C-n>"
-	elseif vim.fn.col(".") <= 1 or vim.fn.getline("."):sub(vim.fn.col(".") - 1, vim.fn.col(".") - 1):match("%s") then
-		return "<Tab>"
+		return "<C-n>" -- 補完候補を次に移動
 	else
-		return vim.fn["ddc#map#manual_complete"]()
+		-- 補完候補が表示されていない場合は、単にタブを挿入
+		return "<Tab>"
 	end
 end, { expr = true, noremap = true })
 
