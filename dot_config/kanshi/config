@@ -37,6 +37,7 @@ profile home-dual-ev2795 {
   output "Eizo Nanao Corporation EV2795 52326062" {
     mode 2560x1440
     position 2560,0
+    transform 270
   }
   output "Eizo Nanao Corporation EV2795 52324062" {
     mode 2560x1440
