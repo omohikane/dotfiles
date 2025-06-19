@@ -440,3 +440,12 @@ on_ft = ['markdown']
 hook_add = '''
 lua require("plugins.obsidian")
 '''
+
+[[plugins]]
+repo = 'mtth/scratch.nvim'
+name = 'scratch.nvim'
+lazy = false
+hook_add = '''
+lua require("scratch").setup({})
+'''
+
