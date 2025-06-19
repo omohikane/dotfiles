@@ -2,3 +2,4 @@
 dot_config/nvim/.env
 dot_config/nvim/lua/plugins/obsidian.lua
 
+dot_config/nvim/dot_env
