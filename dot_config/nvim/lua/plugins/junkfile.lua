@@ -1,8 +1,8 @@
 -- plugins/junkfile.lua
 
 -- config
-vim.g["junkfile#directory"] = vim.fn.expand("~/.junk/")
-vim.g["junkfile#filename_format"] = "%Y%m%d-%H%M%S.txt"
+vim.g.junkfile_directory = vim.fn.expand("~/.junk/")
+vim.g.junkfile_name_format = "%Y%m%d-%H%M%S.txt"
 
 -- Create directory
 local junk_dir = vim.fn.expand("~/.junk/")
