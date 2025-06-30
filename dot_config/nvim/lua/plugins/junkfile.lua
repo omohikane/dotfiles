@@ -2,7 +2,7 @@
 
 -- config
 vim.g["junkfile#directory"] = vim.fn.expand("~/.junk/")
-vim.g["junkfilename_format"] = "%Y%m%d-%H%M%S.txt"
+vim.g["junkfile#filename_format"] = "%Y%m%d-%H%M%S.txt"
 
 -- Create directory
 local junk_dir = vim.fn.expand("~/.junk/")
