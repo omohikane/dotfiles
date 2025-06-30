@@ -11,4 +11,4 @@ if vim.fn.isdirectory(junk_dir) == 0 then
 end
 
 -- command shortcut
-vim.keymap.set("n", "<leader>jf", ":Junkfile<CR>", { noremap = true, silent = true, dsec = "Open junk file" })
+vim.keymap.set("n", "<leader>jf", ":Junkfile<CR>", { noremap = true, silent = true, desc = "Open junk file" })
