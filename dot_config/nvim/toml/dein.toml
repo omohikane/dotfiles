@@ -442,10 +442,11 @@ lua require("plugins.obsidian")
 '''
 
 [[plugins]]
-repo = 'mtth/scratch.nvim'
-name = 'scratch.nvim'
+repo = 'Shougo/junkfile.vim'
+name = 'junkfile.vim'
+on_cmd = ['Junkfile']
 lazy = false
 hook_add = '''
-lua require("scratch").setup({})
+lua require("plugins.junkfile")
 '''
 
