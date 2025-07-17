@@ -6,7 +6,7 @@ vim.api.nvim_create_autocmd("User", {
 		vim.g["junkfile#directory"] = vim.fn.expand("~/.junk/")
 		vim.g["junkfile#filename_format"] = "%Y%m%d-%H%M%S.txt"
 
-		local junk_dir = vim.g.junkfile_directory
+		local junk_dir = vim.g["junkfile#directory"]
 		if vim.fn.isdirectory(junk_dir) == 0 then
 			vim.fn.mkdir(junk_dir, "p")
 		end

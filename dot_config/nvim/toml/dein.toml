@@ -444,7 +444,7 @@ lua require("plugins.obsidian")
 [[plugins]]
 repo = 'Shougo/junkfile.vim'
 name = 'junkfile.vim'
-on_event = 'DenopsReady'
+#on_event = 'DenopsReady'
 hook_add = '''
 lua require("plugins.junkfile")
 '''
