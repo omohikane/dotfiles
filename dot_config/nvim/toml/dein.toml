@@ -449,3 +449,11 @@ hook_add = '''
 lua require("plugins.junkfile")
 '''
 
+[[plugins]]
+repo = 'rlue/vim-barbaric'
+name = 'rlue/vim-barbaric'
+hook_add = '''
+let g:barbaric_ime = "fcitx5-remote"
+'''
+
+
