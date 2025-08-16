@@ -450,10 +450,9 @@ lua require("plugins.junkfile")
 '''
 
 [[plugins]]
-repo = 'rlue/vim-barbaric'
-name = 'rlue/vim-barbaric'
+repo = 'h-hg/fcitx5.nvim'
+on_event = 'InsertEnter'
 hook_add = '''
-let g:barbaric_ime = "fcitx5-remote"
+lua require("fcitx5").setup()
 '''
-
 
