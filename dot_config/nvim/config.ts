@@ -11,11 +11,17 @@ export class Config extends BaseConfig {
     basePath: string;
     dpp: Dpp;
   }): Promise<{ plugins: Plugin[]; stateLines: string[] }> {
-    args.contextBuilder.setGlobal({ protocols: ["git"] });
+    args.contextBuilder.setGlobal({ protocols: ["git", "ssh"] });
 
     const isWindows = Deno.build.os === "windows";
     const tomlDir = await fn.expand(args.denops, isWindows ? "$LOCALAPPDATA/nvim/toml" : "$HOME/.config/nvim/toml");
     const workDir = await fn.expand(args.denops, isWindows ? "$LOCALAPPDATA/nvim/work" : "$HOME/.config/nvim/work");
+    try {
+      await Deno.mkdir(tomlDir, { recursive: true });
+    } catch (_) {}
+    try {
+      await Deno.mkdir(workDir, { recursive: true });
+    } catch (_) {}
 
     const [context, options] = await args.contextBuilder.get(args.denops);
     const tomls: Plugin[] = [];
