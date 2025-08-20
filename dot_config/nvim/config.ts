@@ -11,7 +11,7 @@ export class Config extends BaseConfig {
     basePath: string;
     dpp: Dpp;
   }): Promise<{ plugins: Plugin[]; stateLines: string[] }> {
-    args.contextBuilder.setGlobal({ protocols: ["git", "ssh"] });
+    args.contextBuilder.setGlobal({ protocols: ["git"] });
 
     const isWindows = Deno.build.os === "windows";
     const tomlDir = await fn.expand(args.denops, isWindows ? "$LOCALAPPDATA/nvim/toml" : "$HOME/.config/nvim/toml");

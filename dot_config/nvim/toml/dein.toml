@@ -28,8 +28,7 @@ EOF
 
 [[plugins]]
 repo = "olimorris/codecompanion.nvim"
-name = "codecompanion.nvim"
-lazy = false
+depends = ["nvim-lua/plenary.nvim"]
 hook_add = '''
 lua require("ai.codecompanion")
 '''
