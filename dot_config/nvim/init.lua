@@ -67,7 +67,7 @@ ensure_repo_exists("vim-denops/denops.vim.git", denopsSrc)
 ensure_repo_exists("Shougo/dpp.vim.git",        dppSrc)
 
 -- Add dpp to Lua path
-package.path  = package.path  .. ";" .. dppSrc .. "/?/init.lua;" .. dppSrc .. "/?.lua"
+package.path  = package.path  .. ";" .. dppSrc .. "/lua/?.lua;" .. dppSrc .. "/lua/?/init.lua"
 package.cpath = package.cpath .. ";" .. dppSrc .. "/?.so"
 
 -- Add denops.vim first in runtimepath
