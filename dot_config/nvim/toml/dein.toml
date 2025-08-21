@@ -433,7 +433,7 @@ lua require("plugins.which-key")
 [[plugins]]
 repo = 'epwalsh/obsidian.nvim'
 name = 'obsidian.nvim'
-depends = ['nvim-lua/plenary.nvim']
+depends = ['plenary.nvim']
 on_ft = ['markdown']
 hook_add = '''
 lua require("plugins.obsidian")
