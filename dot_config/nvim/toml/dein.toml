@@ -203,7 +203,7 @@ name = 'friendly-snippets'
 [[plugins]]
 repo = 'Shougo/ddc.vim'
 name = 'ddc.vim'
-on_event = 'DenopsReady' # DDCの初期化タイミングに合わせる
+on_event = 'DenopsReady' 
 depends = [
   'denops.vim',
   'ddc-ui-native',
@@ -454,3 +454,9 @@ hook_add = '''
 lua require("fcitx5").setup()
 '''
 
+[[plugins]]
+repo = 'amber-lang/amber-vim'
+name = 'amber-vim'
+hook_add = '''
+  autocmd BufRead,BufNewFile *.ab set filetype=amber
+'''
