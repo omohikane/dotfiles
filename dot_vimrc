@@ -278,6 +278,13 @@ nnoremap Q <Nop>
 command! WQ wq | command! Wq wq | command! W w | command! Q q
 cmap w!! w !sudo tee % >/dev/null
 
+
+" ----- Yank: auto send clipboard -----
+if executable('clip.exe')
+  vnoremap <leader>y "+y:call system('clip.exe', @")<CR>
+  nnoremap <leader>y "+yy:call system('clip.exe', @")<CR>
+endif
+
 " ----- Colors: base scheme + low-saturation adjustments -----
 set background=dark
 silent! colorscheme desert
