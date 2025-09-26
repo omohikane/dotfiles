@@ -34,7 +34,6 @@ if status is-interactive
 
     # 編集用の略語
     abbr -a e $EDITOR
-    abbr -a vim 'nvim'
     abbr -a nv 'nvim'
 
     # ディレクトリ移動の略語
