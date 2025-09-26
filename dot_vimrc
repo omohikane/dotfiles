@@ -2,14 +2,93 @@
 "  Hikari Vim - Complete .vimrc (ASCII-only comments)
 "  - Plugin-free / portable
 "  - Low-saturation dark theme
-"  - Git branch in statusline
-"  - Markdown line-break (two spaces) highlighting
+"  - Git branch in statusline + IME indicator (EN/JP)
+"  - Markdown: highlight two trailing spaces
 "  - IME helpers + jj/jk to cancel IME and return to Normal
 " =========================
 
 if &compatible | set nocompatible | endif
 set encoding=utf-8
 scriptencoding utf-8
+
+" ----- Utility functions (global, no <SID>) -----
+function! ModeOne() abort
+  let m = mode()
+  return m ==# 'n' ? 'N' :
+        \ m =~# 'i' ? 'I' :
+        \ m =~# 'v' ? 'V' :
+        \ m ==# 'V' ? 'VL' :
+        \ m ==# "\<C-v>" ? 'VB' :
+        \ m =~# 'R' ? 'R' :
+        \ m ==# 'c' ? 'C' : '...'
+endfunction
+
+function! Enc() abort
+  return &fenc !=# '' ? &fenc : &enc
+endfunction
+
+function! Syslist(cmd) abort
+  if exists('*systemlist') | return systemlist(a:cmd) | endif
+  return split(system(join(a:cmd,' ')), "\n")
+endfunction
+
+function! UpdateGitBranch() abort
+  if !executable('git') | let b:git_branch = '' | return | endif
+  let dir = expand('%:p:h')
+  if empty(dir) | let b:git_branch = '' | return | endif
+  let inside = Syslist(['git','-C',dir,'rev-parse','--is-inside-work-tree'])
+  if v:shell_error || empty(inside) || inside[0] !=# 'true'
+    let b:git_branch = '' | return
+  endif
+  let br = Syslist(['git','-C',dir,'rev-parse','--abbrev-ref','HEAD'])
+  let b:git_branch = (!v:shell_error && !empty(br)) ? br[0] : ''
+endfunction
+
+function! IMEIndicator() abort
+  return &iminsert ? 'JP' : 'EN'
+endfunction
+
+function! IMEOff() abort
+  set iminsert=0
+  set imsearch=0
+  if executable('fcitx5-remote')
+    call system('fcitx5-remote -c')
+  elseif executable('fcitx-remote')
+    call system('fcitx-remote -c')
+  elseif executable('im-select')
+    " macOS example layout; adjust if needed
+    call system('im-select com.apple.keylayout.ABC')
+  endif
+endfunction
+
+function! NetrwToggleStyle() abort
+  if get(g:, 'netrw_liststyle', 3) == 3
+    let g:netrw_liststyle = 2
+  else
+    let g:netrw_liststyle = 3
+  endif
+  if &filetype ==# 'netrw'
+    silent edit
+  endif
+  echo 'netrw liststyle=' . g:netrw_liststyle
+endfunction
+
+function! Rename(new) abort
+  if empty(expand('%')) | echoerr 'No file name' | return | endif
+  let l:old = expand('%:p')
+  let l:new = fnamemodify(a:new, ':p')
+  if isdirectory(l:new) | echoerr 'New name points to a directory' | return | endif
+  write | execute 'saveas ' . fnameescape(l:new)
+  if filereadable(l:old) && l:old !=# l:new | call delete(l:old) | endif
+  file | echo 'Renamed to ' . l:new
+endfunction
+
+function! Remove() abort
+  if empty(expand('%:p')) | echoerr 'No file to remove' | return | endif
+  let l:target = expand('%:p')
+  if confirm('Delete: ' . l:target . '?', "&Yes\n&No", 2) != 1 | echo 'Canceled' | return | endif
+  bwipeout! | call delete(l:target) | echo 'Deleted: ' . l:target
+endfunction
 
 " ----- Basics -----
 set hidden
@@ -18,7 +97,7 @@ set mouse=a
 set ttyfast
 set confirm
 
-" ----- Numbers and cursorline -----
+" Numbers and cursorline
 set number
 set relativenumber
 set cursorline
@@ -36,7 +115,7 @@ nnoremap k gk
 nnoremap <Leader>n :set invnumber<CR>
 nnoremap <Leader>r :set invrelativenumber<CR>
 
-" ----- Splits (sensible defaults) -----
+" Sensible splits
 set splitright
 set splitbelow
 
@@ -46,30 +125,19 @@ set smartcase
 set incsearch
 set hlsearch
 nnoremap <Leader>h :nohlsearch<CR>
-
-" Center the cursor and open folds on search motions
 nnoremap n nzzzv
 nnoremap N Nzzzv
 nnoremap * *zzzv
 nnoremap # #zzzv
 nnoremap g* g*zzzv
 nnoremap g# g#zzzv
-
-" Redraw + clear highlights on Ctrl-l
 nnoremap <C-l> :nohlsearch<Bar>diffupdate<Bar>normal! <C-l><CR>
-
-" Very-magic by default for / and ?
 nnoremap / /\v
 nnoremap ? ?\v
-
-" Word-wise substitutions (safe defaults)
 nnoremap <Leader>s :%s/\<<C-r><C-w>\>//gce<Left><Left><Left>
 nnoremap <Leader>S :s/\<<C-r><C-w>\>//gce<Left><Left><Left>
-
-" Visual selection to search
 vnoremap * y/\V<C-r>=escape(@", '/\')<CR><CR>
 vnoremap # y?\V<C-r>=escape(@", '/\')<CR><CR>
-
 set wrapscan
 
 " ----- Indent / tabs -----
@@ -78,63 +146,27 @@ set shiftwidth=2
 set tabstop=2
 set smartindent
 
-" ----- Statusline (with Git branch and IME indicator EN/JP) -----
+" ----- Statusline (Git + IME indicator) -----
 set laststatus=2
 set showmode
-
-function! s:ModeOne() abort
-  let m = mode()
-  return m ==# 'n' ? 'N' :
-        \ m =~# 'i' ? 'I' :
-        \ m =~# 'v' ? 'V' :
-        \ m ==# 'V' ? 'VL' :
-        \ m ==# "\<C-v>" ? 'VB' :
-        \ m =~# 'R' ? 'R' :
-        \ m ==# 'c' ? 'C' : '...'
-endfunction
-
-function! s:Enc() abort
-  return &fenc !=# '' ? &fenc : &enc
-endfunction
-
-function! s:Syslist(cmd) abort
-  if exists('*systemlist') | return systemlist(a:cmd) | endif
-  return split(system(join(a:cmd,' ')), "\n")
-endfunction
-
-function! s:UpdateGitBranch() abort
-  if !executable('git') | let b:git_branch = '' | return | endif
-  let dir = expand('%:p:h')
-  if empty(dir) | let b:git_branch = '' | return | endif
-  let inside = s:Syslist(['git','-C',dir,'rev-parse','--is-inside-work-tree'])
-  if v:shell_error || empty(inside) || inside[0] !=# 'true'
-    let b:git_branch = ''
-    return
-  endif
-  let br = s:Syslist(['git','-C',dir,'rev-parse','--abbrev-ref','HEAD'])
-  let b:git_branch = (!v:shell_error && !empty(br)) ? br[0] : ''
-endfunction
-
 augroup StatuslineGit
   autocmd!
-  autocmd BufEnter,FocusGained * silent! call <SID>UpdateGitBranch()
+  autocmd BufEnter,FocusGained * silent! call UpdateGitBranch()
 augroup END
-
-" Statusline layout:
 " Left: mode file [modified][readonly]
+set statusline=%{ModeOne()}\ %<%f%(\ %m%)%(\ %r%)
 " Right: [git:branch] IME filetype [ff][enc] line/total:col (percent)
-set statusline=%{s:ModeOne()}\ %<%f%(\ %m%)%(\ %r%)
 set statusline+=%=
 set statusline+=%{get(b:,'git_branch','')==''?'':'[git:'.b:git_branch.']\ '}
-set statusline+=%{&iminsert? 'JP' : 'EN'}\ 
-set statusline+=%{&filetype==''?'-':&filetype}\ \ [%{&ff}][%{s:Enc()}]\ %l/%L:%c\ (%p%%)
+set statusline+=%{IMEIndicator()}\ 
+set statusline+=%{&filetype==''?'-':&filetype}\ \ [%{&ff}][%{Enc()}]\ %l/%L:%c\ (%p%%)
 
-" ----- Cmdline completion helpers -----
+" ----- Cmdline completion -----
 set wildmenu
 set wildmode=longest:full,full
 set complete-=i
 
-" ----- Clipboard (use if available) -----
+" ----- Clipboard -----
 if has('clipboard')
   if has('unnamedplus')
     set clipboard^=unnamed,unnamedplus
@@ -170,7 +202,7 @@ endif
 syntax on
 filetype plugin indent on
 
-" ----- Leader and basics -----
+" ----- Leader basics -----
 let mapleader = ","
 nnoremap <Leader>w :write<CR>
 nnoremap <Leader>q :quit<CR>
@@ -185,44 +217,16 @@ let g:netrw_keepdir = 0
 nnoremap <Leader>e  :Explore<CR>
 nnoremap <Leader>fe :Explore %:h<CR>
 nnoremap <Leader>ft :Texplore<CR>
-function! NetrwToggleStyle() abort
-  if get(g:, 'netrw_liststyle', 3) == 3
-    let g:netrw_liststyle = 2
-  else
-    let g:netrw_liststyle = 3
-  endif
-  if &filetype ==# 'netrw'
-    silent edit
-  endif
-  echo 'netrw liststyle=' . g:netrw_liststyle
-endfunction
-nnoremap <Leader>E :call NetrwToggleStyle()<CR>
+nnoremap <Leader>E  :call NetrwToggleStyle()<CR>
 
-" ----- MRU and quick new file in same dir -----
+" ----- MRU and quick new file -----
 nnoremap <Leader>o  :browse oldfiles<CR>
 nnoremap <Leader>nf :execute 'edit' fnameescape(expand('%:h') . '/')<CR>
 
-" ----- Rename / Remove / Mkdir helpers -----
-command! -nargs=1 -complete=file Rename call s:Rename(<f-args>)
-function! s:Rename(new) abort
-  if empty(expand('%')) | echoerr 'No file name' | return | endif
-  let l:old = expand('%:p')
-  let l:new = fnamemodify(a:new, ':p')
-  if isdirectory(l:new) | echoerr 'New name points to a directory' | return | endif
-  write | execute 'saveas ' . fnameescape(l:new)
-  if filereadable(l:old) && l:old !=# l:new | call delete(l:old) | endif
-  file | echo 'Renamed to ' . l:new
-endfunction
-
+" ----- Rename / Remove / Mkdir -----
+command! -nargs=1 -complete=file Rename call Rename(<f-args>)
 command! -nargs=? -complete=dir Mkdir call mkdir(len(<q-args>) ? expand(<q-args>) : expand('%:h'), 'p')
-
-command! Remove call s:Remove()
-function! s:Remove() abort
-  if empty(expand('%:p')) | echoerr 'No file to remove' | return | endif
-  let l:target = expand('%:p')
-  if confirm('Delete: ' . l:target . '?', "&Yes\n&No", 2) != 1 | echo 'Canceled' | return | endif
-  bwipeout! | call delete(l:target) | echo 'Deleted: ' . l:target
-endfunction
+command! Remove call Remove()
 
 " Copy absolute path to clipboard if available
 if has('clipboard')
@@ -233,6 +237,7 @@ endif
 nnoremap <Leader>sv :vsplit<CR>
 nnoremap <Leader>sh :split<CR>
 nnoremap <Leader>st :tabnew<CR>
+nnoremap <Leader>tc :tabclose<CR>
 nnoremap <C-h> <C-w>h
 nnoremap <C-j> <C-w>j
 nnoremap <C-k> <C-w>k
@@ -245,7 +250,6 @@ nnoremap <Leader><Left>  :vertical resize -4<CR>
 nnoremap <Leader><Right> :vertical resize +4<CR>
 nnoremap <Leader><Down>  :resize +2<CR>
 nnoremap <Leader><Up>    :resize -2<CR>
-nnoremap <Leader>tc :tabclose<CR>
 
 " ----- Smarter gf / cleaner wildmenu -----
 set path+=**
@@ -272,8 +276,6 @@ nnoremap H ^
 nnoremap L $
 nnoremap Q <Nop>
 command! WQ wq | command! Wq wq | command! W w | command! Q q
-
-" Sudo write on :w!!
 cmap w!! w !sudo tee % >/dev/null
 
 " ----- Colors: base scheme + low-saturation adjustments -----
@@ -315,32 +317,16 @@ else
   highlight WarningMsg          ctermbg=179 ctermfg=16
 endif
 
-" ----- IME helpers (portable) -----
-function! s:IMEOff() abort
-  set iminsert=0
-  set imsearch=0
-  if executable('fcitx5-remote')
-    call system('fcitx5-remote -c')
-  elseif executable('fcitx-remote')
-    call system('fcitx-remote -c')
-  elseif executable('im-select')
-    " macOS example layout; adjust if needed
-    call system('im-select com.apple.keylayout.ABC')
-  endif
-endfunction
-
+" ----- IME helpers and Markdown extras -----
 augroup IMEAutoOff
   autocmd!
-  autocmd InsertLeave * call <SID>IMEOff()
-  autocmd CmdlineLeave * call <SID>IMEOff()
+  autocmd InsertLeave * call IMEOff()
+  autocmd CmdlineLeave * call IMEOff()
 augroup END
-
-" Insert-mode quick escape that also cancels IME
-inoremap jj <Esc>:call <SID>IMEOff()<CR>
-inoremap jk <Esc>:call <SID>IMEOff()<CR>
+inoremap jj <Esc>:call IMEOff()<CR>
+inoremap jk <Esc>:call IMEOff()<CR>
 inoremap <C-^> <C-^>
 
-" ----- Markdown-specific: highlight two trailing spaces (line break) -----
 augroup MarkdownSpaces
   autocmd!
   autocmd FileType markdown highlight MarkdownLineBreak ctermbg=236 guibg=#303030 guifg=#87afaf
