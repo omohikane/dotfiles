@@ -1,62 +1,58 @@
-# スタートアップ時に新しい行を追加しない
+# ===== Core =====
 add_newline = false
-
 scan_timeout = 30
 command_timeout = 500
-
 palette = "catppuccin_mocha"
 
 format = """
-[](surface0)\
-$directory\
-[](surface0)\
-$git_branch\
-$git_status\
-$cmd_duration\
-$time
+$os$username$hostname$directory$git_branch$git_status$docker_context$kubernetes$package$nodejs$python$rust$golang$terraform$aws$gcloud$fill$time$cmd_duration$memory_usage$battery$sudo$status$jobs
 $character
 """
+right_format = ""  # $fill で左右分割済み
 
-[shell]
+# ===== Who / Where =====
+[os]
 disabled = false
-style = "bold"
-bash_indicator = "[bsh](#a593e0)"
-zsh_indicator = "[zsh](#fff1b9)"
-fish_indicator = '󰈺 '
-powershell_indicator = "[psh](#f7aa97)"
-cmd_indicator = "[cmd](#a3daff)"
+format = "[$symbol ](subtext1)"
+symbols = { Linux = "", Macos = "", Windows = "󰍲", Unknown = "" }
 
+[username]
+disabled = false
+style_user = "subtext1"
+style_root = "bold red"
+format = "[$user]($style)"
+show_always = true   
+
+[hostname]
+ssh_only = false    
+format = "[@$hostname](subtest0) "
+disabled = false
+
+# ===== Directory =====
 [directory]
-#truncation_length = 1000
-#truncate_to_repo = false
 style = "bold lavender"
 format = "[📁 $path ]($style)"
-truncation_length = 3
+truncation_length = 8
 truncation_symbol = "…/"
+truncate_to_repo = true
+read_only = " "
+substitutions = { "~" = " ~/" }
 
-# プロンプトのシンボルをカスタマイズ
+# ===== Prompt symbol =====
 [character]
-success_symbol = "[➜](bold turquoise2)"
-error_symbol = "[✗](bold red)"
+success_symbol = "[➜](bold teal)"
+error_symbol   = "[✗](bold red)"
+vimcmd_symbol  = "[❮](peach)"
 
-# バッテリーステータスを表示（バッテリーの割合が20%未満の場合）
-[battery]
-full_symbol = "🔋"
-charging_symbol = "⚡️"
-discharging_symbol = "🔋"
-[[battery.display]]  # display設定は配列で書く必要があります
-threshold = 20
-style = "bold red"
-
-# Gitのブランチ名とステータスを表示
+# ===== Git =====
 [git_branch]
-symbol = "🌱 "
+symbol = "🌱"
 style = "bold peach"
-format = "[ $symbol $branch ]($style)"
+format = " [ $symbol $branch ]($style)"
 
 [git_status]
 style = "green"
-format = "[ $all_status ]($style)"
+format = " [$all_status]($style)"
 conflicted = "🔀"
 ahead = "🚀${count}"
 diverged = "🔄${ahead_count}⏪${behind_count}"
@@ -68,81 +64,133 @@ staged = "✔️"
 renamed = "➡️"
 deleted = "🗑️"
 
-# Node.jsのバージョンを表示
-[nodejs]
-format = "via [⬢ $version](bold green)"
+# ===== Containers / Cloud =====
+[docker_context]
+format = " [🐳 $context](sapphire)"
+only_with_files = true
 
-# Pythonのバージョンを表示
+[kubernetes]
+format = " [⎈ $context(::$namespace)](sky)"
+disabled = false
+
+[aws]
+format = " [AWS:$profile](yellow)"
+expiration_symbol = "⏳"
+disabled = true
+
+[gcloud]
+format = " [GCP:$account](yellow)"
+disabled = true
+
+# ===== Runtimes / Package =====
+[package]
+format = " [📦 $version](subtext1)"
+disabled = false
+
+[nodejs]
+format = " [⬢ $version](bold green)"
+detect_extensions = ["js","ts","mjs","cjs","jsx","tsx"]
+detect_files = ["package.json","pnpm-lock.yaml","yarn.lock"]
+
 [python]
 symbol = "🐍 "
-format = "via [${symbol}${version}](bold blue)"
+format = " [${symbol}${version}](bold blue)"
+detect_extensions = ["py"]
+detect_files = ["pyproject.toml","requirements.txt","Pipfile"]
 
-# Rustのバージョンを表示
 [rust]
-format = "via [🦀 $version](bold red)"
+format = " [🦀 $version](bold red)"
 
 [golang]
-format = "via [🏎💨 $version](bold cyan) "
-detect_files = ["go.mod", "go.sum", "go.work", "*.go"]
+format = " [🏎 $version](bold cyan)"
+detect_files = ["go.mod","go.sum","go.work","*.go"]
 
-# 時間を表示
+[terraform]
+format = " [tf:$version](mauve)"
+disabled = true
+
+# ===== Time / Duration / Memory / Battery / Sudo / Status / Jobs =====
 [time]
 disabled = false
-format = "[  $time ](grey60)"
+format = "[  $time ](subtext1)"
 time_format = "%Y-%m-%d %H:%M"
 
-# コマンド実行時間を表示
 [cmd_duration]
 min_time = 500
-format = "took [⏱ $duration ](grey70)"
+format = " [⏱ $duration](overlay2)"
 
-
-[username]
-style_user = "blue"
+[memory_usage]
 disabled = false
-show_always = true
+threshold = -1
+format = " [ $ram_pct]($style)"
+style = "overlay1"
 
-[hostname]
-ssh_only = false
-format = "[$hostname](bold red) "
-disabled = false
-
-[custom.arch]
-command = "uname -m"
-when = """ test $(uname -m) = "x86_64" """
+[battery]
+full_symbol = "🔋"
+charging_symbol = "⚡️"
+discharging_symbol = "🔋"
+[[battery.display]]
+threshold = 20
 style = "bold red"
-format = "[$output]($style) "
+
+[sudo]
+disabled = false
+allow_windows = false
+symbol = "🧷"
+style = "bold blue"
+format = " [$symbol sudo]($style)"
+
+[status]
+disabled = false
+symbol = "✗"
+success_symbol = ""         # 成功時は非表示
+format = " [$symbol$status]($style)"
+style = "bold red"
+pipestatus = true
+map_symbol = true
+recognize_signal_code = true
 
 [jobs]
 symbol = "✦"
 number_threshold = 1
-format = "[$symbol$number]($style) "
+format = " [$symbol$number]($style)"
 
+# ===== Shell indicator =====
+[shell]
+disabled = false
+style = "bold"
+bash_indicator = "[bsh](#a593e0)"
+zsh_indicator  = "[zsh](#fff1b9)"
+fish_indicator = "󰈺 "
+powershell_indicator = "[psh](#f7aa97)"
+cmd_indicator  = "[cmd](#a3daff)"
 
+# ===== Palette (Catppuccin Mocha) =====
 [palettes.catppuccin_mocha]
 rosewater = "#f5e0dc"
-flamingo = "#f2cdcd"
-pink = "#f5c2e7"
-mauve = "#cba6f7"
-red = "#f38ba8"
-maroon = "#eba0ac"
-peach = "#fab387"
-yellow = "#f9e2af"
-green = "#a6e3a1"
-teal = "#94e2d5"
-sky = "#89dceb"
-sapphire = "#74c7ec"
-blue = "#89b4fa"
-lavender = "#b4befe"
-text = "#cdd6f4"
-subtext1 = "#bac2de"
-subtext0 = "#a6adc8"
-overlay2 = "#9399b2"
-overlay1 = "#7f849c"
-overlay0 = "#6c7086"
-surface2 = "#585b70"
-surface1 = "#45475a"
-surface0 = "#313244"
-base = "#1e1e2e"
-mantle = "#181825"
-crust = "#11111b"
+flamingo  = "#f2cdcd"
+pink      = "#f5c2e7"
+mauve     = "#cba6f7"
+red       = "#f38ba8"
+maroon    = "#eba0ac"
+peach     = "#fab387"
+yellow    = "#f9e2af"
+green     = "#a6e3a1"
+teal      = "#94e2d5"
+sky       = "#89dceb"
+sapphire  = "#74c7ec"
+blue      = "#89b4fa"
+lavender  = "#b4befe"
+text      = "#cdd6f4"
+subtext1  = "#bac2de"
+subtext0  = "#a6adc8"
+overlay2  = "#9399b2"
+overlay1  = "#7f849c"
+overlay0  = "#6c7086"
+surface2  = "#585b70"
+surface1  = "#45475a"
+surface0  = "#313244"
+base      = "#1e1e2e"
+mantle    = "#181825"
+crust     = "#11111b"
+
