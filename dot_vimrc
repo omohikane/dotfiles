@@ -1,0 +1,354 @@
+" =========================
+"  Hikari Vim - Complete .vimrc (ASCII-only comments)
+"  - Plugin-free / portable
+"  - Low-saturation dark theme
+"  - Git branch in statusline
+"  - Markdown line-break (two spaces) highlighting
+"  - IME helpers + jj/jk to cancel IME and return to Normal
+" =========================
+
+if &compatible | set nocompatible | endif
+set encoding=utf-8
+scriptencoding utf-8
+
+" ----- Basics -----
+set hidden
+set backspace=indent,eol,start
+set mouse=a
+set ttyfast
+set confirm
+
+" ----- Numbers and cursorline -----
+set number
+set relativenumber
+set cursorline
+augroup NumberToggle
+  autocmd!
+  autocmd InsertEnter * set norelativenumber
+  autocmd InsertLeave * set relativenumber
+augroup END
+
+" Natural movement on wrapped lines
+nnoremap j gj
+nnoremap k gk
+
+" Manual toggles
+nnoremap <Leader>n :set invnumber<CR>
+nnoremap <Leader>r :set invrelativenumber<CR>
+
+" ----- Splits (sensible defaults) -----
+set splitright
+set splitbelow
+
+" ----- Search UX -----
+set ignorecase
+set smartcase
+set incsearch
+set hlsearch
+nnoremap <Leader>h :nohlsearch<CR>
+
+" Center the cursor and open folds on search motions
+nnoremap n nzzzv
+nnoremap N Nzzzv
+nnoremap * *zzzv
+nnoremap # #zzzv
+nnoremap g* g*zzzv
+nnoremap g# g#zzzv
+
+" Redraw + clear highlights on Ctrl-l
+nnoremap <C-l> :nohlsearch<Bar>diffupdate<Bar>normal! <C-l><CR>
+
+" Very-magic by default for / and ?
+nnoremap / /\v
+nnoremap ? ?\v
+
+" Word-wise substitutions (safe defaults)
+nnoremap <Leader>s :%s/\<<C-r><C-w>\>//gce<Left><Left><Left>
+nnoremap <Leader>S :s/\<<C-r><C-w>\>//gce<Left><Left><Left>
+
+" Visual selection to search
+vnoremap * y/\V<C-r>=escape(@", '/\')<CR><CR>
+vnoremap # y?\V<C-r>=escape(@", '/\')<CR><CR>
+
+set wrapscan
+
+" ----- Indent / tabs -----
+set expandtab
+set shiftwidth=2
+set tabstop=2
+set smartindent
+
+" ----- Statusline (with Git branch and IME indicator EN/JP) -----
+set laststatus=2
+set showmode
+
+function! s:ModeOne() abort
+  let m = mode()
+  return m ==# 'n' ? 'N' :
+        \ m =~# 'i' ? 'I' :
+        \ m =~# 'v' ? 'V' :
+        \ m ==# 'V' ? 'VL' :
+        \ m ==# "\<C-v>" ? 'VB' :
+        \ m =~# 'R' ? 'R' :
+        \ m ==# 'c' ? 'C' : '...'
+endfunction
+
+function! s:Enc() abort
+  return &fenc !=# '' ? &fenc : &enc
+endfunction
+
+function! s:Syslist(cmd) abort
+  if exists('*systemlist') | return systemlist(a:cmd) | endif
+  return split(system(join(a:cmd,' ')), "\n")
+endfunction
+
+function! s:UpdateGitBranch() abort
+  if !executable('git') | let b:git_branch = '' | return | endif
+  let dir = expand('%:p:h')
+  if empty(dir) | let b:git_branch = '' | return | endif
+  let inside = s:Syslist(['git','-C',dir,'rev-parse','--is-inside-work-tree'])
+  if v:shell_error || empty(inside) || inside[0] !=# 'true'
+    let b:git_branch = ''
+    return
+  endif
+  let br = s:Syslist(['git','-C',dir,'rev-parse','--abbrev-ref','HEAD'])
+  let b:git_branch = (!v:shell_error && !empty(br)) ? br[0] : ''
+endfunction
+
+augroup StatuslineGit
+  autocmd!
+  autocmd BufEnter,FocusGained * silent! call <SID>UpdateGitBranch()
+augroup END
+
+" Statusline layout:
+" Left: mode file [modified][readonly]
+" Right: [git:branch] IME filetype [ff][enc] line/total:col (percent)
+set statusline=%{s:ModeOne()}\ %<%f%(\ %m%)%(\ %r%)
+set statusline+=%=
+set statusline+=%{get(b:,'git_branch','')==''?'':'[git:'.b:git_branch.']\ '}
+set statusline+=%{&iminsert? 'JP' : 'EN'}\ 
+set statusline+=%{&filetype==''?'-':&filetype}\ \ [%{&ff}][%{s:Enc()}]\ %l/%L:%c\ (%p%%)
+
+" ----- Cmdline completion helpers -----
+set wildmenu
+set wildmode=longest:full,full
+set complete-=i
+
+" ----- Clipboard (use if available) -----
+if has('clipboard')
+  if has('unnamedplus')
+    set clipboard^=unnamed,unnamedplus
+  else
+    set clipboard^=unnamed
+  endif
+endif
+
+" ----- Auto-reload on external changes -----
+set autoread
+augroup VimAutoRead
+  autocmd!
+  autocmd FocusGained,BufEnter * checktime
+augroup END
+
+" ----- History / backup / swap / undo -----
+if exists('*mkdir')
+  silent! call mkdir(expand('~/.vim/backup'), 'p')
+  silent! call mkdir(expand('~/.vim/swap'),   'p')
+  silent! call mkdir(expand('~/.vim/undo'),   'p')
+endif
+set history=1000
+set backup
+set backupdir^=~/.vim/backup
+set swapfile
+set directory^=~/.vim/swap
+if has('persistent_undo')
+  set undofile
+  set undodir^=~/.vim/undo
+endif
+
+" ----- Syntax and filetype -----
+syntax on
+filetype plugin indent on
+
+" ----- Leader and basics -----
+let mapleader = ","
+nnoremap <Leader>w :write<CR>
+nnoremap <Leader>q :quit<CR>
+nnoremap <Leader>x :xit<CR>
+
+" ----- netrw (lightweight file manager) -----
+let g:netrw_banner = 0
+let g:netrw_liststyle = 3
+let g:netrw_browse_split = 4
+let g:netrw_winsize = 25
+let g:netrw_keepdir = 0
+nnoremap <Leader>e  :Explore<CR>
+nnoremap <Leader>fe :Explore %:h<CR>
+nnoremap <Leader>ft :Texplore<CR>
+function! NetrwToggleStyle() abort
+  if get(g:, 'netrw_liststyle', 3) == 3
+    let g:netrw_liststyle = 2
+  else
+    let g:netrw_liststyle = 3
+  endif
+  if &filetype ==# 'netrw'
+    silent edit
+  endif
+  echo 'netrw liststyle=' . g:netrw_liststyle
+endfunction
+nnoremap <Leader>E :call NetrwToggleStyle()<CR>
+
+" ----- MRU and quick new file in same dir -----
+nnoremap <Leader>o  :browse oldfiles<CR>
+nnoremap <Leader>nf :execute 'edit' fnameescape(expand('%:h') . '/')<CR>
+
+" ----- Rename / Remove / Mkdir helpers -----
+command! -nargs=1 -complete=file Rename call s:Rename(<f-args>)
+function! s:Rename(new) abort
+  if empty(expand('%')) | echoerr 'No file name' | return | endif
+  let l:old = expand('%:p')
+  let l:new = fnamemodify(a:new, ':p')
+  if isdirectory(l:new) | echoerr 'New name points to a directory' | return | endif
+  write | execute 'saveas ' . fnameescape(l:new)
+  if filereadable(l:old) && l:old !=# l:new | call delete(l:old) | endif
+  file | echo 'Renamed to ' . l:new
+endfunction
+
+command! -nargs=? -complete=dir Mkdir call mkdir(len(<q-args>) ? expand(<q-args>) : expand('%:h'), 'p')
+
+command! Remove call s:Remove()
+function! s:Remove() abort
+  if empty(expand('%:p')) | echoerr 'No file to remove' | return | endif
+  let l:target = expand('%:p')
+  if confirm('Delete: ' . l:target . '?', "&Yes\n&No", 2) != 1 | echo 'Canceled' | return | endif
+  bwipeout! | call delete(l:target) | echo 'Deleted: ' . l:target
+endfunction
+
+" Copy absolute path to clipboard if available
+if has('clipboard')
+  nnoremap <Leader>yp :let @+ = expand('%:p') \| echo 'Yanked path:' expand('%:p')<CR>
+endif
+
+" ----- Windows / tabs -----
+nnoremap <Leader>sv :vsplit<CR>
+nnoremap <Leader>sh :split<CR>
+nnoremap <Leader>st :tabnew<CR>
+nnoremap <C-h> <C-w>h
+nnoremap <C-j> <C-w>j
+nnoremap <C-k> <C-w>k
+nnoremap <C-l> <C-w>l
+nnoremap <A-h> :vertical resize -4<CR>
+nnoremap <A-l> :vertical resize +4<CR>
+nnoremap <A-j> :resize +2<CR>
+nnoremap <A-k> :resize -2<CR>
+nnoremap <Leader><Left>  :vertical resize -4<CR>
+nnoremap <Leader><Right> :vertical resize +4<CR>
+nnoremap <Leader><Down>  :resize +2<CR>
+nnoremap <Leader><Up>    :resize -2<CR>
+nnoremap <Leader>tc :tabclose<CR>
+
+" ----- Smarter gf / cleaner wildmenu -----
+set path+=**
+set suffixesadd+=.c,.h,.cpp,.hpp,.py,.js,.ts,.go,.rs,.lua,.sh,.vim,.md
+if exists('&wildignorecase') | set wildignorecase | endif
+set wildignore+=*/.git/*,*/.hg/*,*/.svn/*,*/.DS_Store
+set wildignore+=*/node_modules/*,*/bower_components/*,*/.yarn/*,*/.pnpm/*,*/.cache/*,*/coverage/*
+set wildignore+=*/dist/*,*/build/*,*/target/*,*/out/*
+set wildignore+=__pycache__/*,*.pyc,*.pyo,*.o,*.obj,*.a,*.so,*.dll,*.dylib,*.class,*.jar
+set wildignore+=*.swp,*.swo,*.zip,*.tar,*.gz,*.bz2,*.7z,*.rar,*.dmg,*.iso
+if exists('&wildoptions')
+  set wildoptions+=pum
+  if exists('&pumblend') | set pumblend=10 | endif
+endif
+
+" ----- grep: use ripgrep if available -----
+if executable('rg')
+  set grepprg=rg\ --vimgrep\ --smart-case\ --hidden
+  set grepformat=%f:%l:%c:%m
+endif
+
+" ----- Small movement and safety tweaks -----
+nnoremap H ^
+nnoremap L $
+nnoremap Q <Nop>
+command! WQ wq | command! Wq wq | command! W w | command! Q q
+
+" Sudo write on :w!!
+cmap w!! w !sudo tee % >/dev/null
+
+" ----- Colors: base scheme + low-saturation adjustments -----
+set background=dark
+silent! colorscheme desert
+if has('termguicolors') | set termguicolors | endif
+
+if has('termguicolors')
+  highlight CursorLine          guibg=#181818
+  highlight LineNr              guifg=#555555
+  highlight CursorLineNr        guifg=#d7d787 gui=bold
+  highlight StatusLine          guifg=#e0e0e0 guibg=#3a3a3a
+  highlight StatusLineNC        guifg=#999999 guibg=#2a2a2a
+  highlight Visual              guibg=#203850
+  highlight Search              guifg=#000000 guibg=#d7d787
+  highlight IncSearch           guifg=#000000 guibg=#d7af5f
+  highlight Pmenu               guifg=#c0c0c0 guibg=#202020
+  highlight PmenuSel            guifg=#ffffff guibg=#404040
+  highlight MatchParen          guifg=#e0cfa9 guibg=#303030 gui=bold
+  highlight Comment             guifg=#888888
+  highlight Directory           guifg=#87afaf
+  highlight ErrorMsg            guifg=#ffffff guibg=#9c2f2f
+  highlight WarningMsg          guifg=#000000 guibg=#d7af5f
+else
+  highlight CursorLine          ctermbg=236
+  highlight LineNr              ctermfg=242
+  highlight CursorLineNr        ctermfg=186 cterm=bold
+  highlight StatusLine          ctermbg=237 ctermfg=254
+  highlight StatusLineNC        ctermbg=236 ctermfg=245
+  highlight Visual              ctermbg=24
+  highlight Search              ctermbg=186 ctermfg=16
+  highlight IncSearch           ctermbg=179 ctermfg=16
+  highlight Pmenu               ctermbg=235 ctermfg=250
+  highlight PmenuSel            ctermbg=238 ctermfg=231
+  highlight MatchParen          ctermbg=237 ctermfg=223 cterm=bold
+  highlight Comment             ctermfg=245
+  highlight Directory           ctermfg=109
+  highlight ErrorMsg            ctermbg=131 ctermfg=231
+  highlight WarningMsg          ctermbg=179 ctermfg=16
+endif
+
+" ----- IME helpers (portable) -----
+function! s:IMEOff() abort
+  set iminsert=0
+  set imsearch=0
+  if executable('fcitx5-remote')
+    call system('fcitx5-remote -c')
+  elseif executable('fcitx-remote')
+    call system('fcitx-remote -c')
+  elseif executable('im-select')
+    " macOS example layout; adjust if needed
+    call system('im-select com.apple.keylayout.ABC')
+  endif
+endfunction
+
+augroup IMEAutoOff
+  autocmd!
+  autocmd InsertLeave * call <SID>IMEOff()
+  autocmd CmdlineLeave * call <SID>IMEOff()
+augroup END
+
+" Insert-mode quick escape that also cancels IME
+inoremap jj <Esc>:call <SID>IMEOff()<CR>
+inoremap jk <Esc>:call <SID>IMEOff()<CR>
+inoremap <C-^> <C-^>
+
+" ----- Markdown-specific: highlight two trailing spaces (line break) -----
+augroup MarkdownSpaces
+  autocmd!
+  autocmd FileType markdown highlight MarkdownLineBreak ctermbg=236 guibg=#303030 guifg=#87afaf
+  autocmd FileType markdown match MarkdownLineBreak /  $/
+augroup END
+
+" ----- Compatibility guard -----
+if v:version < 800
+  " Add old-Vim fallbacks here if required
+endif
+
