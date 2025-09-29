@@ -1,3 +1,11 @@
+-- helper
+local function has_cmd(bin) return vim.fn.executable(bin) == 1 end
+local function try_fcitx_off()
+  if has_cmd("fcitx5-remote") then
+    vim.fn.jobstart({ "fcitx5-remote", "-c" }, { detach = true })
+  end
+end
+
 -- ==========================
 -- 🌟 自動コマンド設定 (autocmds.lua)
 -- ==========================
@@ -195,15 +203,11 @@ vim.api.nvim_create_autocmd("FileType", {
 autocmd("InsertLeave", {
 	group = generalGroup,
 	pattern = "*",
-	callback = function()
-		vim.fn.jobstart({ "fcitx5-remote", "-c" })
-	end,
+	callback = try_fcitx_off,
 })
 
 autocmd("ModeChanged", {
 	group = generalGroup,
 	pattern = "i:*", -- 挿入モードから他モードへ
-	callback = function()
-		vim.fn.jobstart({ "fcitx5-remote", "-c" })
-	end,
+	callback = try_fcitx_off,
 })

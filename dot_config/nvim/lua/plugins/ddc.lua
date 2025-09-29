@@ -10,7 +10,6 @@ local function setup_ddc_global_options()
 			"CmdlineChanged",
 		},
 		cmdlineSources = {
-			[":"] = { "cmdline_history" },
 			["/"] = { "around" },
 			["?"] = { "around" },
 		},
@@ -26,7 +25,6 @@ local function setup_ddc_global_options()
 			buffer = { mark = "[Buf]" },
 			file = { mark = "[File]", isVolatile = true, forceCompletionPattern = "\\S/\\S*" },
 			cmdline = { mark = "[Cmd]" },
-			["cmdline_history"] = { mark = "[Hist]" },
 		},
 		sourceParams = {
 			around = { maxSize = 500 },

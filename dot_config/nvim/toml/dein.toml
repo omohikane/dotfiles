@@ -28,8 +28,7 @@ EOF
 
 [[plugins]]
 repo = "olimorris/codecompanion.nvim"
-name = "codecompanion.nvim"
-lazy = false
+depends = ["plenary.nvim"]
 hook_add = '''
 lua require("ai.codecompanion")
 '''
@@ -204,7 +203,7 @@ name = 'friendly-snippets'
 [[plugins]]
 repo = 'Shougo/ddc.vim'
 name = 'ddc.vim'
-on_event = 'DenopsReady' # DDCの初期化タイミングに合わせる
+on_event = 'DenopsReady' 
 depends = [
   'denops.vim',
   'ddc-ui-native',
@@ -216,8 +215,7 @@ depends = [
   'ddc-filter-sorter_rank',
   'ddc-filter-converter_remove_overlap',
   'ddc-matcher_fuzzy',
-  'kensaku.vim',                 # ddc-matcher_kensaku の依存
-  'ddc-matcher_kensaku'          # ddc.lua の DenopsReady 内の patch_source で使用
+  'kensaku.vim'
 ]
 hook_add = '''
 lua require("plugins.ddc")
@@ -435,7 +433,7 @@ lua require("plugins.which-key")
 [[plugins]]
 repo = 'epwalsh/obsidian.nvim'
 name = 'obsidian.nvim'
-depends = ['nvim-lua/plenary.nvim']
+depends = ['plenary.nvim']
 on_ft = ['markdown']
 hook_add = '''
 lua require("plugins.obsidian")
@@ -456,3 +454,9 @@ hook_add = '''
 lua require("fcitx5").setup()
 '''
 
+[[plugins]]
+repo = 'amber-lang/amber-vim'
+name = 'amber-vim'
+hook_add = '''
+  autocmd BufRead,BufNewFile *.ab set filetype=amber
+'''
