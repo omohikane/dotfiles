@@ -246,3 +246,16 @@ hook_source = '''
 lua require("plugins.conform").setup()
 '''
 
+#########################################################################
+# Linter
+#########################################################################
+[[plugins]]
+name = 'nvim-lint'
+repo = 'mfussenegger/nvim-lint'
+on_lua = 'lint'
+on_cmd = ['Lint']
+on_event = ['BufReadPost','BufWritePost','InsertLeave']
+hook_source = '''
+lua require("plugins.nvim_lint").setup()
+'''
+

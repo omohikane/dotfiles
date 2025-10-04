@@ -324,7 +324,6 @@ else
   highlight WarningMsg          ctermbg=179 ctermfg=16
 endif
 
-set guicursor=n-v-c:block,i-ci:ver25,r-cr:hor20
 
 " ----- IME helpers and Markdown extras -----
 augroup IMEAutoOff
@@ -347,3 +346,4 @@ if v:version < 800
   " Add old-Vim fallbacks here if required
 endif
 
+set guicursor=n-v-c:block,i-ci:ver25,r-cr:hor20
