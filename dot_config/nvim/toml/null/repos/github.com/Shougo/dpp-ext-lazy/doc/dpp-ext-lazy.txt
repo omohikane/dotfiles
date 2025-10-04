@@ -1,0 +1,91 @@
+*dpp-ext-lazy.txt*	Lazy ext for dpp.vim
+
+Author: Shougo <Shougo.Matsu at gmail.com>
+License: MIT license
+
+CONTENTS                                               *dpp-ext-lazy-contents*
+
+Introduction		|dpp-ext-lazy-introduction|
+Install			|dpp-ext-lazy-install|
+Examples		|dpp-ext-lazy-examples|
+Actions			|dpp-ext-lazy-actions|
+Params			|dpp-ext-lazy-params|
+Compatibility		|dpp-ext-lazy-compatibility|
+
+
+==============================================================================
+INTRODUCTION                                       *dpp-ext-lazy-introduction*
+
+This ext implements lazy loading.
+
+
+==============================================================================
+INSTALL                                                 *dpp-ext-lazy-install*
+
+Please install both "dpp.vim" and "denops.vim".
+
+https://github.com/Shougo/dpp.vim
+https://github.com/vim-denops/denops.vim
+
+
+==============================================================================
+EXAMPLES                                               *dpp-ext-lazy-examples*
+>typescript
+	import type {
+	  Ext as LazyExt,
+	  Params as LazyParams,
+	  LazyMakeStateResult,
+	} from "jsr:@shougo/dpp-ext-lazy";
+
+	const [context, options] = await args.contextBuilder.get(args.denops);
+	const protocols = await args.dpp.getProtocols(args.denops, options);
+	
+	// Get plugins from other exts
+	const plugins = ...
+	
+	const [lazyExt, lazyOptions, lazyParams]: [
+	  LazyExt | undefined,
+	  ExtOptions,
+	  LazyParams,
+	] = await args.dpp.getExt(
+	  args.denops,
+	  options,
+	  "lazy",
+	) as [LazyExt | undefined, ExtOptions, PackspecParams];
+	let lazyResult: LazyMakeStateResult | undefined = undefined;
+	if (lazyExt) {
+	  const action = lazyExt.actions.makeState;
+	
+	  lazyResult = await action.callback({
+	    denops: args.denops,
+	    context,
+	    options,
+	    protocols,
+	    extOptions: lazyOptions,
+	    extParams: lazyParams,
+	    actionParams: {
+	      plugins,
+	    },
+	  });
+	}
+<
+
+==============================================================================
+ACTIONS                                                 *dpp-ext-lazy-actions*
+
+                                               *dpp-ext-lazy-action-makeState*
+makeState
+		Returns state lines for |dpp#make_state()|.
+
+		params:
+			{plugins}:	plugins list.
+					(Required)
+
+==============================================================================
+PARAMS                                                   *dpp-ext-lazy-params*
+
+==============================================================================
+COMPATIBILITY                                     *dpp-ext-lazy-compatibility*
+
+==============================================================================
+vim:tw=78:ts=8:ft=help:norl:noet:fen:noet:

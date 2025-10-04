@@ -1,8 +1,16 @@
 -- plugins/ddc.lua
 
+local function ddc_has_native_ui()
+  local base = vim.fn.stdpath('cache') .. '/dpp'
+  local repo = base .. '/repos/github.com/Shougo/ddc-ui-native/denops/@ddc-uis/native.ts'
+  local snap = base .. '/nvim/.dpp/denops/@ddc-uis/native.ts'
+  return vim.fn.filereadable(repo) == 1 or vim.fn.filereadable(snap) == 1
+end
+
 local function setup_ddc_global_options()
-	vim.fn["ddc#custom#patch_global"]({
-		ui = "native",
+  local ui_name = ddc_has_native_ui() and "native" or "pum"
+  vim.fn["ddc#custom#patch_global"]({
+    ui = ui_name,
 		autoCompleteEvents = {
 			"InsertEnter",
 			"TextChangedI",
@@ -58,6 +66,13 @@ vim.api.nvim_create_autocmd("User", {
 		vim.notify("[ddc] Global settings applied and ddc enabled.", vim.log.levels.INFO)
 	end,
 })
+
+-- try switching to native later if it becomes available after DppUpdate
+vim.defer_fn(function()
+  if ddc_has_native_ui() then
+    vim.fn["ddc#custom#patch_global"]("ui", "native")
+  end
+end, 1200)
 
 vim.api.nvim_create_autocmd("LspAttach", {
 	group = vim.api.nvim_create_augroup("DdcLspAttachConfig", { clear = true }),

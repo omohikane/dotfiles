@@ -46,7 +46,6 @@ keymap("n", "<Leader>tn", ":tabnew<CR>", opts) -- 新しいタブを開く
 keymap("n", "<Leader>tc", ":tabclose<CR>", opts) -- タブを閉じる
 keymap("n", "<Leader>to", ":tabonly<CR>", opts) -- 他のタブを閉じる
 keymap("n", "<Leader>tp", ":tabprevious<CR>", opts) -- 前のタブへ
-keymap("n", "<Leader>tn", ":tabnext<CR>", opts) -- 次のタブへ
 
 -- ==========================
 -- 🔍 検索・置換
@@ -62,8 +61,8 @@ keymap("n", "<Leader>sr", ":%s//g<Left><Left>", opts)
 -- 📂 ファイルナビゲーション
 -- ==========================
 
--- ファイルエクスプローラーを開く（nvim-tree.lua）
-keymap("n", "<Leader>e", ":NvimTreeToggle<CR>", opts)
+-- ファイルエクスプローラーを開く（neotree.lua）
+keymap("n", "<Leader>e", ":Neotree reveal toggle<CR>", opts)
 
 -- ==========================
 -- 🚀 ターミナルモードの改善

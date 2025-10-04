@@ -297,11 +297,11 @@ if has('termguicolors')
   highlight StatusLine          guifg=#e0e0e0 guibg=#3a3a3a
   highlight StatusLineNC        guifg=#999999 guibg=#2a2a2a
   highlight Visual              guibg=#203850
-  highlight Search              guifg=#000000 guibg=#d7d787
-  highlight IncSearch           guifg=#000000 guibg=#d7af5f
+  highlight Search              guifg=#ffffff guibg=#285577
+  highlight IncSearch           guifg=#000000 guibg=#ffb86c
   highlight Pmenu               guifg=#c0c0c0 guibg=#202020
   highlight PmenuSel            guifg=#ffffff guibg=#404040
-  highlight MatchParen          guifg=#e0cfa9 guibg=#303030 gui=bold
+  highlight MatchParen          guifg=#e0cfa9 guibg=#444444 gui=bold
   highlight Comment             guifg=#888888
   highlight Directory           guifg=#87afaf
   highlight ErrorMsg            guifg=#ffffff guibg=#9c2f2f
@@ -313,8 +313,8 @@ else
   highlight StatusLine          ctermbg=237 ctermfg=254
   highlight StatusLineNC        ctermbg=236 ctermfg=245
   highlight Visual              ctermbg=24
-  highlight Search              ctermbg=186 ctermfg=16
-  highlight IncSearch           ctermbg=179 ctermfg=16
+  highlight Search              ctermfg=white ctermbg=24
+  highlight IncSearch           ctermfg=black ctermbg=179
   highlight Pmenu               ctermbg=235 ctermfg=250
   highlight PmenuSel            ctermbg=238 ctermfg=231
   highlight MatchParen          ctermbg=237 ctermfg=223 cterm=bold
@@ -323,6 +323,8 @@ else
   highlight ErrorMsg            ctermbg=131 ctermfg=231
   highlight WarningMsg          ctermbg=179 ctermfg=16
 endif
+
+set guicursor=n-v-c:block,i-ci:ver25,r-cr:hor20
 
 " ----- IME helpers and Markdown extras -----
 augroup IMEAutoOff
