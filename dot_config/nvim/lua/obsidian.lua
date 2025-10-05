@@ -1,0 +1,27 @@
+-- plugins/obsidian.lua
+return {
+        "epwalsh/obsidian.nvim",
+        version = "*",
+        dependencies = { "nvim-lua/plenary.nvim" },
+        ft = "markdown",
+        opts = {
+                workspaces = {
+                        {
+                                name = "vault",
+                                path = "~/GitHub/r1ppl3s-obsidian-notes",
+                        },
+                },
+                completion = {
+                        nvim_cmp = true,
+                },
+                mappings = {
+                        ["gf"] = {
+                                action = function()
+                                        return require("obsidian").util.gf_passthrough()
+                                end,
+                                opts = { noremap = false, expr = true },
+                        },
+                },
+        },
+}
+

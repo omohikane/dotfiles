@@ -1,26 +1,23 @@
 -- plugins/obsidian.lua
-return {
-	"epwalsh/obsidian.nvim",
-	version = "*",
-	dependencies = { "nvim-lua/plenary.nvim" },
-	ft = "markdown",
-	opts = {
-		workspaces = {
-			{
-				name = "vault",
-        path = "~/path/to/your/ObsidianVault", 
-			},
-		},
-		completion = {
-			nvim_cmp = true,
-		},
-		mappings = {
-			["gf"] = {
-				action = function()
-					return require("obsidian").util.gf_passthrough()
-				end,
-				opts = { noremap = false, expr = true },
-			},
-		},
-	},
-}
+local M = {}
+
+function M.setup()
+  local ok, obsidian = pcall(require, "obsidian")
+  if not ok then return end
+
+  local vault = os.getenv("OBSIDIAN_DIR") or "~/Obsidian"  
+  obsidian.setup({
+    workspaces = { { name = "main", path = vault } },
+    completion = { nvim_cmp = false }, 
+    ui = { enable = true },
+    notes_subdir = "notes",
+    daily_notes = { folder = "daily" },
+  })
+
+  vim.keymap.set("n", "<Leader>oo", "<cmd>ObsidianQuickSwitch<CR>", { desc = "Obsidian Quick Switch" })
+  vim.keymap.set("n", "<Leader>on", "<cmd>ObsidianNew<CR>",         { desc = "Obsidian New" })
+  vim.keymap.set("n", "<Leader>ot", "<cmd>ObsidianToday<CR>",       { desc = "Obsidian Today" })
+end
+
+return M
+

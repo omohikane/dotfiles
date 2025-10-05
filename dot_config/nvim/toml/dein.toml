@@ -68,12 +68,18 @@ repo = 'ellisonleao/gruvbox.nvim'
 [[plugins]]
 repo = 'Shougo/ddc-ui-pum'
 
+[[plugins]]
+repo = 'Shougo/ddc-ui-native'
+
 # Sources
 [[plugins]]
 repo = 'Shougo/ddc-source-around'
 
 [[plugins]]
 repo = 'matsui54/ddc-source-buffer'
+
+[[plugins]]
+repo = 'tani/ddc-fuzzy'
 
 [[plugins]]
 name = 'plenary'
@@ -116,6 +122,14 @@ hook_source = '''
 lua require("plugins.telescope").setup()
 '''
 
+[[plugins]]
+name = 'which-key'
+repo = 'folke/which-key.nvim'
+on_event = ['UIEnter']
+hook_source = '''
+lua require("plugins.which_key").setup()
+'''
+
 #########################################################################
 ###  UI Status & Tab Line
 #########################################################################
@@ -146,6 +160,31 @@ on_event = ['VeryLazy']
 hook_source = '''
 lua require("plugins.lualine").setup()
 '''
+
+#########################################################################
+# Motion
+#########################################################################
+[[plugins]]
+name = 'vim-eft'
+repo = 'hrsh7th/vim-eft'
+on_event = ['BufReadPost','BufNewFile']
+
+[[plugins]]
+name = 'quick-scope'
+repo = 'unblevable/quick-scope'
+on_event = ['UIEnter'] 
+hook_add = '''
+let g:qs_highlight_on_keys = ['f', 'F', 't', 'T']
+
+augroup QSColors
+  autocmd!
+  autocmd ColorScheme * highlight QuickScopePrimary   gui=bold,underline cterm=bold
+  autocmd ColorScheme * highlight QuickScopeSecondary gui=underline      cterm=underline
+augroup END
+
+autocmd FileType TelescopePrompt,neo-tree,help QuickScopeDisable
+'''
+
 
 #########################################################################
 # Filters
@@ -235,6 +274,14 @@ on_source = ['ddc.vim']
 #lua require("plugins.ddc_lsp").setup()
 #'''
 
+[[plugins]]
+name = 'fidget'
+repo = 'j-hui/fidget.nvim'
+on_event = ['LspAttach'] 
+hook_source = '''
+lua require("plugins.fidget").setup()
+'''
+
 #########################################################################
 # Formatter 
 #########################################################################
@@ -257,5 +304,103 @@ on_cmd = ['Lint']
 on_event = ['BufReadPost','BufWritePost','InsertLeave']
 hook_source = '''
 lua require("plugins.nvim_lint").setup()
+'''
+
+#########################################################################
+# Terminal
+#########################################################################
+[[plugins]]
+name = 'toggleterm'
+repo = 'akinsho/toggleterm.nvim'
+on_cmd = ['ToggleTerm']
+hook_source = '''
+lua require("plugins.toggleterm").setup()
+'''
+hook_add = '''
+nnoremap <silent> <Leader>tt :ToggleTerm direction=float<CR>
+nnoremap <silent> <Leader>tv :ToggleTerm direction=vertical size=80<CR>
+nnoremap <silent> <Leader>th :ToggleTerm direction=horizontal size=12<CR>
+nnoremap <silent> <Leader>tg :lua require("plugins.toggleterm").lazygit()<CR>
+'''
+
+#########################################################################
+# Edit
+#########################################################################
+[[plugins]]
+name = 'comment'
+repo = 'numToStr/Comment.nvim'
+on_event = ['BufReadPost','BufNewFile']
+hook_source = '''
+lua require("plugins.comment").setup()
+'''
+
+[[plugins]]
+name = 'mini-surround'
+repo = 'echasnovski/mini.surround'
+hook_source = '''
+lua require("plugins.mini_surround").setup()
+'''
+
+[[plugins]]
+name = 'mini-pairs'
+repo = 'echasnovski/mini.pairs'
+on_event = ['InsertEnter']
+hook_source = '''
+lua require("plugins.mini_pairs").setup()
+'''
+
+[[plugins]]
+name = 'ts-autotag'
+repo = 'windwp/nvim-ts-autotag'
+depends = ['treesitter']                      
+on_event = ['BufReadPost','InsertEnter']      
+hook_source = '''
+lua require("plugins.ts_autotag").setup()
+'''
+
+#########################################################################
+# Diagnostics
+#########################################################################
+[[plugins]]
+name = 'trouble'
+repo = 'folke/trouble.nvim'
+depends = ['devicons']
+on_cmd = ['Trouble']
+hook_source = '''
+lua require("plugins.trouble").setup()
+'''
+hook_add = '''
+nnoremap <silent> <Leader>xx :Trouble diagnostics toggle<CR>
+nnoremap <silent> <Leader>xq :Trouble qflist toggle<CR>
+'''
+
+
+#########################################################################
+# Japanese
+#########################################################################
+[[plugins]]
+name = 'kensaku'
+repo = 'lambdalisue/kensaku.vim'
+depends = ['denops.vim']
+
+[[plugins]]
+name = 'kensaku-command'
+repo = 'lambdalisue/kensaku-command.vim'
+depends = ['kensaku']
+on_cmd = ['Kensaku']
+hook_add = '''
+nnoremap <silent> <Leader>sk :<C-u>Kensaku<Space>
+'''
+
+#########################################################################
+# Obsidian
+#########################################################################
+[[plugins]]
+name = 'obsidian'
+repo = 'epwalsh/obsidian.nvim'
+depends = ['plenary'] 
+on_cmd = ['ObsidianQuickSwitch','ObsidianNew','ObsidianToday','ObsidianOpen']
+hook_source = '''
+lua require("plugins.obsidian").setup()
 '''
 
