@@ -1,31 +1,25 @@
 -- plugins/ddc.lua
 
 local function ddc_has_native_ui()
-  local base = vim.fn.stdpath('cache') .. '/dpp'
-  local repo = base .. '/repos/github.com/Shougo/ddc-ui-native/denops/@ddc-uis/native.ts'
-  local snap = base .. '/nvim/.dpp/denops/@ddc-uis/native.ts'
-  return vim.fn.filereadable(repo) == 1 or vim.fn.filereadable(snap) == 1
+	local base = vim.fn.stdpath("cache") .. "/dpp"
+	local repo = base .. "/repos/github.com/Shougo/ddc-ui-native/denops/@ddc-uis/native.ts"
+	local snap = base .. "/nvim/.dpp/denops/@ddc-uis/native.ts"
+	return vim.fn.filereadable(repo) == 1 or vim.fn.filereadable(snap) == 1
 end
 
 local function setup_ddc_global_options()
-  local ui_name = ddc_has_native_ui() and "native" or "pum"
-  vim.fn["ddc#custom#patch_global"]({
-    ui = ui_name,
-		autoCompleteEvents = {
-			"InsertEnter",
-			"TextChangedI",
-			"TextChangedP",
-			"CmdlineChanged",
-		},
+	local ui_name = ddc_has_native_ui() and "native" or "pum"
+	vim.fn["ddc#custom#patch_global"]({
+		ui = ui_name,
+		autoCompleteEvents = { "InsertEnter", "TextChangedI", "TextChangedP", "CmdlineChanged" },
 		cmdlineSources = {
 			["/"] = { "around" },
 			["?"] = { "around" },
 		},
 		sourceOptions = {
 			_ = {
-				matchers = { "matcher_head", "matcher_fuzzy" },
+				matchers = { "matcher_head" },
 				sorters = { "sorter_rank" },
-				converters = { "converter_remove_overlap" },
 				minAutoCompleteLength = 2,
 				ignoreCase = true,
 			},
@@ -39,6 +33,8 @@ local function setup_ddc_global_options()
 			buffer = { requireSameFiletype = false },
 		},
 	})
+
+	vim.fn["ddc#custom#patch_global"]("sources", { "around", "buffer" })
 end
 
 local function setup_ddc_buffer_sources()
@@ -57,51 +53,46 @@ vim.api.nvim_create_autocmd("User", {
 	callback = function()
 		setup_ddc_global_options()
 		vim.fn["ddc#enable_cmdline_completion"]()
-		vim.fn["ddc#custom#patch_global"]("sources", { "around", "buffer" })
-		vim.fn["ddc#custom#patch_source"]("_", {
-			matchers = { "matcher_head" },
-			sorters = { "sorter_rank" },
-		})
 		vim.fn["ddc#enable"]()
-		vim.notify("[ddc] Global settings applied and ddc enabled.", vim.log.levels.INFO)
+		vim.notify("[ddc] enabled", vim.log.levels.INFO)
 	end,
 })
 
--- try switching to native later if it becomes available after DppUpdate
-vim.defer_fn(function()
-  if ddc_has_native_ui() then
-    vim.fn["ddc#custom#patch_global"]("ui", "native")
-  end
-end, 1200)
+vim.api.nvim_create_autocmd("VimEnter", {
+	once = true,
+	callback = function()
+		if vim.fn.exists("*ddc#enable") == 1 then
+			if vim.fn["ddc#_initialized"]() ~= 1 then
+				setup_ddc_global_options()
+				pcall(vim.fn["ddc#enable_cmdline_completion"])
+				pcall(vim.fn["ddc#enable"])
+			end
+		end
+	end,
+})
+
+local function has_lsp_source()
+	return vim.fn.globpath(vim.o.rtp, "denops/@ddc-sources/nvim-lsp.ts") ~= ""
+end
 
 vim.api.nvim_create_autocmd("LspAttach", {
 	group = vim.api.nvim_create_augroup("DdcLspAttachConfig", { clear = true }),
 	callback = function(args)
-		if vim.bo[args.buf].filetype ~= "" then
+		if vim.bo[args.buf].filetype ~= "" and has_lsp_source() then
 			setup_ddc_buffer_sources()
 		end
 	end,
 })
 
--- 補完用のキーマッピング（pum可視性のチェック修正済）
 local function pum_visible()
-	-- Check if the function exists before calling it
 	if vim.fn.exists("*ddc#ui#pum#visible") == 1 then
 		return vim.fn["ddc#ui#pum#visible"]() == 1
-		-- For ddc.vim 5.0+, it might be pum#visible()
-		-- elseif vim.fn.exists("*pum#visible") == 1 then
-		--  return vim.fn["pum#visible"]() == 1
 	end
 	return false
 end
 
 vim.keymap.set("i", "<Tab>", function()
-	if pum_visible() then
-		return "<C-n>" -- 補完候補を次に移動
-	else
-		-- 補完候補が表示されていない場合は、単にタブを挿入
-		return "<Tab>"
-	end
+	return pum_visible() and "<C-n>" or "<Tab>"
 end, { expr = true, noremap = true })
 
 vim.keymap.set("i", "<S-Tab>", function()

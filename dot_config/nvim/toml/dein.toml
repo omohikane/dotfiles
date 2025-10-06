@@ -30,6 +30,9 @@ repo = 'Shougo/pum.vim'
 
 [[plugins]]
 repo = 'Shougo/ddc.vim'
+hook_source = '''
+lua require("plugins.ddc")
+'''
 
 #########################################################################
 # UI Color Schemes
@@ -268,8 +271,8 @@ lua require("plugins.lspconfig").setup()
 [[plugins]]
 name = 'ddc-source-nvim-lsp'
 repo = 'Shougo/ddc-source-nvim-lsp'
-depends = ['ddc.vim', 'pum.vim', 'denops.vim']
-on_source = ['ddc.vim']
+depends = ['ddc.vim',  'denops.vim']
+lazy = false
 #hook_source = '''
 #lua require("plugins.ddc_lsp").setup()
 #'''
