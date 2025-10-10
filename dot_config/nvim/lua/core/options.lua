@@ -137,7 +137,7 @@ opt.splitbelow = true
 opt.splitright = true
 
 -- 補完の動作を設定
-opt.completeopt = { "menuone", "noselect" }
+opt.completeopt = { "menu", "menuone", "noinsert", "noselect" }
 
 -- メッセージを最小限にする
 opt.shortmess:append("c")

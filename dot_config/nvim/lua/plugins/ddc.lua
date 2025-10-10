@@ -7,11 +7,16 @@ local function ddc_has_native_ui()
 	return vim.fn.filereadable(repo) == 1 or vim.fn.filereadable(snap) == 1
 end
 
+-- rtp に ddc-source-nvim-lsp が見えているか
+local function has_lsp_source()
+	return vim.fn.globpath(vim.o.rtp, "denops/@ddc-sources/nvim-lsp.ts") ~= ""
+end
+
 local function setup_ddc_global_options()
 	local ui_name = ddc_has_native_ui() and "native" or "pum"
 	vim.fn["ddc#custom#patch_global"]({
 		ui = ui_name,
-		autoCompleteEvents = { "InsertEnter", "TextChangedI", "TextChangedP", "CmdlineChanged" },
+		autoCompleteEvents = { "InsertEnter", "TextChangedI", "TextChangedP", "CmdlineChanged" }, -- ← カンマ必須
 		cmdlineSources = {
 			["/"] = { "around" },
 			["?"] = { "around" },
@@ -25,7 +30,11 @@ local function setup_ddc_global_options()
 			},
 			around = { mark = "[Ard]" },
 			buffer = { mark = "[Buf]" },
-			file = { mark = "[File]", isVolatile = true, forceCompletionPattern = "\\S/\\S*" },
+			file = {
+				mark = "[File]",
+				isVolatile = true,
+				forceCompletionPattern = "\\S/\\S*",
+			}, -- ← 閉じとカンマ
 			cmdline = { mark = "[Cmd]" },
 		},
 		sourceParams = {
@@ -34,6 +43,7 @@ local function setup_ddc_global_options()
 		},
 	})
 
+	-- グローバルの既定ソース
 	vim.fn["ddc#custom#patch_global"]("sources", { "around", "buffer" })
 end
 
@@ -47,6 +57,7 @@ local function setup_ddc_buffer_sources()
 	})
 end
 
+-- Denops 準備後に ddc を起動（これが本命）
 vim.api.nvim_create_autocmd("User", {
 	pattern = "DenopsReady",
 	once = true,
@@ -58,23 +69,19 @@ vim.api.nvim_create_autocmd("User", {
 	end,
 })
 
+-- （保険）VimEnter 時、まだ未初期化なら起動
 vim.api.nvim_create_autocmd("VimEnter", {
 	once = true,
 	callback = function()
-		if vim.fn.exists("*ddc#enable") == 1 then
-			if vim.fn["ddc#_initialized"]() ~= 1 then
-				setup_ddc_global_options()
-				pcall(vim.fn["ddc#enable_cmdline_completion"])
-				pcall(vim.fn["ddc#enable"])
-			end
+		if vim.fn.exists("*ddc#enable") == 1 and vim.fn["ddc#_initialized"]() ~= 1 then
+			setup_ddc_global_options()
+			pcall(vim.fn["ddc#enable_cmdline_completion"])
+			pcall(vim.fn["ddc#enable"])
 		end
 	end,
 })
 
-local function has_lsp_source()
-	return vim.fn.globpath(vim.o.rtp, "denops/@ddc-sources/nvim-lsp.ts") ~= ""
-end
-
+-- LSP が付いたときだけ LSP ソースを足す（存在チェック付き）
 vim.api.nvim_create_autocmd("LspAttach", {
 	group = vim.api.nvim_create_augroup("DdcLspAttachConfig", { clear = true }),
 	callback = function(args)
@@ -84,27 +91,41 @@ vim.api.nvim_create_autocmd("LspAttach", {
 	end,
 })
 
-local function pum_visible()
-	if vim.fn.exists("*ddc#ui#pum#visible") == 1 then
-		return vim.fn["ddc#ui#pum#visible"]() == 1
-	end
-	return false
+-- ===== 補完メニュー操作（native / pum 両対応） =====
+local function using_pum()
+	return vim.fn.exists("*pum#visible") == 1 and vim.fn["pum#visible"]() == 1
+end
+local function using_native()
+	return vim.fn.exists("*pum#visible") == 0 and vim.fn.pumvisible() == 1
 end
 
+-- Enterで確定（メニュー表示時のみ確定に切替）
+vim.keymap.set("i", "<CR>", function()
+	if using_pum() then
+		return vim.fn["pum#map#confirm"]() -- pum 用確定
+	elseif using_native() then
+		return vim.api.nvim_replace_termcodes("<C-y>", true, true, true) -- native 用確定
+	else
+		return vim.api.nvim_replace_termcodes("<CR>", true, true, true) -- 通常改行
+	end
+end, { expr = true, noremap = true })
+
+-- 候補ナビゲーション（任意）
 vim.keymap.set("i", "<Tab>", function()
-	return pum_visible() and "<C-n>" or "<Tab>"
+	if using_pum() then
+		return "<Cmd>call pum#map#select_relative(+1)<CR>"
+	end
+	return using_native() and "<C-n>" or "<Tab>"
 end, { expr = true, noremap = true })
 
 vim.keymap.set("i", "<S-Tab>", function()
-	return pum_visible() and "<C-p>" or "<C-h>"
+	if using_pum() then
+		return "<Cmd>call pum#map#select_relative(-1)<CR>"
+	end
+	return using_native() and "<C-p>" or "<S-Tab>"
 end, { expr = true, noremap = true })
 
-vim.keymap.set("i", "<C-j>", function()
-	return pum_visible() and "<CR>"
-		or (vim.fn.col(".") <= 1 or vim.fn.getline("."):sub(vim.fn.col(".") - 1, vim.fn.col(".") - 1):match("%s")) and "<Tab>"
-		or vim.fn["ddc#map#manual_complete"]()
-end, { expr = true, noremap = true })
-
-vim.keymap.set("i", "<C-k>", function()
-	return pum_visible() and "<C-p>" or ""
+-- 手動トリガ（補完を明示開始）
+vim.keymap.set("i", "<C-Space>", function()
+	return vim.fn["ddc#map#manual_complete"]()
 end, { expr = true, noremap = true })
