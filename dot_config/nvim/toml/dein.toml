@@ -87,6 +87,7 @@ repo = 'tani/ddc-fuzzy'
 [[plugins]]
 name = 'plenary'
 repo = 'nvim-lua/plenary.nvim'
+lazy = false
 
 [[plugins]]
 name = 'nui'
@@ -95,6 +96,7 @@ repo = 'MunifTanjim/nui.nvim'
 [[plugins]]
 name = 'devicons'
 repo = 'nvim-tree/nvim-web-devicons'
+lazy = false
 
 #########################################################################
 ###  UI Explorer
@@ -180,15 +182,7 @@ name = 'quick-scope'
 repo = 'unblevable/quick-scope'
 on_event = ['UIEnter'] 
 hook_add = '''
-let g:qs_highlight_on_keys = ['f', 'F', 't', 'T']
-
-augroup QSColors
-  autocmd!
-  autocmd ColorScheme * highlight QuickScopePrimary   gui=bold,underline cterm=bold
-  autocmd ColorScheme * highlight QuickScopeSecondary gui=underline      cterm=underline
-augroup END
-
-autocmd FileType TelescopePrompt,neo-tree,help QuickScopeDisable
+autocmd FileType TelescopePrompt,neo-tree,help if exists(':QuickScopeDisable') | QuickScopeDisable | endif
 '''
 
 
