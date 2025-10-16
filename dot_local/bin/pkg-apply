@@ -1,0 +1,88 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+# pkg-apply: Read package names from one or more list files and install them via yay.
+# - Ignores ONLY blank lines and lines that start with '#'
+# - Default manager: yay (required). You can override with PKG_MGR env (e.g. PKG_MGR="paru")
+# - Non-interactive: set YAY_FLAGS="--needed --noconfirm"
+#
+# Usage:
+#   pkg-apply path/to/list.txt [more.txt ...]
+#   cat list.txt | pkg-apply -                      # read from stdin
+#
+# Environment:
+#   PKG_MGR   : package manager command (default: yay)
+#   YAY_FLAGS : flags passed to the manager (default: --needed)
+
+PKG_MGR="${PKG_MGR:-yay}"
+PKG_FLAGS="${YAY_FLAGS:---needed}"
+
+have() { command -v "$1" >/dev/null 2>&1; }
+
+die() { echo "error: $*" >&2; exit 1; }
+
+usage() {
+  cat <<EOF
+Usage: ${0##*/} <list1> [list2 ...]
+  Each list is a plain text file with one package name per line.
+  Blank lines and lines starting with '#' are ignored.
+  Use '-' to read from stdin.
+
+Env:
+  PKG_MGR   (default: yay)         e.g. PKG_MGR=paru
+  YAY_FLAGS (default: --needed)    e.g. YAY_FLAGS="--needed --noconfirm"
+EOF
+}
+
+# --- parse args ---
+[[ $# -ge 1 ]] || { usage; exit 1; }
+have "$PKG_MGR" || die "'$PKG_MGR' not found in PATH."
+
+# --- collect packages from all inputs ---
+declare -a PKGS
+declare -A SEEN
+
+read_list() {
+  local src="$1"
+  local line
+  while IFS= read -r line || [[ -n "$line" ]]; do
+    # keep only: non-empty lines that do NOT start with '#'
+    [[ -z "$line" ]] && continue
+    [[ "$line" =~ ^[[:space:]]*# ]] && continue
+    # trim leading/trailing spaces
+    line="${line#"${line%%[![:space:]]*}"}"
+    line="${line%"${line##*[![:space:]]}"}"
+    [[ -z "$line" ]] && continue
+    # de-duplicate
+    if [[ -z "${SEEN[$line]+_}" ]]; then
+      SEEN["$line"]=1
+      PKGS+=("$line")
+    fi
+  done
+}
+
+for arg in "$@"; do
+  if [[ "$arg" == "-" ]]; then
+    read_list /dev/stdin
+  else
+    [[ -f "$arg" ]] || die "list file not found: $arg"
+    read_list "$arg" <"$arg"
+  fi
+done
+
+if [[ ${#PKGS[@]} -eq 0 ]]; then
+  echo "info: no packages to install (after filtering)."
+  exit 0
+fi
+
+echo "==> manager : $PKG_MGR"
+echo "==> flags   : $PKG_FLAGS"
+echo "==> count   : ${#PKGS[@]}"
+printf '==> packages: %s\n' "${PKGS[*]}"
+
+# Run installer
+set -x
+"$PKG_MGR" $PKG_FLAGS -S "${PKGS[@]}"
+set +x
+echo "==> done."
+
