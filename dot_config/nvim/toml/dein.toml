@@ -418,6 +418,23 @@ hook_add = '''
 nnoremap <silent> <Leader>sk :<C-u>Kensaku<Space>
 '''
 
+# IME / Japanese Input (SKK)
+[[plugins]]
+name = 'skkeleton'
+repo = 'vim-skk/skkeleton'
+depends = ['vim-denops/denops.vim']
+on_event = ['InsertEnter'] 
+hook_source = '''
+lua require("plugins.skkleton").setup()
+'''
+
+[[plugins]]
+name = 'ddc-source-skkeleton'
+repo = 'Shougo/ddc-source-skkeleton'
+depends = ['Shougo/ddc.vim', 'vim-skk/skkeleton', 'vim-denops/denops.vim']
+on_source = ['ddc.vim']
+
+
 #########################################################################
 # Obsidian
 #########################################################################

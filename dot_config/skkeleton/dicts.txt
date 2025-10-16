@@ -1,0 +1,8 @@
+https://skk-dev.github.io/dict/SKK-JISYO.L.gz
+https://skk-dev.github.io/dict/SKK-JISYO.jinmei.gz
+https://skk-dev.github.io/dict/SKK-JISYO.geo.gz
+https://skk-dev.github.io/dict/SKK-JISYO.propernoun.gz
+https://skk-dev.github.io/dict/SKK-JISYO.china_taiwan.gz
+https://skk-dev.github.io/dict/SKK-JISYO.edict.tar.gz
+https://skk-dev.github.io/dict/zipcode.tar.gz
+https://skk-dev.github.io/dict/SKK-JISYO.lisp.gz

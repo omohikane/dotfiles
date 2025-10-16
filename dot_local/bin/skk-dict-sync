@@ -1,0 +1,113 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+# skk-dict-sync: Download & extract SKK dictionaries from list files.
+# Usage:
+#   skk-dict-sync [dicts.txt ...]      # default: ~/.config/skkeleton/dicts.txt
+# Options:
+#   DRY_RUN=1 skk-dict-sync ...        # show actions only
+# Notes:
+#   - Ignores blank lines and lines starting with '#'
+#   - Handles .gz and .tar.gz
+#   - Outputs decompressed files into ~/.local/share/skk
+
+DEFAULT_LIST="${XDG_CONFIG_HOME:-$HOME/.config}/skkeleton/dicts.txt"
+DEST_DIR="${XDG_DATA_HOME:-$HOME/.local/share}/skk"
+CACHE_DIR="${XDG_CACHE_HOME:-$HOME/.cache}/skk-dict-sync"
+
+mkdir -p "$DEST_DIR" "$CACHE_DIR"
+
+# pick lists
+if [[ $# -eq 0 ]]; then
+  LISTS=("$DEFAULT_LIST")
+else
+  LISTS=("$@")
+fi
+
+have() { command -v "$1" >/dev/null 2>&1; }
+
+for need in curl gzip tar; do
+  have "$need" || { echo "error: '$need' is required." >&2; exit 1; }
+done
+
+collect_urls() {
+  local f="$1"
+  [[ -f "$f" ]] || { echo "error: list file not found: $f" >&2; exit 1; }
+  # strip comments/blank
+  grep -v '^\s*#' "$f" | sed '/^\s*$/d'
+}
+
+declare -a URLS
+declare -A SEEN
+for f in "${LISTS[@]}"; do
+  while IFS= read -r u || [[ -n "$u" ]]; do
+    [[ -z "$u" ]] && continue
+    [[ -n "${SEEN[$u]:-}" ]] && continue
+    SEEN["$u"]=1
+    URLS+=("$u")
+  done < <(collect_urls "$f")
+done
+
+if [[ ${#URLS[@]} -eq 0 ]]; then
+  echo "info: no URLs to process."
+  exit 0
+fi
+
+echo "==> Dest : $DEST_DIR"
+echo "==> Cache: $CACHE_DIR"
+echo "==> URLs : ${#URLS[@]}"
+
+download_if_newer() {
+  local url="$1"
+  local out="$2"
+  # Try conditional download if cache exists
+  if [[ -f "$out" ]]; then
+    curl -fsSIL "$url" >/dev/null || { echo "warn: HEAD failed for $url"; }
+    curl -fsSL -z "$out" -o "$out" "$url"
+  else
+    curl -fsSL -o "$out" "$url"
+  fi
+}
+
+process_url() {
+  local url="$1"
+  local base="$(basename "$url")"
+  local cache="$CACHE_DIR/$base"
+
+  echo "--> $url"
+  [[ -n "${DRY_RUN:-}" ]] && { echo "    (dry run) would download to $cache"; return 0; }
+
+  download_if_newer "$url" "$cache"
+
+  case "$base" in
+    *.tar.gz)
+      echo "    extracting tar.gz -> $DEST_DIR"
+      tar -xzf "$cache" -C "$DEST_DIR"
+      ;;
+    *.gz)
+      local out="$DEST_DIR/${base%.gz}"
+      echo "    decompressing gz -> $out"
+      gzip -dc "$cache" > "$out"
+      ;;
+    *)
+      # plain file
+      echo "    copying -> $DEST_DIR/$base"
+      cp -f "$cache" "$DEST_DIR/$base"
+      ;;
+  esac
+}
+
+for u in "${URLS[@]}"; do
+  process_url "$u"
+done
+
+# manifest
+MANIFEST="$DEST_DIR/manifest.txt"
+{
+  echo "# generated: $(date -u +'%Y-%m-%dT%H:%M:%SZ')"
+  find "$DEST_DIR" -maxdepth 1 -type f ! -name '*.gz' ! -name '*.tar' ! -name '*.tar.gz' -printf '%f\n' | sort
+} > "$MANIFEST"
+
+echo "==> done. Installed files:"
+cat "$MANIFEST"
+
