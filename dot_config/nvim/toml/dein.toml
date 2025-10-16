@@ -283,6 +283,32 @@ lua require("plugins.fidget").setup()
 '''
 
 #########################################################################
+# Coding
+#########################################################################
+[[plugins]]
+name = 'go-nvim'
+repo = 'ray-x/go.nvim'
+depends = ['nvim-treesitter', 'lspconfig', 'plenary']
+on_ft = ['go']
+hook_source = '''
+lua require("lang.go").setup()
+'''
+
+[[plugins]]
+name = 'rustacean'
+repo = 'mrcjkb/rustaceanvim'
+on_ft = ['rust']
+
+[[plugins]]
+name = 'elixir-tools'
+repo = 'elixir-tools/elixir-tools.nvim'
+depends = ['plenary']
+on_ft = ['elixir','eelixir','heex','surface']
+hook_source = '''
+lua require("lang.elixir").setup()
+'''
+
+#########################################################################
 # Formatter 
 #########################################################################
 [[plugins]]
