@@ -6,19 +6,22 @@ function M.setup()
 
   conform.setup({
     formatters_by_ft = {
-      lua = { "stylua" },
-      sh  = { "shfmt" },
-      bash= { "shfmt" },
-      python = { "ruff_format", "black" },
-      javascript = { "prettier" },
-      typescript = { "prettier" },
+      lua             = { "stylua" },
+      sh              = { "shfmt" },
+      bash            = { "shfmt" },
+      python          = { "ruff_format", "black" },
+      javascript      = { "prettier" },
+      typescript      = { "prettier" },
       javascriptreact = { "prettier" },
       typescriptreact = { "prettier" },
-      json = { "prettier" },
-      yaml = { "prettier" },
-      html = { "prettier" },
-      css  = { "prettier" },
-      markdown = { "prettier" },
+      go              = { "gofumpt", "golines" },
+      rust            = { "rustfmt" },
+      elixir          = { "mix" },
+      json            = { "prettier" },
+      yaml            = { "prettier" },
+      html            = { "prettier" },
+      css             = { "prettier" },
+      markdown        = { "prettier" },
     },
 
     format_on_save = function(bufnr)
@@ -32,4 +35,3 @@ function M.setup()
 end
 
 return M
-

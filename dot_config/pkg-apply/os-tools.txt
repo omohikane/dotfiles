@@ -1,0 +1,23 @@
+# os-tools.txt
+# === basic =========================================
+git
+ripgrep
+fd
+jq
+unzip
+zip
+tar
+gzip
+wget
+curl
+openssh
+
+# === build ===================================
+base-devel
+cmake
+ninja
+pkgconf
+
+# === others ============================================
+lazygit
+

@@ -1,0 +1,49 @@
+# /tools/dev-packages.txt
+
+# === LSP ============================================
+vscode-langservers-extracted
+pyright
+typescript-language-server
+bash-language-server
+yaml-language-server
+marksman
+rust-analyzer
+gopls
+elixir-ls
+
+# === Terraform ===================================================
+terraform-ls
+
+# === Formatter / Linter =========================================
+# Lua
+stylua
+
+# Python
+python-black
+python-isort
+ruff
+
+# Shell
+shfmt
+shellcheck
+
+# YAML
+yamllint
+
+# Terraform
+tflint
+
+# JS/TS
+prettier
+prettierd
+eslint_d
+
+# Markdown
+markdownlint-cli2
+
+# === Go  =================================================
+gofumpt
+golangci-lint
+golines
+delve
+
