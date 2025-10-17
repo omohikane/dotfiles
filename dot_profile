@@ -1,0 +1,11 @@
+export XDG_CURRENT_DESKTOP=sway
+export XDG_SESSION_DESKTOP=sway
+export XDG_SESSION_TYPE=wayland
+export XDG_DATA_DIRS="/usr/local/share:/usr/share:/usr/share/applications:$HOME/.local/share/applications:/var/lib/snapd/desktop"
+
+# fcitx5 input method environment
+export GTK_IM_MODULE=fcitx
+export QT_IM_MODULE=fcitx
+export XMODIFIERS="@im=fcitx"
+export SDL_IM_MODULE=fcitx
+

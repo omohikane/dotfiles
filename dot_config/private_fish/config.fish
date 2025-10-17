@@ -68,6 +68,14 @@ if status is-interactive
 
 end
 
+# fcitx5 input method environment (Wayland / Sway)
+set -x GTK_IM_MODULE fcitx
+set -x QT_IM_MODULE fcitx
+set -x XMODIFIERS "@im=fcitx"
+set -x SDL_IM_MODULE fcitx
+set -x FCITX_BACKEND wayland
+set -x WAYLAND_DISPLAY wayland-1
+
 
 # plugin
 fzf_configure_bindings --history=ctrl-r

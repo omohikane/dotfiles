@@ -289,6 +289,8 @@ assign [app_id='obsidian'] 8
 
 # Auto Start Input Method
 exec fcitx5
+exec_always env WAYLAND_DISPLAY=wayland-1 FCITX_BACKEND=wayland fcitx5 -d
+
 
 # Auto start dunst 
 exec --no-startup-id dunst
