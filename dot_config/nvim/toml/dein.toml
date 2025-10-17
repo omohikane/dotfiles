@@ -1,6 +1,7 @@
 #########################################################################
 ### Core 
 [[plugins]]
+name = 'denops'
 repo = 'vim-denops/denops.vim'
 
 [[plugins]]
@@ -268,7 +269,7 @@ lua require("plugins.lspconfig").setup()
 [[plugins]]
 name = 'ddc-source-nvim-lsp'
 repo = 'Shougo/ddc-source-nvim-lsp'
-depends = ['ddc.vim',  'denops.vim']
+depends = ['ddc.vim',  'denops']
 lazy = false
 #hook_source = '''
 #lua require("plugins.ddc_lsp").setup()
@@ -407,7 +408,7 @@ nnoremap <silent> <Leader>xq :Trouble qflist toggle<CR>
 [[plugins]]
 name = 'kensaku'
 repo = 'lambdalisue/kensaku.vim'
-depends = ['denops.vim']
+depends = ['denops']
 
 [[plugins]]
 name = 'kensaku-command'
@@ -422,16 +423,16 @@ nnoremap <silent> <Leader>sk :<C-u>Kensaku<Space>
 [[plugins]]
 name = 'skkeleton'
 repo = 'vim-skk/skkeleton'
-depends = ['vim-denops/denops.vim']
+depends = ['denops']
 on_event = ['InsertEnter'] 
 hook_source = '''
-lua require("plugins.skkleton").setup()
+lua require("plugins.skkeleton").setup()
 '''
 
 [[plugins]]
 name = 'ddc-source-skkeleton'
 repo = 'Shougo/ddc-source-skkeleton'
-depends = ['Shougo/ddc.vim', 'vim-skk/skkeleton', 'vim-denops/denops.vim']
+depends = ['Shougo/ddc.vim', 'vim-skk/skkeleton', 'denops']
 on_source = ['ddc.vim']
 
 
