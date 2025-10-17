@@ -259,7 +259,12 @@ bindsym XF86MonBrightnessDown exec brightnessctl set 5%-
     bindsym mod1+e exec dolphin
 
 # other apps
-    bindsym mod1+s exec gtk-launch slack
+    bindsym mod1+s exec env QT_QPA_PLATFORM=xcb \
+                      ELECTRON_OZONE_PLATFORM_HINT=x11 \
+                      XDG_SESSION_TYPE=x11 \
+                      FCITX_BACKEND=x11 \
+                      slack --disable-gpu
+
 
 bindsym mod1+n exec $term --class nvim-plain -e nvim
 assign [app_id=nvim-plain] 1
@@ -289,7 +294,8 @@ assign [app_id='obsidian'] 8
 
 # Auto Start Input Method
 exec fcitx5
-exec_always env WAYLAND_DISPLAY=wayland-1 FCITX_BACKEND=wayland fcitx5 -d
+exec_always env WAYLAND_DISPLAY=wayland-1 FCITX_BACKEND=wayland GDK_BACKEND=wayland QT_QPA_PLATFORM=wayland fcitx5 -d
+
 
 
 # Auto start dunst 
