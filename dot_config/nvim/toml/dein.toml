@@ -369,14 +369,6 @@ lua require("plugins.mini_surround").setup()
 '''
 
 [[plugins]]
-name = 'mini-pairs'
-repo = 'echasnovski/mini.pairs'
-on_event = ['InsertEnter']
-hook_source = '''
-lua require("plugins.mini_pairs").setup()
-'''
-
-[[plugins]]
 name = 'ts-autotag'
 repo = 'windwp/nvim-ts-autotag'
 depends = ['treesitter']                      
