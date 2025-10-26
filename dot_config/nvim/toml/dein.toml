@@ -125,7 +125,7 @@ nnoremap <silent> <Leader>fb :Telescope buffers<CR>
 nnoremap <silent> <Leader>fr :Telescope oldfiles<CR>
 '''
 hook_source = '''
-lua require("plugins.telescope").setup()
+lua require('plugins.telescope').setup()
 '''
 
 [[plugins]]
@@ -133,7 +133,7 @@ name = 'which-key'
 repo = 'folke/which-key.nvim'
 on_event = ['UIEnter']
 hook_source = '''
-lua require("plugins.which_key").setup()
+lua require('plugins.which_key').setup()
 '''
 
 
@@ -157,7 +157,7 @@ nnoremap <silent> <A-p> :BufferPin<CR>
 nnoremap <silent> <C-p> :BufferPick<CR>
 '''
 hook_source = '''
-lua require("plugins.barbar").setup()
+lua require('plugins.barbar').setup()
 '''
 
 # Statusline
@@ -167,7 +167,7 @@ repo = 'nvim-lualine/lualine.nvim'
 depends = ['devicons']
 on_event = ['VeryLazy']
 hook_source = '''
-lua require("plugins.lualine").setup()
+lua require('plugins.lualine').setup()
 '''
 
 #########################################################################
@@ -204,7 +204,7 @@ name = 'gitsigns'
 repo = 'lewis6991/gitsigns.nvim'
 on_event = ['BufReadPost']
 hook_source = '''
-lua require("plugins.gitsigns").setup()
+lua require('plugins.gitsigns').setup()
 '''
 
 [[plugins]]
@@ -228,7 +228,7 @@ repo = 'nvim-treesitter/nvim-treesitter'
 on_event = ['BufReadPost']
 on_cmd   = ['TSUpdate','TSUpdateSync','TSInstall','TSInstallSync','TSUninstall','TSModuleInfo']
 hook_source = '''
-lua require("plugins.nvim-treesitter").setup()
+lua require('plugins.nvim-treesitter').setup()
 '''
 
 [[plugins]]
@@ -236,7 +236,7 @@ name = 'ibl'
 repo = 'lukas-reineke/indent-blankline.nvim'
 on_event = ['BufReadPost']
 hook_source = '''
-lua require("plugins.ibl").setup()
+lua require('plugins.ibl').setup()
 '''
 
 [[plugins]]
@@ -244,7 +244,7 @@ name = 'rainbow-delimiters'
 repo = 'HiPhish/rainbow-delimiters.nvim'
 on_event = ['BufReadPost']
 hook_source = '''
-lua require("plugins.rainbow_delimiters").setup()
+lua require('plugins.rainbow_delimiters').setup()
 '''
 
 [[plugins]]
@@ -253,7 +253,7 @@ repo = 'nvim-treesitter/nvim-treesitter-context'
 depends = ['treesitter']
 on_event = ['BufReadPost']
 hook_source = '''
-lua require("plugins.ts_context").setup()
+lua require('plugins.ts_context').setup()
 '''
 
 #########################################################################
@@ -263,7 +263,7 @@ lua require("plugins.ts_context").setup()
 name = 'lspconfig'
 repo = 'neovim/nvim-lspconfig'
 hook_source = '''
-lua require("plugins.lspconfig").setup()
+lua require('plugins.lspconfig').setup()
 '''
 
 [[plugins]]
@@ -280,7 +280,7 @@ name = 'fidget'
 repo = 'j-hui/fidget.nvim'
 on_event = ['LspAttach'] 
 hook_source = '''
-lua require("plugins.fidget").setup()
+lua require('plugins.fidget').setup()
 '''
 
 #########################################################################
@@ -292,7 +292,7 @@ repo = 'ray-x/go.nvim'
 depends = ['nvim-treesitter', 'lspconfig', 'plenary']
 on_ft = ['go']
 hook_source = '''
-lua require("lang.go").setup()
+lua require('lang.go').setup()
 '''
 
 [[plugins]]
@@ -306,7 +306,7 @@ repo = 'elixir-tools/elixir-tools.nvim'
 depends = ['plenary']
 on_ft = ['elixir','eelixir','heex','surface']
 hook_source = '''
-lua require("lang.elixir").setup()
+lua require('lang.elixir').setup()
 '''
 
 #########################################################################
@@ -317,7 +317,7 @@ name = 'conform'
 repo = 'stevearc/conform.nvim'
 on_event = ['BufWritePre']
 hook_source = '''
-lua require("plugins.conform").setup()
+lua require('plugins.conform').setup()
 '''
 
 #########################################################################
@@ -330,7 +330,7 @@ on_lua = 'lint'
 on_cmd = ['Lint']
 on_event = ['BufReadPost','BufWritePost','InsertLeave']
 hook_source = '''
-lua require("plugins.nvim_lint").setup()
+lua require('plugins.nvim_lint').setup()
 '''
 
 #########################################################################
@@ -341,7 +341,7 @@ name = 'toggleterm'
 repo = 'akinsho/toggleterm.nvim'
 on_cmd = ['ToggleTerm']
 hook_source = '''
-lua require("plugins.toggleterm").setup()
+lua require('plugins.toggleterm').setup()
 '''
 hook_add = '''
 nnoremap <silent> <Leader>tt :ToggleTerm direction=float<CR>
@@ -358,14 +358,14 @@ name = 'comment'
 repo = 'numToStr/Comment.nvim'
 on_event = ['BufReadPost','BufNewFile']
 hook_source = '''
-lua require("plugins.comment").setup()
+lua require('plugins.comment').setup()
 '''
 
 [[plugins]]
 name = 'mini-surround'
 repo = 'echasnovski/mini.surround'
 hook_source = '''
-lua require("plugins.mini_surround").setup()
+lua require('plugins.mini_surround').setup()
 '''
 
 [[plugins]]
@@ -374,7 +374,7 @@ repo = 'windwp/nvim-ts-autotag'
 depends = ['treesitter']                      
 on_event = ['BufReadPost','InsertEnter']      
 hook_source = '''
-lua require("plugins.ts_autotag").setup()
+lua require('plugins.ts_autotag').setup()
 '''
 
 #########################################################################
@@ -386,7 +386,7 @@ repo = 'folke/trouble.nvim'
 depends = ['devicons']
 on_cmd = ['Trouble']
 hook_source = '''
-lua require("plugins.trouble").setup()
+lua require('plugins.trouble').setup()
 '''
 hook_add = '''
 nnoremap <silent> <Leader>xx :Trouble diagnostics toggle<CR>
@@ -418,7 +418,7 @@ repo = 'vim-skk/skkeleton'
 depends = ['denops']
 on_event = ['InsertEnter'] 
 hook_source = '''
-lua require("plugins.skkeleton").setup()
+lua require('plugins.skkeleton').setup()
 '''
 
 [[plugins]]
@@ -437,6 +437,5 @@ repo = 'epwalsh/obsidian.nvim'
 depends = ['plenary'] 
 on_cmd = ['ObsidianQuickSwitch','ObsidianNew','ObsidianToday','ObsidianOpen']
 hook_source = '''
-lua require("plugins.obsidian").setup()
+lua require('plugins.obsidian').setup()
 '''
-
