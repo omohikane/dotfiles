@@ -26,14 +26,70 @@ repo = 'Shougo/dpp-ext-local'
 #########################################################################
 # Completion core
 #########################################################################
+# [[plugins]]
+# repo = 'Shougo/pum.vim'
+
+# [[plugins]]
+# repo = 'Shougo/ddc.vim'
+# hook_source = '''
+# lua require("plugins.ddc")
+# '''
+
+#########################################################################
+# Completion (nvim-cmp)
+#########################################################################
 [[plugins]]
-repo = 'Shougo/pum.vim'
+name = 'nvim-cmp'
+repo = 'hrsh7th/nvim-cmp'
+hook_source = '''
+lua require("plugins.cmp").setup()
+'''
 
 [[plugins]]
-repo = 'Shougo/ddc.vim'
+name = 'cmp-nvim-lsp'
+repo = 'hrsh7th/cmp-nvim-lsp'
+depends = ['nvim-cmp']
+
+[[plugins]]
+name = 'cmp-buffer'
+repo = 'hrsh7th/cmp-buffer'
+depends = ['nvim-cmp']
+
+[[plugins]]
+name = 'cmp-path'
+repo = 'hrsh7th/cmp-path'
+depends = ['nvim-cmp']
+
+[[plugins]]
+name = 'cmp-cmdline'
+repo = 'hrsh7th/cmp-cmdline'
+depends = ['nvim-cmp']
+
+[[plugins]]
+name = 'cmp-setup'
+repo = 'local/cmp-setup'
+on_source = ['nvim-cmp']
 hook_source = '''
-lua require("plugins.ddc")
+lua require("plugins.cmp").setup()
 '''
+
+#########################################################################
+# Snippets for nvim-cmp
+#########################################################################
+[[plugins]]
+repo = 'L3MON4D3/LuaSnip'
+depends = ['friendly-snippets']
+hook_source = '''
+lua require('luasnip.loaders.from_vscode').lazy_load()
+'''
+
+[[plugins]]
+repo = 'saadparwaiz1/cmp_luasnip'
+depends = ['nvim-cmp']
+
+[[plugins]]
+repo = 'rafamadriz/friendly-snippets'
+
 
 #########################################################################
 # UI Color Schemes
@@ -69,21 +125,21 @@ repo = 'ellisonleao/gruvbox.nvim'
 #########################################################################
 # UI (start with pum for stability)
 #########################################################################
-[[plugins]]
-repo = 'Shougo/ddc-ui-pum'
+# [[plugins]]
+# repo = 'Shougo/ddc-ui-pum'
 
-[[plugins]]
-repo = 'Shougo/ddc-ui-native'
+# [[plugins]]
+# repo = 'Shougo/ddc-ui-native'
 
 # Sources
-[[plugins]]
-repo = 'Shougo/ddc-source-around'
+# [[plugins]]
+# repo = 'Shougo/ddc-source-around'
 
-[[plugins]]
-repo = 'matsui54/ddc-source-buffer'
+# [[plugins]]
+# repo = 'matsui54/ddc-source-buffer'
 
-[[plugins]]
-repo = 'tani/ddc-fuzzy'
+# [[plugins]]
+# repo = 'tani/ddc-fuzzy'
 
 [[plugins]]
 name = 'plenary'
@@ -190,11 +246,11 @@ autocmd FileType TelescopePrompt,neo-tree,help if exists(':QuickScopeDisable') |
 #########################################################################
 # Filters
 #########################################################################
-[[plugins]]
-repo = 'Shougo/ddc-filter-matcher_head'
+# [[plugins]]
+# repo = 'Shougo/ddc-filter-matcher_head'
 
-[[plugins]]
-repo = 'Shougo/ddc-filter-sorter_rank'
+# [[plugins]]
+# repo = 'Shougo/ddc-filter-sorter_rank'
 
 #########################################################################
 # Git
@@ -266,14 +322,14 @@ hook_source = '''
 lua require('plugins.lspconfig').setup()
 '''
 
-[[plugins]]
-name = 'ddc-source-nvim-lsp'
-repo = 'Shougo/ddc-source-nvim-lsp'
-depends = ['ddc.vim',  'denops']
-lazy = false
-#hook_source = '''
-#lua require("plugins.ddc_lsp").setup()
-#'''
+# [[plugins]]
+# name = 'ddc-source-nvim-lsp'
+# repo = 'Shougo/ddc-source-nvim-lsp'
+# depends = ['ddc.vim',  'denops']
+# lazy = false
+# #hook_source = '''
+# #lua require("plugins.ddc_lsp").setup()
+# #'''
 
 [[plugins]]
 name = 'fidget'
@@ -421,11 +477,11 @@ hook_source = '''
 lua require('plugins.skkeleton').setup()
 '''
 
-[[plugins]]
-name = 'ddc-source-skkeleton'
-repo = 'Shougo/ddc-source-skkeleton'
-depends = ['Shougo/ddc.vim', 'vim-skk/skkeleton', 'denops']
-on_source = ['ddc.vim']
+# [[plugins]]
+# name = 'ddc-source-skkeleton'
+# repo = 'Shougo/ddc-source-skkeleton'
+# depends = ['Shougo/ddc.vim', 'vim-skk/skkeleton', 'denops']
+# on_source = ['ddc.vim']
 
 
 #########################################################################
