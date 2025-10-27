@@ -2,12 +2,14 @@
 local M = {}
 
 function M.setup()
-  if not pcall(require, "lspconfig") then return end
+  vim.schedule(function()
+    if not pcall(require, "lspconfig") then return end
 
-  local ok, user = pcall(require, "lsp")
-  if ok and type(user) == "table" and type(user.setup) == "function" then
-    user.setup()
-  end
+    local ok, user = pcall(require, "lsp")
+    if ok and type(user) == "table" and type(user.setup) == "function" then
+      user.setup()
+    end
+  end)
 
   vim.api.nvim_create_autocmd("LspAttach", {
     group = vim.api.nvim_create_augroup("OjouLspKeymaps", { clear = true }),

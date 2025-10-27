@@ -3,11 +3,12 @@
 local M = {}
 
 -- nvim-cmp と連携するための capabilities を追加
-local ok_cmp, cmp_nvim_lsp = pcall(require, "cmp_nvim_lsp")
+-- pcallを外して、より確実にcapabilitiesを生成する
+local cmp_nvim_lsp = require("cmp_nvim_lsp")
 M.capabilities = vim.tbl_deep_extend(
   "force",
   vim.lsp.protocol.make_client_capabilities(),
-  ok_cmp and cmp_nvim_lsp.default_capabilities() or {}
+  cmp_nvim_lsp.default_capabilities()
 )
 
 -- 各サーバー共通の on_attach 関数
@@ -23,4 +24,3 @@ M.on_attach = function(client, bufnr)
 end
 
 return M
-

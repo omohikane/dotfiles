@@ -79,9 +79,6 @@ lua require("plugins.cmp").setup()
 [[plugins]]
 repo = 'L3MON4D3/LuaSnip'
 depends = ['friendly-snippets']
-hook_source = '''
-lua require('luasnip.loaders.from_vscode').lazy_load()
-'''
 
 [[plugins]]
 repo = 'saadparwaiz1/cmp_luasnip'
