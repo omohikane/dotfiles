@@ -4,6 +4,8 @@ set -gx PATH $HOME/.local/bin $PATH
 set -g fish_auto_cd true
 set -g fish_color_autosuggestion brblack
 set -g fish_color_command green
+set -x NVIM_LOG_FILE /tmp/nvim/log
+mkdir -p /tmp/nvim; and chmod 700 /tmp/nvim
 
 
 # keybind
