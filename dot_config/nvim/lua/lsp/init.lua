@@ -49,10 +49,16 @@ function M.setup()
 	enable("lua_ls", {
 		settings = {
 			Lua = {
-				diagnostics = { globals = { "vim" } },
-				workspace = { checkThirdParty = false },
-				format = { enable = false },
+				runtime = { version = "LuaJIT" },
+				workspace = {
+					library = vim.api.nvim_get_runtime_file("", true),
+					checkThirdParty = false,
+				},
+				diagnostics = {},
+				completion = { callSnippet = "Replace" },
 				telemetry = { enable = false },
+				hint = { enable = true },
+				format = { enable = false },
 			},
 		},
 	})
