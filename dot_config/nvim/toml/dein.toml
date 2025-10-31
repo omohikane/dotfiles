@@ -362,6 +362,15 @@ hook_source = '''
 lua require('lang.elixir').setup()
 '''
 
+[[plugins]]
+name = 'ts-tools'
+repo = 'pmizio/typescript-tools.nvim'
+depends = ['plenary', 'lspconfig']
+on_ft = ['typescript','typescriptreact','javascript','javascriptreact']
+hook_source = '''
+lua require("plugins.ts_tools").setup()
+'''
+
 #########################################################################
 # Formatter 
 #########################################################################

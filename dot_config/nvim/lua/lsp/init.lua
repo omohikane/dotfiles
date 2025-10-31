@@ -1,62 +1,62 @@
--- /home/ripple/.config/nvim/lua/lsp/init.lua
+-- lua/lsp/init.lua
 
 local M = {}
 
+local capabilities = vim.lsp.protocol.make_client_capabilities()
+do
+	local ok, cmp = pcall(require, "cmp_nvim_lsp")
+	if ok then
+		capabilities = cmp.default_capabilities(capabilities)
+	end
+end
+
+local function on_attach(_, bufnr)
+	local map = function(mode, lhs, rhs, desc)
+		vim.keymap.set(mode, lhs, rhs, { buffer = bufnr, silent = true, desc = desc })
+	end
+	map("n", "gd", vim.lsp.buf.definition, "LSP: Definition")
+	map("n", "gr", vim.lsp.buf.references, "LSP: References")
+	map("n", "gi", vim.lsp.buf.implementation, "LSP: Implementation")
+	map("n", "K", vim.lsp.buf.hover, "LSP: Hover")
+	map("n", "<leader>rn", vim.lsp.buf.rename, "LSP: Rename")
+	map("n", "<leader>ca", vim.lsp.buf.code_action, "LSP: Code Action")
+	map("n", "<leader>cf", function()
+		vim.lsp.buf.format({ async = true })
+	end, "LSP: Format")
+end
+
+local function enable(server, cfg)
+	local config = vim.lsp.config(
+		server,
+		vim.tbl_deep_extend("force", {
+			on_attach = on_attach,
+			capabilities = capabilities,
+		}, cfg or {})
+	)
+	vim.lsp.enable(server, config)
+end
+
 function M.setup()
-  -- すべてのプラグインが読み込まれた後に実行することで、タイミングの問題を回避する
-  vim.schedule(function()
-    -- LSPとCmpの連携に必要な共通設定を読み込む
-    local lsp_common = require("lsp.config")
-    local on_attach = lsp_common.on_attach
-    local capabilities = lsp_common.capabilities
-
-    local lspconfig = require("lspconfig")
-
-    -- 各サーバーを個別にセットアップ
-    lspconfig.bashls.setup({
-      on_attach = on_attach,
-      capabilities = capabilities,
-    })
-    lspconfig.cssls.setup({
-      on_attach = on_attach,
-      capabilities = capabilities,
-    })
-    lspconfig.html.setup({
-      on_attach = on_attach,
-      capabilities = capabilities,
-    })
-    lspconfig.jsonls.setup({
-      on_attach = on_attach,
-      capabilities = capabilities,
-    })
-    lspconfig.lua_ls.setup({
-      on_attach = on_attach,
-      capabilities = capabilities,
-      settings = {
-        Lua = {
-          diagnostics = {
-            globals = { "vim" },
-          },
-        },
-      },
-    })
-    lspconfig.marksman.setup({
-      on_attach = on_attach,
-      capabilities = capabilities,
-    })
-    lspconfig.pyright.setup({
-      on_attach = on_attach,
-      capabilities = capabilities,
-    })
-    lspconfig.ts_ls.setup({
-      on_attach = on_attach,
-      capabilities = capabilities,
-    })
-    lspconfig.yamlls.setup({
-      on_attach = on_attach,
-      capabilities = capabilities,
-    })
-  end)
+	enable("bashls", { cmd_env = { SHELL = vim.env.SHELL } })
+	enable("cssls", {})
+	enable("html", {})
+	enable("jsonls", {})
+	enable("marksman", {})
+	enable("pyright", {})
+	enable("yamlls", {
+		settings = { yaml = { keyOrdering = false, format = { enable = true }, validate = true } },
+	})
+	enable("lua_ls", {
+		settings = {
+			Lua = {
+				diagnostics = { globals = { "vim" } },
+				workspace = { checkThirdParty = false },
+				format = { enable = false },
+				telemetry = { enable = false },
+			},
+		},
+	})
+	enable("terraformls", {})
 end
 
 return M
