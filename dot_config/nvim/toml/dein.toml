@@ -455,6 +455,24 @@ nnoremap <silent> <Leader>xx :Trouble diagnostics toggle<CR>
 nnoremap <silent> <Leader>xq :Trouble qflist toggle<CR>
 '''
 
+#########################################################################
+# AI tools
+#########################################################################
+[[plugins]]
+repo = 'olimorris/codecompanion.nvim'
+on_cmd = ['CodeCompanion', 'CodeCompanionChat']
+#hook_source = '''
+#lua require("ai.codecompanion").setup()
+#'''
+
+[[plugins]]
+name = 'sidekick'
+repo = 'folke/sidekick.nvim'
+depends = ['plenary', 'nui']
+on_cmd = ['Sidekick', 'SidekickChat', 'SidekickInline', 'SidekickPrompt']
+hook_source = '''
+lua require("plugins.sidekick").setup()
+'''
 
 #########################################################################
 # Japanese
