@@ -469,6 +469,7 @@ on_cmd = ['CodeCompanion', 'CodeCompanionChat']
 name = 'sidekick'
 repo = 'folke/sidekick.nvim'
 depends = ['plenary', 'nui']
+lazy = false
 on_cmd = ['Sidekick', 'SidekickChat', 'SidekickInline', 'SidekickPrompt']
 hook_source = '''
 lua require("plugins.sidekick").setup()

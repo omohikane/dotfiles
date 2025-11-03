@@ -1,0 +1,8 @@
+# まとめて入れたい場合
+vscode-langservers-extracted
+
+# Terraform LSP
+terraform-ls
+
+prettierd
+eslint_d
