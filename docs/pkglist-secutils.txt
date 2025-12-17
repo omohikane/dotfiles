@@ -1,0 +1,15 @@
+# network / analyze
+tshark
+wireshark-qt
+
+# network / probe
+nmap
+arp-scan
+hping
+
+# network / utilities
+openbsd-netcat
+net-snmp
+curlie
+bat
+

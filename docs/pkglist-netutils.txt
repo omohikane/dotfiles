@@ -1,0 +1,9 @@
+# network / observe
+whois
+traceroute
+mtr
+tcpdump
+ethtool
+nss-mdns
+ipcalc
+

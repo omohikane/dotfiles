@@ -1,0 +1,43 @@
+# core / base
+base
+base-devel
+sudo
+git
+openssh
+wget
+curl
+rsync
+less
+tree
+which
+man-db
+man-pages
+
+# shell / UX
+fish
+fisher
+starship
+zellij
+ripgrep
+fd
+jq
+fastfetch
+htop
+
+# fs / disk
+duf
+ncdu
+
+# network (essential)
+iproute2
+inetutils
+bind
+
+# editor
+neovim
+vim
+deno
+
+# config
+chezmoi
+

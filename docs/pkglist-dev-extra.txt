@@ -1,0 +1,9 @@
+# dev-extra / runtimes & tooling (heavy / project-specific)
+nodejs
+npm
+ollama
+tectonic
+pandoc-cli
+
+# dev-extra / linters you sometimes prefer
+

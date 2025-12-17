@@ -1,0 +1,39 @@
+# dev / language servers (LSP)
+lua-language-server
+bash-language-server
+yaml-language-server
+typescript-language-server
+vscode-langservers-extracted
+marksman
+pyright
+rust-analyzer
+gopls
+terraform-ls
+elixir-ls
+
+# dev / linters & formatters
+shellcheck
+shfmt
+stylua
+luacheck
+ruff
+python-black
+python-isort
+prettier
+prettierd
+eslint_d
+markdownlint-cli2
+yamllint
+typos
+golangci-lint
+gofumpt
+tflint
+
+# dev / build & debug helpers
+cmake
+ninja
+delve
+
+# dev / container & ops (optional-but-useful)
+ansible
+
