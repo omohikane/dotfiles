@@ -6,7 +6,8 @@ set -g fish_color_autosuggestion brblack
 set -g fish_color_command green
 set -x NVIM_LOG_FILE /tmp/nvim/log
 mkdir -p /tmp/nvim; and chmod 700 /tmp/nvim
-
+set -g fzf_preview_file_cmd bat --color=always --line-range :500
+set -g fzf_fd_opts --hidden --exclude .git
 
 # keybind
 #bind \cf 'fzf'  # Ctrl+Fでfzfを起動
@@ -81,6 +82,15 @@ set -x WAYLAND_DISPLAY wayland-1
 
 # plugin
 fzf_configure_bindings --history=ctrl-r
+
+# --- Fisher Automatic Setup ---
+if status is-interactive
+    set -f fisher_path $__fish_config_dir/functions/fisher.fish
+    if not test -e $fisher_path
+        echo "Installing fisher..."
+        curl -sL https://raw.githubusercontent.com/jorgebucaran/fisher/main/functions/fisher.fish | source && fisher update
+    end
+end
 
 
 starship init fish | source
