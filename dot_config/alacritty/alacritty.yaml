@@ -82,6 +82,7 @@ mouse:
 
 # ウィンドウサイズと動作を設定します
 window:
+  input_method: None
   # ウィンドウの幅と高さ
   dynamic_padding: false
   dynamic_title: true

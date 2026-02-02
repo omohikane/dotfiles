@@ -75,7 +75,8 @@ input <identifier> xkb_model "pc101"
 # Basics:
 #
     # Start a terminal
-    bindsym $mod+Return exec $term -e zellij
+    bindsym $mod+Return exec env -u GTK_IM_MODULE -u QT_IM_MODULE -u XMODIFIERS $term -e zellij
+
 
     # Kill focused window
     bindsym $mod+Shift+q kill
