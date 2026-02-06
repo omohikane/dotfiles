@@ -2,12 +2,15 @@ local M = {}
 
 function M.setup()
   local ok, obsidian = pcall(require, "obsidian")
-  if not ok then
-    -- print("Obsidian plugin is not installed yet.")
+  if not ok or type(obsidian) ~= "table" then
     return
   end
 
   local vault = os.getenv("OBSIDIAN_DIR") or vim.fn.expand("~/Obsidian")
+
+  if vim.fn.isdirectory(vault) == 0 then
+    return
+  end
 
   obsidian.setup({
     workspaces = {
@@ -16,21 +19,16 @@ function M.setup()
         path = vault,
       },
     },
-    completion = {
-      nvim_cmp = false, 
-    },
-    ui = {
-      enable = true,
-    },
+    completion = { nvim_cmp = false },
+    ui = { enable = true },
     notes_subdir = "notes",
-    daily_notes = {
-      folder = "daily",
-    },
+    daily_notes = { folder = "daily" },
   })
 
+  -- keymap
   vim.keymap.set("n", "<Leader>oo", "<cmd>ObsidianQuickSwitch<CR>", { desc = "Obsidian Quick Switch" })
-  vim.keymap.set("n", "<Leader>on", "<cmd>ObsidianNew<CR>",         { desc = "Obsidian New" })
-  vim.keymap.set("n", "<Leader>ot", "<cmd>ObsidianToday<CR>",       { desc = "Obsidian Today" })
+  vim.keymap.set("n", "<Leader>on", "<cmd>ObsidianNew<CR>", { desc = "Obsidian New" })
+  vim.keymap.set("n", "<Leader>ot", "<cmd>ObsidianToday<CR>", { desc = "Obsidian Today" })
 end
 
 return M
