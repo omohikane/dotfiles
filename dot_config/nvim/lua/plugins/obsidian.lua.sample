@@ -1,17 +1,31 @@
--- plugins/obsidian.lua
 local M = {}
 
 function M.setup()
   local ok, obsidian = pcall(require, "obsidian")
-  if not ok then return end
+  if not ok then
+    -- print("Obsidian plugin is not installed yet.")
+    return
+  end
 
-  local vault = os.getenv("OBSIDIAN_DIR") or "~/Obsidian"  
+  local vault = os.getenv("OBSIDIAN_DIR") or vim.fn.expand("~/Obsidian")
+
   obsidian.setup({
-    workspaces = { { name = "main", path = vault } },
-    completion = { nvim_cmp = false }, 
-    ui = { enable = true },
+    workspaces = {
+      {
+        name = "main",
+        path = vault,
+      },
+    },
+    completion = {
+      nvim_cmp = false, 
+    },
+    ui = {
+      enable = true,
+    },
     notes_subdir = "notes",
-    daily_notes = { folder = "daily" },
+    daily_notes = {
+      folder = "daily",
+    },
   })
 
   vim.keymap.set("n", "<Leader>oo", "<cmd>ObsidianQuickSwitch<CR>", { desc = "Obsidian Quick Switch" })
@@ -20,4 +34,3 @@ function M.setup()
 end
 
 return M
-
