@@ -1,48 +1,48 @@
 # dotfiles
 
-My personal dotfiles for a customized Linux environment.
+Personal dotfiles optimized for a high-performance Linux workflow, primarily targeting **Wayland** with a fallback/parallel support for X11.
 
-## Overview
+## 🛠 Managed Tools & Key Features
 
-This repository contains configuration files for various applications I use, primarily focused on a tiling window manager setup (i3/Sway) with Alacritty, Neovim, Fish shell, etc.
+### Desktop Environment (Wayland focus)
+*   **Window Manager**: `Sway` (Wayland) / `i3` (X11). Unified configuration style for tiling window management.
+*   **Display Management**: `Kanshi` for dynamic output configuration (e.g., auto-switching between laptop and dock setups).
+*   **Status Bar**: `Waybar`. Features custom CSS styling and modules for resource monitoring and system controls.
+*   **App Launcher**: `Fuzzel`. A lightweight Wayland-native runner.
 
-The configurations are managed under the `dot_config` directory, intended to be symlinked to `~/.config/`.
+### Terminal & Shell
+*   **Terminal**: `Alacritty`. High-performance, GPU-accelerated terminal.
+*   **Shell**: `Fish`. Custom functions and themes located in `private_fish/`. Includes optimized completions and git integration.
+*   **Workspace**: `Zellij`. A modern terminal multiplexer used for managing persistent sessions with a user-friendly UI.
 
-## Included Configurations
+### Neovim (Full-featured IDE)
+Located in `dot_config/nvim/`, this is a deep Lua-based configuration:
+*   **Package Management**: `dpp.vim` + `denops.vim`. Utilizes a fast, asynchronous plugin loading system.
+*   **Modern Completion**: `ddc.vim` for a flexible, highly customizable completion engine.
+*   **AI Assistant**: `CodeCompanion.lua` integrated with local LLMs (Ollama) and cloud providers.
+*   **LSP & Syntax**: Robust support for Go, Elixir, TypeScript, and Python via `nvim-lspconfig` and `Tree-sitter`.
+*   **Code Quality**: Automated formatting with `conform.nvim` and asynchronous linting with `nvim-lint`.
 
-*   **Window Managers**:
-    *   `i3/`
-    *   `sway/`
-    *   `kanshi/` (for display profile management with Sway)
-*   **Terminal Emulator**: `alacritty/`
-*   **Text Editor**: `nvim/` (Lua-based configuration)
-*   **Shell**: `private_fish/` (Fish shell configurations, functions, themes)
-*   **Status Bar**: `waybar/`
-*   **Application Launcher**: `fuzzel/`
-*   **Terminal Multiplexer**: `zellij/`
-*   **Environment Variables**: `environment.d/`
+## 📂 Directory Structure
 
-## Directory Structure & Managed Tools
+Managed using a `chezmoi`-compatible structure:
 
-This repository uses a structure compatible with managers like `chezmoi`, where `dot_config` maps to `~/.config`.
+| Source Path | Target (~/.config/) | Description |
+|:--- |:--- |:--- |
+| `dot_config/nvim/` | `nvim/` | Neovim Lua configuration & plugin specs |
+| `dot_config/sway/` | `sway/` | Sway window manager settings |
+| `dot_config/waybar/` | `waybar/` | Status bar layout & styling |
+| `private_fish/` | `fish/` | Fish shell config, functions, & history |
+| `dot_config/alacritty/`| `alacritty/` | Terminal colors and font settings |
 
-### Core Environment
-*   **Window Manager**: `Sway` (Wayland) / `i3` (X11)
-*   **Bar**: `Waybar` - Highly customized status bar.
-*   **Terminal**: `Alacritty` - GPU-accelerated terminal emulator.
-*   **Shell**: `Fish` - Located in `private_fish/` with custom functions and themes.
-*   **Multiplexer**: `Zellij` - Modern terminal workspace.
-*   **Launcher**: `Fuzzel` - Wayland-native application launcher.
+## 🚀 Getting Started
 
-### Neovim (`dot_config/nvim/`)
-A comprehensive Lua-based IDE-like setup featuring:
-*   **Package Manager**: `dpp.vim` for efficient plugin management.
-*   **AI Integration**: `CodeCompanion.lua` configured with Ollama/CodeLlama/Llama3.
-*   **LSP**: Configured via `nvim-lspconfig` for Go, TypeScript, Elixir, Python, Lua, and more.
-*   **Formatting/Linting**: `conform.nvim` and `nvim-lint`.
-*   **UI**: `Telescope`, `Lualine`, `Barbar`, and `Fidget`.
-*   **Syntax**: `Tree-sitter` for advanced highlighting and text objects.
+These files are intended to be managed by [chezmoi](https://www.chezmoi.io/).
 
-## Notes
+1.  Install `chezmoi`.
+2.  Initialize: `chezmoi init https://github.com/yourusername/dotfiles.git`
+3.  Apply: `chezmoi apply`
 
-This configuration is optimized for a fast, modern Linux workflow using Wayland.
+## 📝 Notes
+
+This environment is optimized for Wayland. For X11 users, the `i3` configuration provides a consistent experience but lacks some of the modern status bar and notification features found in the Wayland stack.
