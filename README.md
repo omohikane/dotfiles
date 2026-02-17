@@ -23,3 +23,5 @@ The configurations are managed under the `dot_config` directory, intended to be 
 *   **Environment Variables**: `environment.d/`
 
 ## Notes
+
+This configuration is optimized for a fast, modern Linux workflow using Wayland.
