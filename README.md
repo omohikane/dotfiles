@@ -22,6 +22,12 @@ The configurations are managed under the `dot_config` directory, intended to be 
 *   **Terminal Multiplexer**: `zellij/`
 *   **Environment Variables**: `environment.d/`
 
+## Directory Structure
+
+*   `dot_config/nvim/`: Neovim configuration written in Lua.
+*   `dot_config/sway/`: Sway window manager configuration.
+*   `dot_config/waybar/`: Status bar for Wayland.
+
 ## Notes
 
 This configuration is optimized for a fast, modern Linux workflow using Wayland.
