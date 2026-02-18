@@ -4,3 +4,4 @@ dot_config/nvim/lua/plugins/obsidian.lua
 
 dot_config/nvim/dot_env
 dot_config/fish/conf.d/secrets.fish
+.aider*
