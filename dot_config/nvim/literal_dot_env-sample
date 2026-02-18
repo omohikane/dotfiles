@@ -1,0 +1,11 @@
+# OPENAI API KEY GOES HERE https://platform.openai.com/account/api-keys
+OPENAI_API_KEY=sk--xxxxx
+
+# PPLX API KEY GOES HERE https://www.perplexity.ai/settings/api 
+PPLX_API_KEY=pplx-
+
+# GEMINI API KEY GOES HERE https://aistudio.google.com/app/apikey
+GEMINI_API_KEY=
+
+# Open Router API KEY GOES HERE https://openrouter.ai/apikey
+OpenRouter_API_KEY=

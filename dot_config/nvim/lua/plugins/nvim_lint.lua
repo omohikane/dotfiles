@@ -2,7 +2,7 @@
 
 local M = {}
 function M.setup()
-  local ok, lint = pcall(require, "lint"); if not ok then return end
+  local ok, lint = pcall(require, "lint"); if not ok or type(lint) ~= "table" then return end
 
   local has = function(exe) return vim.fn.executable(exe) == 1 end
   lint.linters_by_ft = {
@@ -11,7 +11,7 @@ function M.setup()
     python     = has("ruff") and { "ruff" } or nil,
     javascript = has("eslint_d") and { "eslint_d" } or nil,
     typescript = has("eslint_d") and { "eslint_d" } or nil,
-    go         = has("golangci_lint") or nil,
+    go         = has("golangci_lint") and { "golangci-lint"} or nil,
     rust       = has("clippy") or nil,
     elixir     = has("credo") or nil,
     yaml       = has("yamllint") and { "yamllint" } or nil,
