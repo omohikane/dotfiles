@@ -69,6 +69,11 @@ if status is-interactive
     abbr -a kdel 'kubectl delete'
     abbr -a ke 'kubectl edit'
 
+    # Aider
+    abbr -a aig3f 'aider --model gemini/gemini-3-flash-preview'
+    abbr -a aigp 'aider --model gemini/gemini-1.5-pro-latest'
+    abbr -a aig2f 'aider --model gemini/gemini-2.0-flash-exp'
+
 end
 
 
