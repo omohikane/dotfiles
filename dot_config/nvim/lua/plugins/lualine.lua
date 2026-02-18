@@ -1,20 +1,37 @@
 -- lua/plugins/lualine.lua
-local M = {}
 
-function M.setup()
-  local ok, lualine = pcall(require, "lualine"); if not ok then return end
-  lualine.setup({
-    options = { theme = 'auto', globalstatus = true, icons_enabled = true },
-    sections = {
-      lualine_a = {'mode'},
-      lualine_b = {'branch', 'diff'},
-      lualine_c = {'filename'},
-      lualine_x = {'encoding','fileformat','filetype'},
-      lualine_y = {'progress'},
-      lualine_z = {'location'},
-    },
-  })
+local M = {
+	"nvim-lualine/lualine.nvim",
+	dependencies = { "nvim-tree/nvim-web-devicons" },
+}
+
+function M.config()
+	require("lualine").setup({
+		options = {
+			theme = "auto",
+			globalstatus = true,
+			component_separators = { left = "", right = "" },
+			section_separators = { left = "", right = "" },
+		},
+		sections = {
+			lualine_a = { "mode" },
+			lualine_b = { "branch", "diff", "diagnostics" },
+			lualine_c = { { "filename", path = 1 } },
+			lualine_x = {
+				{
+					function()
+						return require("plugins.skkeleton").mode_status()
+					end,
+					color = { fg = "#ff9e64", gui = "bold" },
+				},
+				"encoding",
+				"fileformat",
+				"filetype",
+			},
+			lualine_y = { "progress" },
+			lualine_z = { "location" },
+		},
+	})
 end
 
 return M
-

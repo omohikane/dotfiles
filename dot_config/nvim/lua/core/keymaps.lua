@@ -86,6 +86,6 @@ keymap("i", "<C-l>", "<ESC><Right>", opts)
 keymap("i", "<C-h>", "<ESC><Left>", opts)
 
 -- `jj` や `kk` でも IME を自動 OFF
-keymap("i", "jj", "<ESC>", opts)
-keymap("i", "kk", "<ESC>", opts)
+-- keymap("i", "jj", "<ESC>", opts)
+-- keymap("i", "kk", "<ESC>", opts)
 

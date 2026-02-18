@@ -73,6 +73,11 @@ hook_source = '''
 lua require("plugins.cmp").setup()
 '''
 
+[[plugins]]
+name = 'cmp-skkeleton'
+repo = 'hrsh7th/cmp-skkeleton'
+depends = ['nvim-cmp', 'skkeleton']
+
 #########################################################################
 # Snippets for nvim-cmp
 #########################################################################
@@ -497,8 +502,8 @@ nnoremap <silent> <Leader>sk :<C-u>Kensaku<Space>
 name = 'skkeleton'
 repo = 'vim-skk/skkeleton'
 depends = ['denops']
-on_event = ['InsertEnter'] 
-hook_source = '''
+on_map = { ic = '<Plug>(skkeleton-toggle)' }
+hook_add = '''
 lua require('plugins.skkeleton').setup()
 '''
 
