@@ -46,12 +46,6 @@ autocmd("FileType", {
 	command = "setlocal shiftwidth=2 tabstop=2 expandtab",
 })
 
--- Go ファイルを開いたら `goimports` を適用
-autocmd("BufWritePre", {
-	group = filetypeGroup,
-	pattern = "*.go",
-	command = "silent! lua vim.lsp.buf.format()",
-})
 
 -- ==========================
 -- 🔄 ファイルの自動リロード
@@ -92,12 +86,6 @@ autocmd("BufEnter", {
 	command = "syntax sync fromstart",
 })
 
--- Python / JavaScript / TypeScript のファイル保存時に `format`
-autocmd("BufWritePre", {
-	group = generalGroup,
-	pattern = { "*.py", "*.js", "*.ts" },
-	command = "silent! lua vim.lsp.buf.format()",
-})
 
 -- ==========================
 -- 🎨 UI 最適化

@@ -14,7 +14,7 @@ function M.setup()
       typescript      = { "prettier" },
       javascriptreact = { "prettier" },
       typescriptreact = { "prettier" },
-      go              = { "gofumpt", "golines" },
+      go              = { "goimports", "gofumpt", "golines" },
       rust            = { "rustfmt" },
       elixir          = { "mix" },
       json            = { "prettier" },
