@@ -6,6 +6,24 @@
   },
   "model": {
     "name": "gemini-2.5-pro"
+  },
+  "terminal": {
+    "prompt": {
+      "format": "multiline"
+    },
+    "animation": false
+  },
+  "user": {
+    "prompt": {
+      "files": [
+        "~/.config/gemini/prompts/explain.system.md",
+        "~/.config/gemini/prompts/explain.user.md"
+      ]
+    }
+  },
+  "safety": {
+    "sandbox": {
+      "enabled": true
+    }
   }
 }
-
