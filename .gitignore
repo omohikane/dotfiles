@@ -1,7 +1,11 @@
 # Local/private plugin settings
 dot_config/nvim/.env
 dot_config/nvim/lua/plugins/obsidian.lua
-
 dot_config/nvim/dot_env
 dot_config/fish/conf.d/secrets.fish
+
+# Aider
 .aider*
+
+# Gemini CLI
+.gemini/.env
