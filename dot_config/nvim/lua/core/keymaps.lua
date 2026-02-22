@@ -65,6 +65,17 @@ keymap("n", "<Leader>sr", ":%s//g<Left><Left>", { silent = false })
 keymap("n", "<Leader>e", "<cmd>Neotree reveal toggle<CR>", opts)
 
 -- ==========================
+-- 🤖 AI Assistant (nvim-aibo)
+-- ==========================
+
+-- Claude を開く
+keymap("n", "<Leader>ai", "<cmd>Claude<CR>", { desc = "Open Claude AI" })
+
+-- バッファの内容を Claude に送る
+keymap("n", "<Leader>as", "<cmd>AiboSend -submit<CR>", { desc = "Send buffer to AI" })
+keymap("v", "<Leader>as", ":AiboSend -submit<CR>", { desc = "Send selection to AI" })
+
+-- ==========================
 -- 🚀 ターミナルモードの改善
 -- ==========================
 

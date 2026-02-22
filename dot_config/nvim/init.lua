@@ -60,6 +60,7 @@ local extension_urls = {
 	"Shougo/dpp-protocol-git.git",
 	"Shougo/dpp-ext-lazy.git",
 	"Shougo/dpp-ext-local.git",
+	"lambdalisue/nvim-aibo.git",
 }
 
 -- dpp の拡張機能をインストール（必要なときのみ）
