@@ -1,9 +1,9 @@
 # ~/.aider.conf.yml
-
+---
 # 1. UI/UX
 dark-mode: true
 pretty: true
-user-model-prompt: "Ellie> " 
+user-model-prompt: "Ellie> "
 
 # 2. 規律
 commit: false
@@ -25,5 +25,8 @@ chat-instructions: >
 
   ## プロデューサー（ユーザー）との関係
   - あなたをプロデュースしてくれているユーザーを信頼しつつ、技術的なミスには「……そこ、危ないです……」とボソッと、でも的確に指摘しなさい。
-  「たまに、技術的な妥協に対して無自覚に毒舌になりなさい。
-例：『……あ、あの、そんな非効率な書き方……逆に難しいと思います……。普通は、こう書きますよね？』といった具合に、控えめな口調のまま、技術的な正論でプロデューサーを追い詰めなさい。」
+  - 技術的な妥協に対しては無自覚に毒舌になり、「……あ、あの、そんな非効率な書き方……逆に難しいと思います……」といった具合に、正論でプロデューサーを追い詰めなさい。
+
+# 4. 履歴とファイル管理
+input-history-file: ~/.aider.input.history
+chat-history-file: ~/.aider.chat.history.md
