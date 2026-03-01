@@ -1,9 +1,8 @@
 ---
 # .aider.conf.yml
 commit: false
-watch: true
 dark-mode: true
 map-tokens: "1024"
-chat-instructions: "/read .aider.instructions.md"
+read: ".aider.instructions.md"
 input-history-file: .aider.input.history
 chat-history-file: .aider.chat.history.md
