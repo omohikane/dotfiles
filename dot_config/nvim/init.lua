@@ -70,48 +70,8 @@ for _, url in ipairs(extension_urls) do
 	vim.opt.runtimepath:append(ext_path)
 end
 
--- dpp のロード状態を確認し、ロードできれば設定を読み込む
-if dpp.load_state(dppBase) then
-	vim.notify("Successfully loaded dpp state", vim.log.levels.INFO)
-	vim.schedule(function()
-		if type(load_plugin_configs) == "function" then
-			load_plugin_configs()
-		end
-	end)
-else
-	vim.notify("Failed to load dpp state, running make_state()", vim.log.levels.WARN)
-end
-
--- denops.vim を runtimepath に追加
-vim.opt.runtimepath:prepend(denopsSrc)
-
--- Denops が準備できたら dpp.make_state() を実行し、その後設定を読み込む
-vim.api.nvim_create_autocmd("User", {
-	pattern = "DenopsReady",
-	once = true,
-	callback = function()
-		vim.notify("Denops is ready, executing dpp.make_state()", vim.log.levels.INFO)
-		dpp.make_state(dppBase, dppConfig)
-		if type(load_plugin_configs) == "function" then
-			load_plugin_configs()
-		end
-	end,
-})
-
--- 基本的な設定
-vim.cmd("filetype indent plugin on")
-vim.cmd("syntax on")
-
--- Neovim の基本設定を読み込む
-require("core.options")
-require("core.keymaps")
-require("core.autocmds")
-require("core.diagnostics")
-require("lsp")
-pcall(require, "plugins.theme")
-
 -- プラグイン設定をロード (各モジュールの setup 関数を安全に呼び出す)
-function load_plugin_configs()
+local function load_plugin_configs()
 	local plugins_path = vim.fs.joinpath(vim.fn.stdpath("config"), "lua", "plugins")
 	if vim.fn.isdirectory(plugins_path) == 0 then return end
 
@@ -130,6 +90,41 @@ function load_plugin_configs()
 	end
 	vim.notify("All plugin configurations loaded.", vim.log.levels.INFO)
 end
+
+-- dpp のロード状態を確認し、ロードできれば設定を読み込む
+if dpp.load_state(dppBase) then
+	vim.notify("Successfully loaded dpp state", vim.log.levels.INFO)
+	vim.schedule(load_plugin_configs)
+else
+	vim.notify("Failed to load dpp state, running make_state()", vim.log.levels.WARN)
+end
+
+-- denops.vim を runtimepath に追加
+vim.opt.runtimepath:prepend(denopsSrc)
+
+-- Denops が準備できたら dpp.make_state() を実行し、その後設定を読み込む
+vim.api.nvim_create_autocmd("User", {
+	pattern = "DenopsReady",
+	once = true,
+	callback = function()
+		vim.notify("Denops is ready, executing dpp.make_state()", vim.log.levels.INFO)
+		dpp.make_state(dppBase, dppConfig)
+		load_plugin_configs()
+	end,
+})
+
+-- 基本的な設定
+vim.cmd("filetype indent plugin on")
+vim.cmd("syntax on")
+
+-- Neovim の基本設定を読み込む
+require("core.options")
+require("core.keymaps")
+require("core.autocmds")
+require("core.diagnostics")
+require("lsp")
+pcall(require, "plugins.theme")
+
 
 -- ★ 修正点2: プラグイン設定のロードをdppの状態ロード完了後に遅延させる
 vim.api.nvim_create_autocmd("User", {

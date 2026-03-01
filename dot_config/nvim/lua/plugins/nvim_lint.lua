@@ -21,10 +21,8 @@ function M.setup()
   vim.api.nvim_create_autocmd({ "BufEnter", "BufWritePost", "InsertLeave" }, {
     group = aug,
     callback = function()
-      local lint_ok, l = pcall(require, "lint")
-      if lint_ok then
-        l.try_lint()
-      end
+      local ok, l = pcall(require, "lint")
+      if ok then l.try_lint() end
     end,
   })
 end
