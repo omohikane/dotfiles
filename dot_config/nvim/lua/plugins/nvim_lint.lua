@@ -20,7 +20,12 @@ function M.setup()
   local aug = vim.api.nvim_create_augroup("OjouNvimLint", { clear = true })
   vim.api.nvim_create_autocmd({ "BufEnter", "BufWritePost", "InsertLeave" }, {
     group = aug,
-    callback = function() require("lint").try_lint() end,
+    callback = function()
+      local lint_ok, l = pcall(require, "lint")
+      if lint_ok then
+        l.try_lint()
+      end
+    end,
   })
 end
 
