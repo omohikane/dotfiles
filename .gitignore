@@ -10,6 +10,7 @@ dot_config/fish/conf.d/secrets.fish
 .aider.input.history
 .aider.tags.cache.v4/
 !.aider.conf.yml
+!.aider.instructions.md
 
 # Gemini CLI
 .gemini/.env
