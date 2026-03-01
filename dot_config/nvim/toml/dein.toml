@@ -324,15 +324,6 @@ hook_source = '''
 lua require('plugins.lspconfig').setup()
 '''
 
-# [[plugins]]
-# name = 'ddc-source-nvim-lsp'
-# repo = 'Shougo/ddc-source-nvim-lsp'
-# depends = ['ddc.vim',  'denops']
-# lazy = false
-# #hook_source = '''
-# #lua require("plugins.ddc_lsp").setup()
-# #'''
-
 [[plugins]]
 name = 'fidget'
 repo = 'j-hui/fidget.nvim'

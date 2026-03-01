@@ -40,6 +40,10 @@ local function setup_ddc_global_options()
 		sourceParams = {
 			around = { maxSize = 500 },
 			buffer = { requireSameFiletype = false },
+			["nvim-lsp"] = {
+				enableResolveItem = true,
+				enableAdditionalTextEdit = true,
+			},
 		},
 	})
 
@@ -52,7 +56,8 @@ local function setup_ddc_buffer_sources()
 	vim.fn["ddc#custom#patch_buffer"]("sourceOptions", {
 		["nvim-lsp"] = {
 			mark = "[LSP]",
-			forceCompletionPattern = "\\.\\w*|:|->\\w*",
+			minAutoCompleteLength = 1,
+			forceCompletionPattern = "\\.\\w*|::\\w*|->\\w*",
 		},
 	})
 end
