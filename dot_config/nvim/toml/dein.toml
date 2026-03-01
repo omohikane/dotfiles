@@ -99,6 +99,7 @@ repo = 'rafamadriz/friendly-snippets'
 [[plugins]] 
 name = 'tokyonight' 
 repo = 'folke/tokyonight.nvim'
+lazy = false
 
 [[plugins]] 
 name = 'kanagawa'   
