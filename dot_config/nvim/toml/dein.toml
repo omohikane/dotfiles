@@ -494,7 +494,7 @@ nnoremap <silent> <Leader>sk :<C-u>Kensaku<Space>
 name = 'skkeleton'
 repo = 'vim-skk/skkeleton'
 depends = ['denops']
-on_map = { ic = '<Plug>(skkeleton-toggle)' }
+on_event = 'InsertEnter'
 hook_add = '''
 lua require('plugins.skkeleton').setup()
 '''
