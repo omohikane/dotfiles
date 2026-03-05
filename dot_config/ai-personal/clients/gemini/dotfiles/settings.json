@@ -1,0 +1,39 @@
+{
+  "security": {
+    "auth": {
+      "selectedType": "oauth-personal"
+    }
+  },
+  "model": {
+    "name": "gemini-2.5-flash",
+    "temperature": 0.7,
+    "max_output_tokens": 2048
+  },
+  "terminal": {
+    "prompt_format": "multiline",
+    "animation": true
+  },
+  "logging": {
+    "enabled": true,
+    "level": "info",
+    "file": "~/.config/gemini/logs/interaction.log"
+  },
+  "prompts": {
+    "explain": {
+      "system": "~/.config/gemini/prompts/explain.system.md",
+      "user": "~/.config/gemini/prompts/explain.user.md"
+    },
+    "default": {
+      "system": "~/.config/gemini/prompts/default.system.md",
+      "user": "~/.config/gemini/prompts/default.user.md"
+    }
+  },
+  "user": {
+    "prompt_template": "explain"
+  },
+  "safety": {
+    "sandbox": {
+      "enabled": true
+    }
+  }
+}

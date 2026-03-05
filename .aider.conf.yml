@@ -3,6 +3,6 @@
 commit: false
 dark-mode: true
 map-tokens: "1024"
-read: ".aider.instructions.md"
+chat-instructions: "/read .aider.instructions.md"
 input-history-file: .aider.input.history
 chat-history-file: .aider.chat.history.md

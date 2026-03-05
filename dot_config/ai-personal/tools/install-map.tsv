@@ -1,0 +1,3 @@
+# tool<TAB>src_rel_path<TAB>dest_path
+gemini	clients/gemini/dotfiles/settings.json	$HOME/.gemini/settings.json
+gemini	clients/gemini/dotfiles/GEMINI.md	$HOME/.gemini/GEMINI.md

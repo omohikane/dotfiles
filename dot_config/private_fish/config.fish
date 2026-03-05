@@ -74,6 +74,11 @@ if status is-interactive
     abbr -a aigp 'aider --model gemini/gemini-1.5-pro-latest'
     abbr -a aig2f 'aider --model gemini/gemini-2.0-flash-exp'
 
+    # AI Personal adapters (client-specific Fish helpers)
+    if test -f "$HOME/.config/ai-personal/clients/fish-loader.fish"
+        source "$HOME/.config/ai-personal/clients/fish-loader.fish"
+    end
+
 end
 
 
