@@ -5,38 +5,40 @@ command_timeout = 500
 palette = "catppuccin_mocha"
 
 format = """
-$os$username$hostname$directory$git_branch$git_status$docker_context$kubernetes$package$nodejs$python$rust$golang$terraform$aws$gcloud$fill$time$cmd_duration$memory_usage$battery$sudo$status$jobs
+$os$container$sudo$username$hostname$shlvl$directory$git_branch$git_state$git_status$docker_context$kubernetes$package$nodejs$python$rust$golang$terraform$aws$gcloud$jobs $cmd_duration$status$battery$memory_usage$time
 $character
 """
-right_format = ""  # $fill で左右分割済み
+right_format = ""
+
+[fill]
+disabled = true
 
 # ===== Who / Where =====
 [os]
-disabled = false
+disabled = true
 format = "[$symbol ](subtext1)"
 symbols = { Linux = "", Macos = "", Windows = "󰍲", Unknown = "" }
 
 [username]
-disabled = false
+show_always = false
 style_user = "subtext1"
 style_root = "bold red"
 format = "[$user]($style)"
-show_always = true   
 
 [hostname]
-ssh_only = false    
-format = "[@$hostname](subtest0) "
+ssh_only = true
+format = "@[$hostname](subtext0) "
 disabled = false
 
 # ===== Directory =====
 [directory]
 style = "bold lavender"
-format = "[📁 $path ]($style)"
-truncation_length = 8
+format = "[$path ]($style)"
+truncation_length = 3
 truncation_symbol = "…/"
 truncate_to_repo = true
 read_only = " "
-substitutions = { "~" = " ~/" }
+substitutions = { "~" = " ~" }
 
 # ===== Prompt symbol =====
 [character]
@@ -54,7 +56,7 @@ format = " [ $symbol $branch ]($style)"
 style = "green"
 format = " [$all_status]($style)"
 conflicted = "🔀"
-ahead = "🚀${count}"
+ahead = "${count}"
 diverged = "🔄${ahead_count}⏪${behind_count}"
 behind = "⏪${count}"
 untracked = "❓"
@@ -63,6 +65,10 @@ modified = "✏️"
 staged = "✔️"
 renamed = "➡️"
 deleted = "🗑️"
+
+[git_state]
+format = " ([$state( $progress_current/$progress_total)]($style))"
+style = "bold yellow"
 
 # ===== Containers / Cloud =====
 [docker_context]
@@ -126,25 +132,29 @@ format = " [ $ram_pct]($style)"
 style = "overlay1"
 
 [battery]
-full_symbol = "🔋"
-charging_symbol = "⚡️"
-discharging_symbol = "🔋"
+full_symbol = "󰁹 "
+charging_symbol = "󰂄 "
+discharging_symbol = "󰂃 "
+format = " [$symbol$percentage]($style)"
 [[battery.display]]
-threshold = 20
+threshold = 30
 style = "bold red"
+[[battery.display]]
+threshold = 100
+style = "subtext1"
 
 [sudo]
 disabled = false
 allow_windows = false
-symbol = "🧷"
-style = "bold blue"
-format = " [$symbol sudo]($style)"
+symbol = "󰀶"
+style = "bold yellow"
+format = "[$symbol SUDO]($style) "
 
 [status]
 disabled = false
-symbol = "✗"
-success_symbol = ""         # 成功時は非表示
-format = " [$symbol$status]($style)"
+symbol = "✘"
+success_symbol = ""
+format = "[$symbol $status]($style) "
 style = "bold red"
 pipestatus = true
 map_symbol = true
@@ -154,6 +164,13 @@ recognize_signal_code = true
 symbol = "✦"
 number_threshold = 1
 format = " [$symbol$number]($style)"
+
+[shlvl]
+disabled = false
+symbol = "↕️ "
+style = "bold yellow"
+format = "[$symbol]($style)"
+threshold = 2
 
 # ===== Shell indicator =====
 [shell]
@@ -193,4 +210,3 @@ surface0  = "#313244"
 base      = "#1e1e2e"
 mantle    = "#181825"
 crust     = "#11111b"
-
