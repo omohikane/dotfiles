@@ -5,8 +5,8 @@ command_timeout = 500
 palette = "catppuccin_mocha"
 
 format = """
-$os$container$sudo$username$hostname$shlvl$directory$git_branch$git_state$git_status$docker_context$kubernetes$package$nodejs$python$rust$golang$terraform$aws$gcloud$jobs $cmd_duration$status$battery$memory_usage$time
-$character
+╭ $os$container$sudo$username$hostname$shlvl$directory$git_branch$git_commit$git_state$git_status$docker_context$kubernetes$helm$terraform$pulumi$aws$gcloud$azure$nix_shell$direnv$mise$pixi$package$nodejs$python$rust$golang$bun$deno$lua$c$cmake$ruby$java$gradle$maven$kotlin$scala$dart$flutter$dotnet$elixir$erlang$haskell$julia$nim$perl$crystal$swift$zig$buf$opa$jobs $cmd_duration$status$battery$memory_usage$time
+╰─$character
 """
 right_format = ""
 
@@ -16,11 +16,11 @@ disabled = true
 # ===== Who / Where =====
 [os]
 disabled = true
-format = "[$symbol ](subtext1)"
+format = "[$symbol]($style) "
 symbols = { Linux = "", Macos = "", Windows = "󰍲", Unknown = "" }
 
 [username]
-show_always = false
+show_always = true
 style_user = "subtext1"
 style_root = "bold red"
 format = "[$user]($style)"
@@ -32,142 +32,231 @@ disabled = false
 
 # ===== Directory =====
 [directory]
-style = "bold lavender"
-format = "[$path ]($style)"
+style = "bold sky"
+format = " [󰉋 $path]($style) "
 truncation_length = 3
 truncation_symbol = "…/"
 truncate_to_repo = true
-read_only = " "
+read_only = " 󰌾"
 substitutions = { "~" = " ~" }
 
 # ===== Prompt symbol =====
 [character]
-success_symbol = "[➜](bold teal)"
-error_symbol   = "[✗](bold red)"
+success_symbol = "[❯](bold teal)"
+error_symbol   = "[✘](bold red)"
 vimcmd_symbol  = "[❮](peach)"
 
 # ===== Git =====
 [git_branch]
-symbol = "🌱"
+symbol = "󰊢 "
 style = "bold peach"
-format = " [ $symbol $branch ]($style)"
+format = "[ $symbol$branch ]($style)"
+
+[git_commit]
+commit_hash_length = 7
+style = "bold subtext1"
+format = "[($hash) ]($style)"
+only_detached = true 
 
 [git_status]
 style = "green"
-format = " [$all_status]($style)"
-conflicted = "🔀"
-ahead = "${count}"
-diverged = "🔄${ahead_count}⏪${behind_count}"
-behind = "⏪${count}"
-untracked = "❓"
-stashed = "📦"
-modified = "✏️"
-staged = "✔️"
-renamed = "➡️"
-deleted = "🗑️"
+format = "([$all_status]($style))"
+conflicted = "󰳦 "
+ahead = "󰶣 "
+diverged = "󰹹 "
+behind = "󰶡 "
+untracked = "󰇘 "
+stashed = "󰏗 "
+modified = "󰏫 "
+staged = "󰐖 "
+renamed = "󰁔 "
+deleted = "󰗨 "
 
 [git_state]
 format = " ([$state( $progress_current/$progress_total)]($style))"
 style = "bold yellow"
 
-# ===== Containers / Cloud =====
+# ===== Infrastructure / Cloud (Production Standard) =====
 [docker_context]
-format = " [🐳 $context](sapphire)"
+format = " [󰡨 $context](sapphire)"
 only_with_files = true
 
 [kubernetes]
-format = " [⎈ $context(::$namespace)](sky)"
+format = " [󱃾 $context(::$namespace)](sky)"
 disabled = false
 
-[aws]
-format = " [AWS:$profile](yellow)"
-expiration_symbol = "⏳"
-disabled = true
-
-[gcloud]
-format = " [GCP:$account](yellow)"
-disabled = true
-
-# ===== Runtimes / Package =====
-[package]
-format = " [📦 $version](subtext1)"
-disabled = false
-
-[nodejs]
-format = " [⬢ $version](bold green)"
-detect_extensions = ["js","ts","mjs","cjs","jsx","tsx"]
-detect_files = ["package.json","pnpm-lock.yaml","yarn.lock"]
-
-[python]
-symbol = "🐍 "
-format = " [${symbol}${version}](bold blue)"
-detect_extensions = ["py"]
-detect_files = ["pyproject.toml","requirements.txt","Pipfile"]
-
-[rust]
-format = " [🦀 $version](bold red)"
-
-[golang]
-format = " [🏎 $version](bold cyan)"
-detect_files = ["go.mod","go.sum","go.work","*.go"]
+[helm]
+format = " [󱟙 $version](white bold)"
 
 [terraform]
-format = " [tf:$version](mauve)"
+format = " [󱁢 $version](mauve)"
+
+[pulumi]
+format = " [󱓞 $stack](bold blue)"
+
+[aws]
+format = " [󰸏 $profile](yellow)"
+
+[gcloud]
+format = " [󱇳 $account](yellow)"
 disabled = true
 
-# ===== Time / Duration / Memory / Battery / Sudo / Status / Jobs =====
+[azure]
+format = " [󰠅 $subscription](bold blue)"
+
+# ===== Environments & Managers =====
+[nix_shell]
+symbol = "󱄅 "
+format = ' [$symbol$state( ($name))](blue bold)'
+
+[direnv]
+symbol = "󱁐 "
+format = " [$symbol$allowed](bold yellow)"
+
+[mise]
+symbol = "󱗼 "
+format = " [$symbol$version](bold text)"
+
+[pixi]
+symbol = "󱗪 "
+format = " [$symbol$version](bold yellow)"
+
+# ===== Runtimes / Programming Languages (Full Set) =====
+[package]
+format = " [󰏗 $version](subtext1)"
+
+[nodejs]
+format = " [󰎙 $version](bold green)"
+
+[python]
+symbol = "󰌠 "
+format = " [${symbol}${version}](bold blue)"
+
+[rust]
+format = " [󱘗 $version](bold red)"
+
+[golang]
+format = " [󰟓 $version](bold cyan)"
+
+[bun]
+format = " [󰛦 $version](bold rosewater)"
+
+[deno]
+format = " [󰻊 $version](bold text)"
+
+[lua]
+format = " [󰢱 $version](bold blue)"
+
+[c]
+format = " [󰙨 $version](bold blue)"
+
+[cmake]
+format = " [󱁤 $version](bold blue)"
+
+[java]
+format = " [󰬷 $version](bold red)"
+
+[gradle]
+format = " [󱖎 $version](bold blue)"
+
+[maven]
+format = " [󱃔 $version](bold blue)"
+
+[kotlin]
+format = " [󱈙 $version](bold blue)"
+
+[scala]
+format = " [󱗚 $version](bold red)"
+
+[dart]
+format = " [󰊗 $version](bold blue)"
+
+[flutter]
+format = " [󱗦 $version](bold blue)"
+
+[dotnet]
+format = " [󰪮 $version](bold blue)"
+
+[elixir]
+format = " [󰈹 $version](bold mauve)"
+
+[erlang]
+format = " [󰈹 $version](bold red)"
+
+[haskell]
+format = " [󰲒 $version](bold mauve)"
+
+[julia]
+format = " [󰟔 $version](bold mauve)"
+
+[nim]
+format = " [󰆦 $version](bold yellow)"
+
+[perl]
+format = " [󰇱 $version](bold blue)"
+
+[crystal]
+format = " [󰟴 $version](bold red)"
+
+[swift]
+format = " [󰛥 $version](bold orange)"
+
+[zig]
+format = " [󱕷 $version](bold yellow)"
+
+# ===== Tools =====
+[buf]
+format = " [󰚼 $version](bold blue)"
+
+[opa]
+format = " [󰩠 $version](bold blue)"
+
+# ===== Metrics / Status (Contextual Info) =====
 [time]
 disabled = false
-format = "[  $time ](subtext1)"
-time_format = "%Y-%m-%d %H:%M"
+format = "[󱑊 $time](overlay1)"
+time_format = "%H:%M"
 
 [cmd_duration]
 min_time = 500
-format = " [⏱ $duration](overlay2)"
+format = " [󱎫 $duration](overlay1)"
 
 [memory_usage]
 disabled = false
 threshold = -1
-format = " [ $ram_pct]($style)"
-style = "overlay1"
+format = " [󰍛 $ram_pct](overlay1)"
 
 [battery]
 full_symbol = "󰁹 "
 charging_symbol = "󰂄 "
 discharging_symbol = "󰂃 "
-format = " [$symbol$percentage]($style)"
+format = " [$symbol$percentage](overlay1)"
 [[battery.display]]
 threshold = 30
 style = "bold red"
-[[battery.display]]
-threshold = 100
-style = "subtext1"
 
 [sudo]
 disabled = false
-allow_windows = false
 symbol = "󰀶"
 style = "bold yellow"
 format = "[$symbol SUDO]($style) "
 
 [status]
 disabled = false
-symbol = "✘"
+symbol = "✘ "
 success_symbol = ""
-format = "[$symbol $status]($style) "
+format = "[$symbol$status]($style) "
 style = "bold red"
 pipestatus = true
-map_symbol = true
-recognize_signal_code = true
 
 [jobs]
-symbol = "✦"
+symbol = "󰜎 "
 number_threshold = 1
-format = " [$symbol$number]($style)"
+format = " [$symbol$number](overlay1)"
 
 [shlvl]
 disabled = false
-symbol = "↕️ "
+symbol = "󰜿 "
 style = "bold yellow"
 format = "[$symbol]($style)"
 threshold = 2
@@ -176,11 +265,11 @@ threshold = 2
 [shell]
 disabled = false
 style = "bold"
-bash_indicator = "[bsh](#a593e0)"
-zsh_indicator  = "[zsh](#fff1b9)"
-fish_indicator = "󰈺 "
-powershell_indicator = "[psh](#f7aa97)"
-cmd_indicator  = "[cmd](#a3daff)"
+bash_indicator = "[󱆃 bsh](#a593e0)"
+zsh_indicator  = "[󱆃 zsh](#fff1b9)"
+fish_indicator = "󰈺 fish"
+powershell_indicator = "[󰰓 psh](#f7aa97)"
+cmd_indicator  = "[ cmd](#a3daff)"
 
 # ===== Palette (Catppuccin Mocha) =====
 [palettes.catppuccin_mocha]
