@@ -35,9 +35,9 @@ function M.setup()
     -- キーマップの設定
     local opts = { silent = true }
     vim.keymap.set({ "i", "c" }, "<C-q>", "<Plug>(skkeleton-toggle)", opts)
-    vim.keymap.set({ "i", "c" }, "<C-_>", "<Plug>(skkeleton-toggle)", opts)
-    -- Leader+j は、Leaderが設定された後に有効になるようにしなさいよ
-    vim.keymap.set({ "i", "c" }, "<Leader>j", "<Plug>(skkeleton-toggle)", opts)
+    vim.keymap.set({ "i", "c" }, "<C-j>", "<Plug>(skkeleton-toggle)", opts)
+    -- 注意: 挿入モードでSpaceを頭にするキーバインドは入力を重くするので無効化しました
+    -- vim.keymap.set({ "i", "c" }, "<Leader>j", "<Plug>(skkeleton-toggle)", opts)
 end
 
 function M.mode_status()

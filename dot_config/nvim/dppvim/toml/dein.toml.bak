@@ -1,0 +1,462 @@
+#######################################################################
+# sample
+#[[plugins]]
+#repo = ''
+#name = ''
+#proto = 'ssh'
+#hook_add = '''
+#lua require("")
+#'''
+#######################################################################
+
+[[plugins]]
+repo = 'vim-denops/denops.vim'
+lazy = false
+
+#######################################################################
+#  AI Coding 
+#######################################################################
+[[plugins]]
+repo = 'Exafunction/windsurf.vim'
+name = 'windsurf.vim'
+build = './install.sh'
+hook_add = '''
+lua << EOF
+require("ai.windsurf")
+EOF
+'''
+
+[[plugins]]
+repo = "olimorris/codecompanion.nvim"
+depends = ["plenary.nvim"]
+hook_add = '''
+lua require("ai.codecompanion")
+'''
+
+#######################################################################
+# 🎨 UI / Appearance
+#######################################################################
+[[plugins]]
+repo = 'catppuccin/nvim'
+name = 'catppuccin'
+hook_add = '''
+lua require("plugins.catppuccin")
+'''
+
+[[plugins]]
+repo = 'nvim-lualine/lualine.nvim'
+name = 'lualine'
+depends = ['nvim-web-devicons']
+hook_add = '''
+lua require("plugins.lualine")
+'''
+
+[[plugins]]
+repo = 'nvim-tree/nvim-web-devicons'
+name = 'nvim-web-devicons'
+lazy = false
+hook_add = '''
+lua require("plugins.nvim-web-devicons")
+'''
+
+[[plugins]]
+repo = 'rcarriga/nvim-notify'
+name = 'nvim-notify'
+
+[[plugins]]
+repo = 'folke/noice.nvim'
+name = 'noice.nvim'
+event = 'VeryLazy'
+depends = ['nui.nvim', 'nvim-notify']
+hook_post_source = '''
+lua require("plugins.noice")
+'''
+
+[[plugins]]
+repo = 'MunifTanjim/nui.nvim'
+name = 'nui.nvim'
+
+[[plugins]]
+repo = 'goolord/alpha-nvim'
+name = 'alpha-nvim'
+lazy = false
+hook_add = '''
+lua require("core.dashboard").setup()
+'''
+
+[[plugins]]
+repo = 'echasnovski/mini.nvim'
+name = 'mini.nvim'
+
+[[plugins]]
+repo = 'akinsho/bufferline.nvim'
+name = 'bufferline.nvim'
+proto = "ssh"
+hook_add = '''
+lua require("plugins.bufferline")
+'''
+
+[[plugins]]
+repo = 'lukas-reineke/indent-blankline.nvim'
+name = 'indent-blankline.nvim'
+hook_add = '''
+lua require("plugins.indent-blankline")
+'''
+
+[[plugins]]
+repo = 'vim-jp/vimdoc-ja'
+name = 'vimdoc-ja'
+
+#######################################################################
+# 🧠 LSP / Diagnostics
+#######################################################################
+[[plugins]]
+repo = 'neovim/nvim-lspconfig'
+name = 'nvim-lspconfig'
+
+[[plugins]]
+repo = 'williamboman/mason.nvim'
+name = 'mason.nvim'
+hook_add = 'lua require("plugins.mason")'
+
+[[plugins]]
+repo = 'williamboman/mason-lspconfig.nvim'
+name = 'mason-lspconfig.nvim'
+depends = ['mason.nvim', 'nvim-lspconfig']
+
+[[plugins]]
+repo = 'folke/trouble.nvim'
+name = 'trouble.nvim'
+hook_add = '''
+lua require("plugins.trouble")
+'''
+
+[[plugins]]
+repo = 'plasticboy/vim-markdown'
+name = 'vim-markdown'
+ft = ['markdown']
+hook_add = '''
+lua require("plugins.vim-markdown")
+'''
+
+[[plugins]]
+repo = 'stevearc/conform.nvim'
+name = 'conform.nvim'
+hook_add = '''
+lua require("plugins.conform")
+'''
+
+[[plugins]]
+repo = 'mfussenegger/nvim-lint'
+name = 'nvim-lint'
+hook_add = '''
+lua require("plugins.lint")
+'''
+
+[[plugins]]
+repo = 'ray-x/lsp_signature.nvim'
+name = 'lsp_signature.nvim'
+hook_add = '''
+lua require("plugins.lsp-signature")
+'''
+
+
+#######################################################################
+# 🧩 Completion Engines
+#######################################################################
+[[plugins]]
+repo = 'hrsh7th/nvim-cmp'
+name = 'nvim-cmp'
+depends = ['cmp-nvim-lsp','cmp-path','cmp-buffer','cmp-cmdline','cmp_luasnip','LuaSnip','friendly-snippets']
+hook_add = '''
+lua require("plugins.nvim-cmp")
+'''
+
+[[plugins]]
+repo = 'hrsh7th/cmp-nvim-lsp'
+name = 'cmp-nvim-lsp'
+
+[[plugins]]
+repo = 'hrsh7th/cmp-path'
+name = 'cmp-path'
+
+[[plugins]]
+repo = 'hrsh7th/cmp-buffer'
+name = 'cmp-buffer'
+
+[[plugins]]
+repo = 'hrsh7th/cmp-cmdline'
+name = 'cmp-cmdline'
+
+[[plugins]]
+repo = 'saadparwaiz1/cmp_luasnip'
+name = 'cmp_luasnip'
+
+[[plugins]]
+repo = 'L3MON4D3/LuaSnip'
+name = 'LuaSnip'
+
+[[plugins]]
+repo = 'rafamadriz/friendly-snippets'
+name = 'friendly-snippets'
+
+[[plugins]]
+repo = 'Shougo/ddc.vim'
+name = 'ddc.vim'
+on_event = 'DenopsReady' 
+depends = [
+  'denops.vim',
+  'ddc-ui-native',
+  'ddc-source-nvim-lsp',
+  'ddc-source-around',
+  'ddc-source-buffer', # matsui54/ddc-source-buffer
+  'ddc-source-cmdline_history',
+  'ddc-filter-matcher_head',
+  'ddc-filter-sorter_rank',
+  'ddc-filter-converter_remove_overlap',
+  'ddc-matcher_fuzzy',
+  'kensaku.vim'
+]
+hook_add = '''
+lua require("plugins.ddc")
+'''
+
+[[plugins]]
+repo = 'Shougo/ddc-source-nvim-lsp'
+name = 'ddc-source-nvim-lsp'
+proto = "ssh"
+on_event = 'DenopsReady'
+
+[[plugins]]
+repo = 'Shougo/ddc-source-around'
+name = 'ddc-source-around'
+proto = "ssh"
+on_event = 'DenopsReady'
+
+[[plugins]]
+repo = 'matsui54/ddc-source-buffer'
+name = 'ddc-source-buffer'
+proto = "ssh"
+
+[[plugins]]
+repo = 'Shougo/ddc-ui-native'
+name = 'ddc-ui-native'
+proto = "ssh"
+
+[[plugins]]
+repo = 'Shougo/ddc-filter-matcher_head'
+name = 'ddc-filter-matcher_head'
+proto = 'ssh'
+
+[[plugins]]
+repo = 'Shougo/ddc-filter-sorter_rank'
+name = 'ddc-filter-sorter_rank'
+proto = 'ssh'
+
+[[plugins]]
+repo = 'Shougo/ddc-filter-converter_remove_overlap'
+name = 'ddc-filter-converter_remove_overlap'
+proto = 'ssh'
+
+[[plugins]]
+repo = 'Shougo/ddc-source-cmdline_history'
+name = 'ddc-source-cmdline_history'
+proto = 'ssh'
+
+[[plugins]]
+repo = 'Shougo/ddc-ui-none'
+name = 'ddc-ui-none'
+proto = 'ssh'
+on_event = 'VeryLazy'
+
+
+[[plugins]]
+repo = 'matsui54/ddc-matcher_fuzzy'
+name = 'ddc-matcher_fuzzy'
+proto = 'ssh'
+
+[[plugins]]
+repo = 'Shougo/ddc-ui-pum'
+name = 'ddc-ui-pum'
+proto = 'ssh'
+
+[[plugins]] 
+repo = 'lambdalisue/vim-kensaku'
+name = 'vim-kensaku'
+proto = 'ssh'
+
+#######################################################################
+# 🔍 Fuzzy Finder / Ddu
+#######################################################################
+[[plugins]]
+repo = 'Shougo/ddu.vim'
+name = 'ddu.vim'
+hook_add = '''
+lua require("plugins.ddu")
+'''
+
+[[plugins]]
+repo = 'nvim-telescope/telescope.nvim'
+name = 'telescope.nvim'
+depends = ['plenary.nvim']
+hook_add = '''
+lua require("plugins.telescope")
+'''
+
+[[plugins]]
+repo = 'nvim-lua/plenary.nvim'
+name = 'plenary.nvim'
+
+[[plugins]]
+repo = 'lambdalisue/kensaku.vim'
+name = 'kensaku.vim'
+# depends = ['denops.vim'] # denops.vim に依存
+hook_add = '''
+lua require("plugins.kensaku")
+'''
+
+[[plugins]]
+repo = 'lambdalisue/kensaku-search.vim'
+name = 'kensaku-search.vim'
+depends = ['kensaku.vim']
+
+#######################################################################
+# 🌲 Treesitter
+#######################################################################
+[[plugins]]
+repo = 'nvim-treesitter/nvim-treesitter'
+name = 'nvim-treesitter'
+depends = ['nvim-treesitter-textobjects','nvim-ts-autotag']
+hook_add = '''
+lua require("plugins.nvim-treesitter")
+'''
+hook_post_update = '''
+  mkdir -p ~/.cache/nvim/dpp/nvim/.dpp/parser
+  TSUpdate
+'''
+
+[[plugins]]
+repo = 'nvim-treesitter/nvim-treesitter-textobjects'
+name = 'nvim-treesitter-textobjects'
+
+[[plugins]]
+repo = 'windwp/nvim-ts-autotag'
+name = 'nvim-ts-autotag'
+hook_add = '''
+lua require("plugins.nvim-ts-autotag")
+'''
+
+#######################################################################
+# 🗂 File Explorer / Navigation
+#######################################################################
+[[plugins]]
+repo = 'nvim-tree/nvim-tree.lua'
+name = 'nvim-tree'
+depends = ['nvim-web-devicons']
+hook_add = '''
+lua require("plugins.nvim-tree")
+'''
+
+[[plugins]]
+repo = 'lambdalisue/fern.vim'
+name = 'fern.vim'
+
+#######################################################################
+# 🖥 Terminal
+#######################################################################
+[[plugins]]
+repo = 'akinsho/toggleterm.nvim'
+name = 'toggleterm.nvim'
+hook_add = '''
+lua require("plugins.toggleterm")
+'''
+
+#######################################################################
+# 🕹 Navigation / Jump
+#######################################################################
+[[plugins]]
+repo = 'hrsh7th/vim-eft'
+name = 'vim-eft'
+hook_add = '''
+lua require("plugins.vim-eft")
+'''
+
+[[plugins]]
+repo = 'yuki-yano/fuzzy-motion.vim'
+name = 'fuzzy-motion.vim'
+
+#######################################################################
+# 🧙 Bracket / Input Helper
+#######################################################################
+[[plugins]]
+repo = 'cohama/lexima.vim'
+name = 'lexima.vim'
+hook_add = '''
+lua require("plugins.lexima")
+'''
+
+[[plugins]]
+repo = 'machakann/vim-sandwich'
+name = 'vim-sandwich'
+lazy = false
+#hook_source = '''
+hook_add = '''
+let g:sandwich#recipes = []
+call add(g:sandwich#recipes, {
+\   'buns': ['【', '】'],
+\   'input': ['<C-b>'],
+\   'filetype': ['markdown'],
+\ })
+'''
+
+[[plugins]]
+repo = 'thinca/vim-ambicmd'
+name = 'vim-ambicmd'
+hook_add = '''
+lua require("plugins.vim-ambicmd")
+'''
+
+#######################################################################
+# 📜 Keymap Helper
+#######################################################################
+[[plugins]]
+repo = 'folke/which-key.nvim'
+name = 'which-key.nvim'
+lazy = false
+hook_add = '''
+lua require("plugins.which-key")
+'''
+
+#######################################################################
+# Others
+#######################################################################
+[[plugins]]
+repo = 'epwalsh/obsidian.nvim'
+name = 'obsidian.nvim'
+depends = ['plenary.nvim']
+on_ft = ['markdown']
+hook_add = '''
+lua require("plugins.obsidian")
+'''
+
+[[plugins]]
+repo = 'Shougo/junkfile.vim'
+name = 'junkfile.vim'
+#on_event = 'DenopsReady'
+hook_add = '''
+lua require("plugins.junkfile")
+'''
+
+[[plugins]]
+repo = 'h-hg/fcitx5.nvim'
+on_event = 'InsertEnter'
+hook_add = '''
+lua require("fcitx5").setup()
+'''
+
+[[plugins]]
+repo = 'amber-lang/amber-vim'
+name = 'amber-vim'
+hook_add = '''
+  autocmd BufRead,BufNewFile *.ab set filetype=amber
+'''

@@ -2,24 +2,38 @@
 vim.opt.termguicolors = true
 
 local function load(name)
-  pcall(vim.fn["dpp#ext_action"], "lazy", "load", { names = { name } })
+  local ok, lazy = pcall(require, "lazy")
+  if ok then
+    lazy.load({ plugins = { name } })
+  end
 end
 
 local function apply(scheme)
   if scheme:match("^tokyonight%-") then
     local style = scheme:match("^tokyonight%-(.+)$")
     local ok, tn = pcall(require, "tokyonight")
-    if ok and style then tn.setup({ style = style }) end
+    if ok and style then 
+      pcall(tn.setup, { style = style }) 
+    end
     scheme = "tokyonight"
   end
   local ok, err = pcall(vim.cmd.colorscheme, scheme)
-  if not ok then vim.notify("Theme failed: "..scheme.." → "..tostring(err), vim.log.levels.WARN) end
+  if not ok then 
+    -- Only notify if it's not a "not found" error during first install
+    if not tostring(err):match("E185") then
+      vim.notify("Theme failed: "..scheme.." → "..tostring(err), vim.log.levels.WARN) 
+    end
+  end
   return ok
 end
 
 local DEFAULT = { plugin = "tokyonight", scheme = "tokyonight-moon" }
-load(DEFAULT.plugin)
-apply(DEFAULT.scheme)
+-- Only try to load/apply if lazy is ready
+local lazy_ok, lazy = pcall(require, "lazy")
+if lazy_ok then
+  pcall(lazy.load, { plugins = { DEFAULT.plugin } })
+  apply(DEFAULT.scheme)
+end
 
 local THEMES = {
   { plugin="tokyonight", scheme="tokyonight-moon",  label="Tokyo Night (moon)" },
