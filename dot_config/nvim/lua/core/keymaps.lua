@@ -86,6 +86,11 @@ keymap("t", "<ESC>", [[<C-\><C-n>]], opts)
 keymap("n", "<Leader>tt", "<cmd>split | terminal<CR>", opts)
 
 -- ==========================
+-- 📝 自作軽量スクラッチパッド
+-- ==========================
+keymap("n", "<Leader>s", function() require("core.scratch").toggle_scratch() end, { desc = "スクラッチパッドを開く/閉じる", silent = true })
+
+-- ==========================
 -- ⌨️ 日本語入力時の IME 自動 OFF
 -- ==========================
 

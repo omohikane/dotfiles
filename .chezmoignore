@@ -1,0 +1,5 @@
+.config/nvim/.env
+.config/nvim/.aider.*
+.config/nvim/dppvim/
+.config/nvim/archive/**
+.config/nvim/archive/

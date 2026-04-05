@@ -158,3 +158,6 @@ vim.opt.fileencodings = { "utf-8", "sjis", "euc-jp" }
 
 -- 日本語の文字幅を適切に調整
 vim.opt.ambiwidth = "double"
+
+-- ファイルの変更を自動的に読み込む (aid er等との連携に必須)
+vim.opt.autoread = true

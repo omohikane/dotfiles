@@ -13,6 +13,13 @@ end
 local autocmd = vim.api.nvim_create_autocmd
 local augroup = vim.api.nvim_create_augroup
 
+-- Zellij 連携用のヘルパー
+local function zellij_action(action)
+	if vim.env.ZELLIJ then
+		vim.fn.jobstart({ "zellij", "action", action }, { detach = true })
+	end
+end
+
 -- ユーザー定義のグループを作成
 local generalGroup = augroup("GeneralSettings", {})
 local filetypeGroup = augroup("FileTypeSettings", {})
@@ -51,10 +58,14 @@ autocmd("FileType", {
 -- 🔄 ファイルの自動リロード
 -- ==========================
 
--- 外部で変更されたファイルを自動的にリロード
-autocmd("FocusGained", {
+-- 外部で変更されたファイルを自動的にリロード (FocusGained, BufEnter に加えて継続的にチェック)
+autocmd({ "FocusGained", "BufEnter", "CursorHold" }, {
 	group = generalGroup,
-	command = "checktime",
+	callback = function()
+		if vim.fn.getcmdwintype() == "" then
+			vim.cmd("checktime")
+		end
+	end,
 })
 
 -- ==========================
@@ -198,4 +209,22 @@ autocmd("ModeChanged", {
 	group = generalGroup,
 	pattern = "i:*", -- 挿入モードから他モードへ
 	callback = try_fcitx_off,
+})
+
+-- ==========================
+-- 🪟 Zellij 連携 (自動ロック)
+-- ==========================
+
+local zellijGroup = augroup("ZellijSettings", { clear = true })
+
+-- Neovim 起動時 / フォーカス取得時に Locked モードへ
+autocmd({ "VimEnter", "FocusGained" }, {
+	group = zellijGroup,
+	callback = function() zellij_action("switch-mode locked") end,
+})
+
+-- Neovim 終了時 / フォーカス喪失時に正常モードへ戻す
+autocmd({ "VimLeave", "FocusLost" }, {
+	group = zellijGroup,
+	callback = function() zellij_action("switch-mode normal") end,
 })

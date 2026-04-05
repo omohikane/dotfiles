@@ -1,6 +1,7 @@
 -- Leader mapping
 vim.g.mapleader = " "
 vim.g.maplocalleader = ","
+vim.g.lspconfig_silent = 1
 
 -- load env
 local env_ok, env = pcall(require, "core.env")
@@ -29,9 +30,16 @@ vim.opt.rtp:prepend(lazypath)
 -- We use require("plugins_spec") to load the list of plugins
 -- This avoids automatic importing of the lua/plugins directory which contains non-spec files
 require("lazy").setup({
-	spec = require("plugins_spec"),
+	spec = {
+		{ import = "plugins.ui" },
+		{ import = "plugins.coding" },
+		{ import = "plugins.editor" },
+		{ import = "plugins.git" },
+		{ import = "plugins.lang" },
+		{ import = "plugins.tools" },
+	},
 	install = { colorscheme = { "tokyonight" } },
-	checker = { enabled = false }, 
+	checker = { enabled = false },
 	performance = {
 		rtp = {
 			disabled_plugins = {
@@ -54,8 +62,6 @@ require("core.keymaps")
 require("core.autocmds")
 require("core.diagnostics")
 
--- Load Theme (uses lazy.load inside our modified theme.lua)
-pcall(require, "plugins.theme")
 
 -- Custom commands
 vim.api.nvim_create_user_command("WriteMessages", function()
