@@ -5,7 +5,7 @@ command_timeout = 500
 palette = "catppuccin_mocha"
 
 format = """
-╭ $os$container$sudo$username$hostname$shlvl$directory$git_branch$git_commit$git_state$git_status$docker_context$kubernetes$helm$terraform$pulumi$aws$gcloud$azure$nix_shell$direnv$mise$pixi$package$nodejs$python$rust$golang$bun$deno$lua$c$cmake$ruby$java$gradle$maven$kotlin$scala$dart$flutter$dotnet$elixir$erlang$haskell$julia$nim$perl$crystal$swift$zig$buf$opa$jobs $cmd_duration$status$battery$memory_usage$time
+╭ $os$container$sudo$username$hostname$shlvl$directory$git_branch$git_commit$git_state$git_status$docker_context$kubernetes$helm$terraform$pulumi$aws$gcloud$azure$nix_shell$direnv$mise$pixi$package$nodejs$python$rust$golang$bun$deno$lua$c$cmake$ruby$java$gradle$kotlin$scala$dart$dotnet$elixir$erlang$haskell$julia$nim$perl$crystal$swift$zig$buf$opa$jobs $cmd_duration$status$battery$memory_usage$time
 ╰─$character
 """
 right_format = ""
@@ -159,8 +159,6 @@ format = " [󰬷 $version](bold red)"
 [gradle]
 format = " [󱖎 $version](bold blue)"
 
-[maven]
-format = " [󱃔 $version](bold blue)"
 
 [kotlin]
 format = " [󱈙 $version](bold blue)"
@@ -170,9 +168,6 @@ format = " [󱗚 $version](bold red)"
 
 [dart]
 format = " [󰊗 $version](bold blue)"
-
-[flutter]
-format = " [󱗦 $version](bold blue)"
 
 [dotnet]
 format = " [󰪮 $version](bold blue)"
