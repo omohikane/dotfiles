@@ -54,6 +54,9 @@ keymap("n", "<Leader>tp", "<cmd>tabprevious<CR>", opts) -- 前のタブへ
 -- カーソル位置の単語を検索
 keymap("n", "<Leader>fw", "*N", opts)
 
+-- TODO リストを表示 (todo-comments.nvim)
+keymap("n", "<Leader>ft", "<cmd>TodoTelescope<CR>", { desc = "プロジェクト内の TODO を検索" })
+
 -- ファイル内で文字列を置換
 keymap("n", "<Leader>sr", ":%s//g<Left><Left>", { silent = false })
 
@@ -63,17 +66,6 @@ keymap("n", "<Leader>sr", ":%s//g<Left><Left>", { silent = false })
 
 -- ファイルエクスプローラーを開く（neotree.lua）
 keymap("n", "<Leader>e", "<cmd>Neotree reveal toggle<CR>", opts)
-
--- ==========================
--- 🤖 AI Assistant (nvim-aibo)
--- ==========================
-
--- Claude を開く
-keymap("n", "<Leader>ai", "<cmd>Claude<CR>", { desc = "Open Claude AI" })
-
--- バッファの内容を Claude に送る
-keymap("n", "<Leader>as", "<cmd>AiboSend -submit<CR>", { desc = "Send buffer to AI" })
-keymap("v", "<Leader>as", ":AiboSend -submit<CR>", { desc = "Send selection to AI" })
 
 -- ==========================
 -- 🚀 ターミナルモードの改善
@@ -101,4 +93,18 @@ keymap("i", "<C-h>", "<ESC><Left>", opts)
 -- `jj` や `kk` でも IME を自動 OFF
 -- keymap("i", "jj", "<ESC>", opts)
 -- keymap("i", "kk", "<ESC>", opts)
+
+-- ==========================
+-- 🛠️ バッファ強制操作
+-- ==========================
+
+-- 🛠️ バッファ操作 (Barbar / 整理)
+keymap("n", "<Leader>bb", "<cmd>Telescope buffers<CR>", { desc = "開いているバッファを一覧表示", silent = true })
+keymap("n", "<Leader>bd", "<cmd>BufferClose<CR>", { desc = "現在のバッファを閉じる", silent = true })
+
+-- 保存せずにバッファを強制終了
+keymap("n", "<A-C>", "<cmd>bd!<CR>", { desc = "保存せずバッファを強制終了", silent = true })
+
+-- 現在のバッファを保存不要モードに変更
+keymap("n", "<Leader>sc", function() require("core.scratch").set_scratch() end, { desc = "このバッファを保存不要モードにする", silent = true })
 

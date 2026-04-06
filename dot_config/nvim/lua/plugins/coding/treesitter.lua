@@ -22,7 +22,6 @@ return {
 					"elixir",
 					"html",
 					"css",
-					"org",
 				},
 				auto_install = true,
 				highlight = {

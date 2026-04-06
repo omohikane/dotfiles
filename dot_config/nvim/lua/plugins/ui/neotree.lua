@@ -9,7 +9,7 @@ return {
 		require("neo-tree").setup({
 			close_if_last_window = true,
 			popup_border_style = "rounded",
-			sources = { "filesystem", "buffers", "git_status", "diagnostics" },
+			sources = { "filesystem", "buffers", "git_status" },
 			source_selector = { winbar = true },
 			window = {
 				position = "left",

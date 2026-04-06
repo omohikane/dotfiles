@@ -18,19 +18,23 @@ return {
 				lualine_x = {
 					{
 						function()
-							-- Note: ensure plugins.skkeleton is accessible or move logic
 							local ok, skk = pcall(require, "plugins.tools.skkeleton")
 							if ok and skk.mode_status then
 								return skk.mode_status()
 							end
-							-- Fallback to old path if not moved yet or just call directly if available
-							local ok2, skk2 = pcall(require, "plugins.skkeleton")
-							if ok2 and skk2.mode_status then
-								return skk2.mode_status()
-							end
 							return ""
 						end,
-						color = { fg = "#ff9e64", gui = "bold" },
+						cond = function()
+							return vim.fn.exists("*skkeleton#mode") == 1
+						end,
+						color = function()
+							local mode = vim.fn["skkeleton#mode"]()
+							if mode == "hira" or mode == "kata" or mode == "zenkaku" then
+								return { fg = "#ff9e64", gui = "bold" } -- アクティブ時は明るいオレンジ
+							else
+								return { fg = "#7aa2f7" } -- 英数時は落ち着いたブルー
+							end
+						end,
 					},
 					"encoding",
 					"fileformat",

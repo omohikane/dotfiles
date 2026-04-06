@@ -43,6 +43,12 @@ function M.toggle_scratch()
 		noremap = true,
 		silent = true,
 	})
+-- 現在のバッファを強制的にスクラッチ（保存不要）モードにする
+function M.set_scratch()
+	vim.opt_local.buftype = "nofile"
+	vim.opt_local.bufhidden = "hide"
+	vim.opt_local.swapfile = false
+	print("Current buffer set to Scratch mode (no save required)")
 end
 
 return M

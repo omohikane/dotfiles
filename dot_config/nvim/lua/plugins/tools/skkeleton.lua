@@ -32,6 +32,18 @@ function M.config()
 			end,
 	})
 
+	-- モード切替時に Lualine を即時更新する
+	vim.api.nvim_create_autocmd("User", {
+		pattern = "skkeleton-mode-changed",
+		callback = function()
+			-- Lualine が読み込まれている場合に再描画を要求
+			local ok, lualine = pcall(require, "lualine")
+			if ok then
+				lualine.refresh()
+			end
+		end,
+	})
+
 	-- キーマップの設定
 	local opts = { silent = true }
 	vim.keymap.set({ "i", "c" }, "<C-q>", "<Plug>(skkeleton-toggle)", opts)
@@ -45,11 +57,11 @@ function M.mode_status()
 	end
 	local mode = vim.fn["skkeleton#mode"]()
 	local symbols = {
-		hira = "あ",
-		kata = "ア",
-		hankata = "ｱ",
-		zenkaku = "全",
-		abbrev = "a",
+		hira = "󰉓 あ",
+		kata = "󰉓 ア",
+		hankata = "󰉓 ｱ",
+		zenkaku = "󰉓 全",
+		abbrev = "󰉓 a",
 	}
 	return symbols[mode] or ""
 end

@@ -120,8 +120,8 @@ opt.updatetime = 300
 -- キーマップ待機時間 (デフォルト: 1000ms)
 opt.timeoutlen = 500
 
--- スクロール中の描画を遅延させて高速化
-opt.lazyredraw = true
+-- スクロール中の描画を遅延させて高速化 (Noice.nvim 等との互換性のため false 推奨)
+opt.lazyredraw = false
 
 -- 長いシンタックスハイライトの描画時間を延長
 opt.redrawtime = 10000
