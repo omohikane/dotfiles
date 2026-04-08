@@ -46,13 +46,6 @@ return {
 						fallback()
 					end
 				end, { "i", "s" }),
-				["<Space>"] = cmp.mapping(function(fallback)
-					if cmp.visible() then
-						cmp.select_next_item()
-					else
-						fallback()
-					end
-				end, { "i", "s" }),
 			}),
 			sources = cmp.config.sources({
 				{ name = "skkeleton", keyword_length = 2 },
