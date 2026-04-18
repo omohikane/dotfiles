@@ -23,6 +23,8 @@ fd
 jq
 fastfetch
 htop
+fzf
+bat
 
 # fs / disk
 duf
