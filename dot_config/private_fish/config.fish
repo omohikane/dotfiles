@@ -11,9 +11,29 @@ set -g fzf_fd_opts --hidden --exclude .git
 
 # keybind
 #bind \cf 'fzf'  # Ctrl+Fでfzfを起動
+bind yy fish_clipboard_copy
+bind Y fish_clipboard_copy
+bind p fish_clipboard_paste
 
+function fish_user_key_bindings
+  # fish vim mode
+  fish_vi_key_bindings --no-erase
+
+  # Emacs key bindings 
+  bind -M insert  \cf forward-char
+  bind -M insert  \ce end-of-line
+  bind -M insert  \el forward-word
+  
+  # set mode cursor 
+  # 1: block (█), 2: underscore (_), 3: line (|), 4: block (blink), 5: underscore (blink), 6: line (blink)
+  set -g fish_cursor_default block
+  set -g fish_cursor_insert line
+  set -g fish_cursor_replace_one underscore
+  set -g fish_cursor_visual block
+end
 
 if status is-interactive
+
     # Commands to run in interactive sessions can go here
     # よく使うコマンドの略語
     abbr -a g git
@@ -78,7 +98,6 @@ if status is-interactive
     if test -f "$HOME/.config/ai-personal/clients/fish-loader.fish"
         source "$HOME/.config/ai-personal/clients/fish-loader.fish"
     end
-
 end
 
 
