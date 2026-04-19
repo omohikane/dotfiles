@@ -95,6 +95,10 @@ if status is-interactive
     # Chezmoi
     abbr -a cz 'chezmoi'
 
+    # Wireguard
+    abbr -a wgu 'sudo wg-quick up '
+    abbr -a wgd 'sudo wg-quick down '
+
     # Aider
     abbr -a aig3f 'aider --model gemini/gemini-3-flash-preview'
     abbr -a aigp 'aider --model gemini/gemini-1.5-pro-latest'
