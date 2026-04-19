@@ -25,6 +25,7 @@ fastfetch
 htop
 fzf
 bat
+zoxide
 
 # fs / disk
 duf

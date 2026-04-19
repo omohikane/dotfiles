@@ -34,6 +34,10 @@ end
 
 if status is-interactive
 
+  if type -q zoxide
+    zoxide init fish | source 
+  end
+
     # Commands to run in interactive sessions can go here
     # よく使うコマンドの略語
     abbr -a g git
@@ -64,7 +68,6 @@ if status is-interactive
     abbr -a dl 'cd ~/Downloads'
 
     # システム管理の略語
-    abbr -a update 'sudo pacman -Syu'  # Arch Linuxの場合
     abbr -a sysinfo 'fastfetch'
 
     # ネットワーク関連の略語
@@ -88,6 +91,9 @@ if status is-interactive
     abbr -a klf 'kubectl logs -f'
     abbr -a kdel 'kubectl delete'
     abbr -a ke 'kubectl edit'
+
+    # Chezmoi
+    abbr -a cz 'chezmoi'
 
     # Aider
     abbr -a aig3f 'aider --model gemini/gemini-3-flash-preview'

@@ -1,0 +1,54 @@
+#!/bin/sh
+
+# パス設定（WSL2内の絶対パスで指定するのが一番安全よ）
+OBSIDIAN_SRC="$HOME/GitHub/r1ppl3s-obsidian-notes/03_Projects/Blogs/Zenn/Published"
+ZENN_REPO_DIR="$HOME/GitHub/zenn-blog"
+ZENN_DEST="$ZENN_REPO_DIR/articles"
+
+# Publishedディレクトリが存在するか一応チェック
+if [ ! -d "$OBSIDIAN_SRC" ]; then
+    echo "❌ Error: Source directory not found: $OBSIDIAN_SRC"
+    exit 1
+fi
+
+# 1. 配送処理
+if [ -n "$1" ]; then
+    # 引数がある場合：単発配送
+    # 拡張子 .md がなくても補完してあげるわ
+    FILENAME=$(basename "$1" .md).md
+    SRC_FILE="$OBSIDIAN_SRC/$FILENAME"
+
+    if [ -f "$SRC_FILE" ]; then
+        echo "📦 Shipping: $FILENAME"
+        cp "$SRC_FILE" "$ZENN_DEST/"
+    else
+        echo "❌ Error: File not found: $FILENAME"
+        exit 1
+    fi
+else
+    # 引数がない場合：一括同期
+    echo "🚚 Syncing all articles from Published..."
+    # rsyncで同期。その際、Zone.IdentifierなどのNTFSゴミを除外するわ
+    rsync -av --delete --exclude='*:Zone.Identifier' "$OBSIDIAN_SRC/" "$ZENN_DEST/"
+fi
+
+# 2. Git処理
+cd "$ZENN_REPO_DIR" || exit
+
+# 変更があるか確認
+if [ -n "$(git status --porcelain)" ]; then
+    git add .
+    
+    # コミットメッセージの組み立て
+    if [ -n "$1" ]; then
+        COMMIT_MSG="Publish article: $(basename "$1" .md)"
+    else
+        COMMIT_MSG="Bulk publish articles: $(date '+%Y-%m-%d %H:%M')"
+    fi
+    
+    git commit -m "$COMMIT_MSG"
+    git push origin master # あんたの環境は master よね？mainなら書き換えなさい
+    echo "✨ Done! 成果を世界にデプロイしたわよ。"
+else
+    echo "🤷 No changes to commit."
+fi
