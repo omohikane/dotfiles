@@ -40,7 +40,7 @@ function M.setup()
 		fold_virt_text_handler = handler,
 		provider_selector = function(bufnr, filetype, buftype)
 			-- Use LSP as primary, fallback to treesitter, then indent
-			return { "lsp", "treesitter" }
+			return { "lsp", "indent" }
 		end,
 	})
 end

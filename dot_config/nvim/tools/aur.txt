@@ -6,3 +6,7 @@ terraform-ls
 
 prettierd
 eslint_d
+
+# Treesitter
+tree-sitter-cli
+
