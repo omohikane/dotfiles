@@ -26,26 +26,15 @@ if not (vim.uv or vim.loop).fs_stat(lazypath) then
 end
 vim.opt.rtp:prepend(lazypath)
 
--- Setup lazy.nvim with our spec
--- We use require("plugins_spec") to load the list of plugins
--- This avoids automatic importing of the lua/plugins directory which contains non-spec files
+-- Setup lazy.nvim with our new consolidated spec
 require("lazy").setup({
-	spec = {
-		{ import = "plugins.ui" },
-		{ import = "plugins.coding" },
-		{ import = "plugins.editor" },
-		{ import = "plugins.git" },
-		{ import = "plugins.lang" },
-		{ import = "plugins.tools" },
-	},
+	spec = require("plugin-list"),
 	install = { colorscheme = { "tokyonight" } },
 	checker = { enabled = false },
 	performance = {
 		rtp = {
 			disabled_plugins = {
 				"gzip",
-				-- "matchit",
-				-- "matchparen",
 				"netrwPlugin",
 				"tarPlugin",
 				"tohtml",
@@ -56,11 +45,14 @@ require("lazy").setup({
 	},
 })
 
--- Load Core Settings
+-- Load Core Settings (Vim settings independent of plugins)
 require("core.options")
 require("core.keymaps")
 require("core.autocmds")
 require("core.diagnostics")
+
+-- Set colorscheme
+vim.cmd("colorscheme tokyonight")
 
 
 -- Custom commands

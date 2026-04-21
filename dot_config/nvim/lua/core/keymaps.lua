@@ -26,6 +26,12 @@ keymap("n", "<Leader>mpo", "<cmd>MarkdownPreviewToggle<CR>", opts)
 keymap("n", "<ESC>", "<cmd>nohlsearch<CR>", opts)
 
 -- ==========================
+-- 󰁂 折り畳み操作 (nvim-ufo)
+-- ==========================
+keymap("n", "zR", function() require("ufo").openAllFolds() end, { desc = "全ての折り畳みを開く" })
+keymap("n", "zM", function() require("ufo").closeAllFolds() end, { desc = "全ての折り畳みを閉じる" })
+
+-- ==========================
 -- 🖥️ ウィンドウ & タブ操作
 -- ==========================
 

@@ -85,11 +85,11 @@ opt.relativenumber = true
 -- カーソル行をハイライト
 opt.cursorline = true
 
--- インデントベースの折りたたみを有効化
-opt.foldmethod = "indent"
-
--- デフォルトで全て展開
+-- nvim-ufo 用の折り畳み設定
+opt.foldcolumn = "1"
 opt.foldlevel = 99
+opt.foldlevelstart = 99
+opt.foldenable = true
 
 -- 24bit カラー対応
 opt.termguicolors = true
