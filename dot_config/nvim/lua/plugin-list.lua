@@ -88,7 +88,12 @@ return {
 			map("n", "<A-c>", "<Cmd>BufferClose<CR>", { silent = true })
 			map("n", "<A-p>", "<Cmd>BufferPin<CR>", { silent = true })
 			map("n", "<C-p>", "<Cmd>BufferPick<CR>", { silent = true })
-			map("n", "<Leader>bo", "<Cmd>BufferCloseAllButCurrent<CR>", { desc = "Close all but current", silent = true })
+			map(
+				"n",
+				"<Leader>bo",
+				"<Cmd>BufferCloseAllButCurrent<CR>",
+				{ desc = "Close all but current", silent = true }
+			)
 		end,
 		config = function()
 			require("config.barbar").setup()
@@ -198,10 +203,26 @@ return {
 		end,
 	},
 	{
-		"lukas-reineke/indent-blankline.nvim",
-		main = "ibl",
+
+		"echasnovski/mini.indentscope",
 		event = "BufReadPost",
-		config = true,
+		opts = {
+			symbol = "│",
+			options = { try_as_border = true },
+			draw = {
+				animation = function()
+					return 0
+				end, -- アニメーション無効（好みで）
+			},
+		},
+		init = function()
+			vim.api.nvim_create_autocmd("FileType", {
+				pattern = { "help", "alpha", "neo-tree", "Trouble", "lazy", "toggleterm", "notify" },
+				callback = function()
+					vim.b.miniindentscope_disable = true
+				end,
+			})
+		end,
 	},
 	{
 		"HiPhish/rainbow-delimiters.nvim",
@@ -281,6 +302,22 @@ return {
 		cmd = "Kensaku",
 		init = function()
 			vim.keymap.set("n", "<Leader>sk", ":<C-u>Kensaku<Space>")
+		end,
+	},
+	{
+		"lambdalisue/kensaku-search.vim",
+		dependencies = { "kensaku" },
+		config = function()
+			vim.keymap.set("c", "<CR>", "<Plug>(kensaku-search-replace)<CR>")
+		end,
+	},
+	{
+		"yuki-yano/fuzzy-motion.vim",
+		dependencies = { "kensaku" },
+		cmd = "FuzzyMotion",
+		init = function()
+			vim.keymap.set("n", "S", "<cmd>FuzzyMotion<CR>")
+			vim.cmd("let g:fuzzy_motion_matchers = ['kensaku', 'fzf']")
 		end,
 	},
 
