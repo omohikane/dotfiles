@@ -68,6 +68,7 @@ A modular, modern, and highly functional Neovim configuration focused on speed, 
 | **mini.surround**| `ys{motion}{char}` | Add surrounding |
 | | `ds{char}` | Delete surrounding |
 | | `cs{orig}{new}` | Change surrounding |
+| **mini.indentscope** | - | Visualize indentation levels |
 | **Comment.nvim** | `gcc` / `gbc` | Toggle Line / Block comment |
 | | `gc` / `gb` | Toggle comment (Visual mode) |
 | **EFT / QS** | `f` / `t` | Enhanced single-character motion |
