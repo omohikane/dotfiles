@@ -55,3 +55,35 @@ profile fallback-anywhere {
   }
 }
 
+
+# 🖥️ 現在のトリプルモニタ構成
+profile work-triple-setup {
+  output eDP-1 {
+    mode 1920x1200
+    position 1920,1200
+  }
+  output "Eizo Nanao Corporation EV2455 0x0533B657" {
+    mode 1920x1200
+    position 1920,0
+  }
+  output "Eizo Nanao Corporation EV2450 24776026" {
+    mode 1920x1080
+    position 3840,0
+    transform 270
+  }
+}
+
+# 🖥️ 縦置きモニタなしのデュアル構成
+profile work-dual-setup-no-vertical {
+  output eDP-1 {
+    mode 1920x1200
+    position 1920,1200
+  }
+  output "Eizo Nanao Corporation EV2455 0x0533B657" {
+    mode 1920x1200
+    position 1920,0
+  }
+  output "Eizo Nanao Corporation EV2450 24776026" {
+    disable
+  }
+}
