@@ -1,0 +1,34 @@
+## sway / core
+
+sway
+# (AUR) swaylock-effects
+# (AUR) wlogout
+
+## sway / bar & notifications
+
+waybar
+mako
+swayosd
+
+## sway / wallpaper & idle
+
+swaybg
+swayidle
+wlsunset
+
+## sway / input & display
+
+kanshi
+wdisplays
+wlr-randr
+
+## sway / launcher & clipboard
+
+fuzzel
+wl-clipboard
+
+## sway / screenshot & recording
+
+grim
+slurp
+wf-recorder

@@ -1,0 +1,6 @@
+## fonts (AUR)
+
+# (AUR) ttf-cica
+# (AUR) ttf-hackgen
+# (AUR) ttf-twemoji
+# (AUR) ttf-google-fonts-typewolf

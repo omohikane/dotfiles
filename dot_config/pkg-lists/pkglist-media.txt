@@ -1,0 +1,12 @@
+## image editing
+
+gimp
+
+## thumbnail / codec
+
+ffmpegthumbnailer
+ffmpegthumbs
+
+## metadata
+
+perl-image-exiftool

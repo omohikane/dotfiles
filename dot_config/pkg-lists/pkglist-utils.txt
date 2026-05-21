@@ -1,0 +1,11 @@
+## system monitor
+
+glances
+inxi
+lnav
+
+## misc
+
+obsidian
+httpie
+broot

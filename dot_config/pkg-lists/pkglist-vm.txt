@@ -1,0 +1,11 @@
+## virtualization
+
+libvirt
+qemu-full
+qemu-ui-spice-app
+virt-manager
+virt-viewer
+edk2-ovmf
+spice
+spice-gtk
+vde2

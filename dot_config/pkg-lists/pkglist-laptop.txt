@@ -1,0 +1,13 @@
+## power management
+
+tlp
+tlp-rdw
+
+## kernel modules (ThinkPad etc.)
+
+acpi_call
+tp_smapi
+
+## display
+
+brightnessctl

@@ -1,0 +1,9 @@
+## AI / local inference
+
+ollama
+# (AUR) gemini-cli
+
+## compute libraries
+
+openblas
+pocl

@@ -1,0 +1,84 @@
+## core / base
+
+base
+base-devel
+sudo
+git
+git-delta
+openssh
+wget
+curl
+rsync
+less
+tree
+which
+man-db
+man-pages
+
+## shell / UX
+
+fish
+fisher
+starship
+zellij
+alacritty
+ripgrep
+fd
+fzf
+jq
+yq
+bat
+bottom
+dust
+procs
+7zip
+ranger
+glow
+fastfetch
+htop
+atuin
+zoxide
+pv
+yt-dlp
+
+## fs / disk
+
+duf
+ncdu
+nvme-cli
+
+## network (essential)
+
+iproute2
+inetutils
+bind
+
+## editor
+
+neovim
+vim
+deno
+
+## input method
+
+fcitx5
+fcitx5-configtool
+fcitx5-gtk
+fcitx5-qt
+fcitx5-skk
+# (AUR) fcitx5-cskk
+
+## font (essential)
+
+ttf-0xproto-nerd
+ttf-hack-nerd
+
+## config management
+
+chezmoi
+
+## security (base)
+
+clamav
+pass
+fail2ban

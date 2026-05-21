@@ -1,0 +1,49 @@
+## network / analyze
+
+tshark
+wireshark-qt
+zenmap
+
+## network / probe
+
+nmap
+arp-scan
+hping
+
+## network / utilities
+
+openbsd-netcat
+net-snmp
+curlie
+sslscan
+tcpreplay
+
+## offensive / cracking
+
+hashcat
+hydra
+john
+pdfcrack
+
+## offensive / web
+
+sqlmap
+nikto
+# (AUR) ffuf
+# (AUR) httpx
+# (AUR) nuclei
+# (AUR) whatweb
+# (AUR) dirsearch
+# (AUR) burpsuite
+# (AUR) wpscan
+
+## reverse engineering
+
+ghidra
+radare2
+binwalk
+# (AUR) steghide
+
+## privacy
+
+torbrowser-launcher

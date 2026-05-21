@@ -1,0 +1,15 @@
+## network / diagnostics
+
+whois
+traceroute
+mtr
+tcpdump
+ethtool
+ipcalc
+nss-mdns
+dog
+
+## network / remote
+
+remmina
+freerdp

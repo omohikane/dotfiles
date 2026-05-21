@@ -1,0 +1,60 @@
+## dev / language servers (LSP)
+
+lua-language-server
+bash-language-server
+yaml-language-server
+typescript-language-server
+pyright
+rust-analyzer
+gopls
+marksman
+# (AUR) vscode-langservers-extracted
+# (AUR) terraform-ls
+# (AUR) elixir-ls
+
+## dev / linters & formatters
+
+shellcheck
+shfmt
+stylua
+luacheck
+ruff
+python-black
+python-isort
+prettier
+eslint_d
+markdownlint-cli2
+yamllint
+typos
+golangci-lint
+gofumpt
+tflint
+ansible-lint
+# (AUR) prettierd
+
+## dev / build & debug
+
+cmake
+ninja
+delve
+gdb
+strace
+ltrace
+perf
+tree-sitter-cli
+
+## dev / runtimes & tooling
+
+nodejs
+npm
+uv
+python-pipx
+github-cli
+tectonic
+pandoc-cli
+
+## dev / ops
+
+ansible
+terraform
+aws-cli-v2
