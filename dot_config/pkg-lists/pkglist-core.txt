@@ -68,6 +68,13 @@ fcitx5-qt
 fcitx5-skk
 # (AUR) fcitx5-cskk
 
+## font (system)
+
+noto-fonts
+noto-fonts-cjk
+noto-fonts-emoji
+noto-fonts-extra
+
 ## font (essential)
 
 ttf-0xproto-nerd

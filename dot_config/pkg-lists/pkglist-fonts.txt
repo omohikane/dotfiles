@@ -3,4 +3,11 @@
 # (AUR) ttf-cica
 # (AUR) ttf-hackgen
 # (AUR) ttf-twemoji
-# (AUR) ttf-google-fonts-typewolf
+# (AUR) ttf-udev-gothic
+
+## emoji
+# (AUR) ttf-twemoji
+
+## cute / display (manual install → ~/.local/share/fonts/)
+## Google Fonts: Zen Maru Gothic, Hachi Maru Pop, Kiwi Maru, Yomogi
+## See: https://fonts.google.com

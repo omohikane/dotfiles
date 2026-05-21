@@ -113,14 +113,15 @@ count_pkgs() {
 
 # --------------------------------------------------------
 # Interactive menu
+# All display output goes to /dev/tty.
+# Only the final selected list goes to stdout.
 # --------------------------------------------------------
 interactive_menu() {
     local -a available=( $1 )
-    local -a optin_mark
 
-    echo ""
-    log "${C_BOLD}利用可能なリスト:${C_RESET}"
-    echo ""
+    echo "" > /dev/tty
+    echo -e "${C_BOLD}利用可能なリスト:${C_RESET}" > /dev/tty
+    echo "" > /dev/tty
 
     local i=1
     for name in "${available[@]}"; do
@@ -131,18 +132,18 @@ interactive_menu() {
         if is_optin "$name"; then
             mark=" ${C_YELLOW}(opt-in)${C_RESET}"
         fi
-        printf "  ${C_CYAN}%2d${C_RESET}) %-16s [%s]%b\n" "$i" "$name" "$counts" "$mark"
+        printf "  ${C_CYAN}%2d${C_RESET}) %-16s [%s]%b\n" "$i" "$name" "$counts" "$mark" > /dev/tty
         ((i++))
     done
 
-    echo ""
-    log "${C_BOLD}選択してください:${C_RESET}"
-    echo "  番号をスペース区切りで入力 (例: 1 2 3)"
-    echo "  all  → opt-in 以外すべて"
-    echo "  all+ → opt-in 含めすべて"
-    echo "  q    → 終了"
-    echo ""
-    read -rp "> " selection
+    echo "" > /dev/tty
+    echo -e "${C_BOLD}選択してください:${C_RESET}" > /dev/tty
+    echo "  番号をスペース区切りで入力 (例: 1 2 3)" > /dev/tty
+    echo "  all  → opt-in 以外すべて" > /dev/tty
+    echo "  all+ → opt-in 含めすべて" > /dev/tty
+    echo "  q    → 終了" > /dev/tty
+    echo "" > /dev/tty
+    read -rp "> " selection < /dev/tty
 
     [[ "$selection" == "q" ]] && exit 0
 
@@ -159,11 +160,12 @@ interactive_menu() {
             if [[ "$num" =~ ^[0-9]+$ ]] && ((num >= 1 && num <= ${#available[@]})); then
                 selected+=("${available[$((num - 1))]}")
             else
-                warn "無効な選択: $num (スキップ)"
+                echo -e "${C_YELLOW}[WARN]${C_RESET}  無効な選択: $num (スキップ)" > /dev/tty
             fi
         done
     fi
 
+    # Only this goes to stdout (captured by caller)
     echo "${selected[@]}"
 }
 
