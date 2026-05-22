@@ -68,6 +68,19 @@ fcitx5-qt
 fcitx5-skk
 # (AUR) fcitx5-cskk
 
+## skk dictionary (AUR)
+
+# (AUR) skk-jisyo
+# (AUR) skk-jisyo-zipcode
+# (AUR) skk-jisyo-google-ime
+# (AUR) skk-jisyo-station
+# (AUR) skk-jisyo-office
+# (AUR) skk-jisyo-itaiji
+# (AUR) skk-emoji-jisyo
+# (AUR) skk-jisyo-propernoun
+# (AUR) skk-jisyo-wikipedia
+
+
 ## font (system)
 
 noto-fonts
