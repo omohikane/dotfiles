@@ -83,7 +83,6 @@ input type:keyboard {
 #####################################################################
 # Workspaces:
 #####################################################################
-    workspace 1 output eDP-1
 
     bindsym $mod+1 workspace number 1
     bindsym $mod+2 workspace number 2
@@ -158,8 +157,6 @@ bindsym XF86AudioPlay exec playerctl play-pause
 bindsym XF86AudioNext exec playerctl next
 bindsym XF86AudioPrev exec playerctl previous
 bindsym XF86AudioStop exec playerctl stop
-bindsym XF86MonBrightnessUp exec brightnessctl set +5%
-bindsym XF86MonBrightnessDown exec brightnessctl set 5%-
 
 #####################################################################
 # Launch apps:
@@ -194,4 +191,5 @@ exec dunst
 exec blueman-applet
 for_window [app_id="blueman-manager"] floating enable
 
+include ~/.config/sway/host.conf
 include /etc/sway/config.d/*
