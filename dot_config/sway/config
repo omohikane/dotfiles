@@ -187,9 +187,12 @@ bindsym XF86AudioStop exec playerctl stop
 # Auto Start apps:
 #####################################################################
 exec fcitx5 -d
-exec dunst
+exec swaync
 exec blueman-applet
 for_window [app_id="blueman-manager"] floating enable
 
 include ~/.config/sway/host.conf
 include /etc/sway/config.d/*
+
+# Notification Center toggle
+bindsym $mod+Shift+n exec swaync-client -t -sw
