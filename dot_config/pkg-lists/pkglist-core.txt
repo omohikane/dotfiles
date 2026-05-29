@@ -102,3 +102,7 @@ chezmoi
 clamav
 pass
 fail2ban
+
+## Sound control
+# (AUR) wvucontrol
+
