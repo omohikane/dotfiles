@@ -1,19 +1,23 @@
 {
   "layer": "top",
   "position": "top",
-  "modules-left": ["sway/workspaces"],
-  "modules-center": ["sway/window"],
+  "modules-left": [
+    "sway/workspaces"
+  ],
+  "modules-center": [
+    "sway/window"
+  ],
   "modules-right": [
-  "custom/vpn",
-  "custom/updates",
-  "cpu",
-  "temperature",
-  "pulseaudio",
-  "network",
-  "battery",
-  "clock",
-  "custom/notification",
-  "tray"
+    "custom/vpn",
+    "custom/updates",
+    "cpu",
+    "temperature",
+    "pulseaudio",
+    "network",
+    "battery",
+    "clock",
+    "custom/notification",
+    "tray"
   ],
   "clock": {
     "format": "{:%Y-%m-%d %H:%M}",
@@ -39,7 +43,7 @@
   "pulseaudio": {
     "format": "{volume}% ",
     "scroll-step": 5,
-    "on-click": "pavucontrol"
+    "on-click": "pwvucontrol"
   },
   "network": {
     "format-wifi": "  {signalStrength}%",
@@ -50,7 +54,13 @@
   },
   "battery": {
     "format": "{capacity}% {icon}",
-    "format-icons": ["", "", "", "", ""],
+    "format-icons": [
+      "",
+      "",
+      "",
+      "",
+      ""
+    ],
     "tooltip": true
   },
   "tray": {
@@ -61,13 +71,12 @@
     "format": " {usage}%",
     "tooltip": true
   },
-  
   "temperature": {
     "critical-threshold": 80,
     "format": "🌡️ {temperatureC}°C",
     "tooltip": true
   },
-    "custom/updates": {
+  "custom/updates": {
     "exec": "~/.config/waybar/scripts/updates.sh",
     "interval": 300,
     "format": "{}",
@@ -76,12 +85,12 @@
     "on-click": "alacritty -e yay -Syu"
   },
   "custom/vpn": {
-  "exec": "~/.config/waybar/scripts/vpn_status.sh",
-  "interval": 30,
-  "format": "{}",
-  "return-type": "json",
-  "tooltip": true
-},
+    "exec": "~/.config/waybar/scripts/vpn_status.sh",
+    "interval": 30,
+    "format": "{}",
+    "return-type": "json",
+    "tooltip": true
+  },
   "custom/notification": {
     "tooltip": false,
     "format": "{icon}",
