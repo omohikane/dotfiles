@@ -183,7 +183,7 @@ bindsym XF86AudioStop exec playerctl stop
 
     bindsym Print exec grim -g "$(slurp)" - | wl-copy
 
-    bindsym $mod+Shift+l exec ~/.local/bin/llama-toggle.sh
+    #bindsym $mod+Shift+l exec ~/.local/bin/llama-toggle.sh
 
 #####################################################################
 # Auto Start apps:
