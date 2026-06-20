@@ -1,2 +1,5 @@
 .config/nvim/lazy-lock.json
 .config/nvim/.env*
+.config/secrets/api-keys.env
+
+

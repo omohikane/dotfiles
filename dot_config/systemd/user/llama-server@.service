@@ -1,0 +1,17 @@
+[Unit]
+Description=llama-server (%i)
+After=network.target
+
+[Service]
+EnvironmentFile=%h/.config/llama-server/%i.env
+ExecStart=%h/.local/src/llama.cpp/build-stable/bin/llama-server \
+  -m ${MODEL} -ngl ${NGL} --device ${DEVICE} \
+  -fa ${FA} -c ${CTX} --host ${HOST} --port ${PORT} \
+  --reasoning-format ${REASONING}
+Restart=on-failure
+RestartSec=5
+KillSignal=SIGTERM
+TimeoutStopSec=10
+
+[Install]
+WantedBy=default.target

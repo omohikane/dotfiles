@@ -1,0 +1,6 @@
+[Unit]
+Description=Update and build llama.cpp (build-latest)
+
+[Service]
+Type=oneshot
+ExecStart=%h/.local/bin/llama-update.sh

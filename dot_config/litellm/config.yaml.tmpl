@@ -1,0 +1,91 @@
+# vim:ft=yaml
+# Managed by chezmoi
+---
+
+model_list:
+  # === RX6800 ===
+  - model_name: rx6800-chat
+    litellm_params:
+      model: openai/qwen3-30b
+      api_base: http://endeavour-desktop-ryzen.netbird.cloud:11435/v1
+      api_key: dummy
+
+  - model_name: rx6800-coding
+    litellm_params:
+      model: openai/qwen3-coder-30b
+      api_base: http://endeavour-desktop-ryzen.netbird.cloud:11436/v1
+      api_key: dummy
+
+  # === Meigao ===
+  - model_name: meigao-coding
+    litellm_params:
+      model: openai/qwen3-coder-30b
+      api_base: http://kokino-ai-series.netbird.cloud:11436/v1
+      api_key: dummy
+
+  # === X13 optional / future ===
+  # FastFlowLM が OpenAI 互換になったら有効化
+  # - model_name: x13-local
+  #   litellm_params:
+  #     model: openai/qwen3-small
+  #     api_base: http://x13g6-endeavour.netbird.cloud:11437/v1
+  #     api_key: dummy
+
+  # === Cloud: Gemini ===
+  - model_name: cloud-gemini-lite
+    litellm_params:
+      model: gemini/gemini-3.1-flash-lite
+      api_key: os.environ/GEMINI_API_KEY
+
+  # === Cloud: DeepSeek ===
+  - model_name: cloud-deepseek-fast
+    litellm_params:
+      model: deepseek/deepseek-v4-flash
+      api_key: os.environ/DEEPSEEK_API_KEY
+
+  - model_name: cloud-deepseek-strong
+    litellm_params:
+      model: deepseek/deepseek-v4-pro
+      api_key: os.environ/DEEPSEEK_API_KEY
+
+  # === Cloud: OpenRouter optional ===
+  # 今は常用 fallback には入れず、必要になったら明示選択用として有効化する。
+  # Kimi K2.7 Code: coding / agentic coding / repo 作業用
+  # GLM 5.2: heavy reasoning / long context / agentic workflow 用
+  #
+  # OpenRouter では Kimi K2.7 Code と GLM 5.2 の比較ページがあり、
+  # benchmark / price / context length / features を比較できる。
+  # https://openrouter.ai/compare/z-ai/glm-5.2/moonshotai/kimi-k2.7-code
+  #
+  # - model_name: cloud-or-kimi-code
+  #   litellm_params:
+  #     model: openrouter/moonshotai/kimi-k2.7-code
+  #     api_key: os.environ/OPENROUTER_API_KEY
+  #
+  # - model_name: cloud-or-glm-strong
+  #   litellm_params:
+  #     model: openrouter/z-ai/glm-5.2
+  #     api_key: os.environ/OPENROUTER_API_KEY
+
+router_settings:
+  num_retries: 1
+  request_timeout: 60
+  cooldown_time: 60
+  allowed_fails: 1
+
+  fallbacks:
+    - rx6800-chat:
+        - cloud-gemini-lite
+        - cloud-deepseek-fast
+
+    - rx6800-coding:
+        - cloud-deepseek-fast
+        - cloud-deepseek-strong
+
+    - meigao-coding:
+        - cloud-deepseek-fast
+        - cloud-deepseek-strong
+
+litellm_settings:
+  drop_params: true
+  set_verbose: false
