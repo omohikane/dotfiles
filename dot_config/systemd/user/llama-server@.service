@@ -6,8 +6,11 @@ After=network.target
 EnvironmentFile=%h/.config/llama-server/%i.env
 ExecStart=%h/.local/src/llama.cpp/build-stable/bin/llama-server \
   -m ${MODEL} -ngl ${NGL} --device ${DEVICE} \
-  -fa ${FA} -c ${CTX} --host ${HOST} --port ${PORT} \
-  --reasoning-format ${REASONING}
+  -fa ${FA} -c ${CTX} -b ${BATCH} -ub ${UBATCH} \
+  --host ${HOST} --port ${PORT} \
+  --reasoning ${REASONING_MODE} \
+  --reasoning-budget ${REASONING_BUDGET} \
+  --reasoning-format ${REASONING_FORMAT}
 Restart=on-failure
 RestartSec=5
 KillSignal=SIGTERM
