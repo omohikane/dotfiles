@@ -1,0 +1,23 @@
+[Unit]
+Description=LiteLLM Proxy
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+ExecStart=%h/.local/bin/litellm --config %h/.config/litellm/config.yaml --port 4000 --host 127.0.0.1
+EnvironmentFile=%h/.config/secrets/api-keys.env
+Restart=on-failure
+RestartSec=5
+KillSignal=SIGTERM
+TimeoutStopSec=10
+
+NoNewPrivileges=true
+PrivateTmp=true
+
+StandardOutput=journal
+StandardError=journal
+SyslogIdentifier=litellm
+
+[Install]
+WantedBy=default.target
