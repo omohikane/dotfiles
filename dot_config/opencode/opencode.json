@@ -1,29 +1,143 @@
 {
   "$schema": "https://opencode.ai/config.json",
+  "model": "litellm/rx6800-coding",
+  "small_model": "litellm/rx6800-chat",
   "provider": {
     "litellm": {
       "npm": "@ai-sdk/openai-compatible",
       "name": "LiteLLM",
       "options": {
         "baseURL": "http://127.0.0.1:4000/v1",
-        "apiKey": "dummy"
+        "apiKey": "dummy",
+        "timeout": 600000
       },
       "models": {
-        "cloud-pro": {
-          "name": "Cloud Pro (Gemini 2.5 Pro)"
+        "rx6800-chat": {
+          "name": "RX6800 Chat",
+          "tools": true
         },
-        "cloud-fast": {
-          "name": "Cloud Fast (Gemini 2.5 Flash)"
+        "rx6800-coding": {
+          "name": "RX6800 Coding",
+          "tools": true
+        },
+        "meigao-coding": {
+          "name": "Meigao Coding",
+          "tools": true
+        },
+        "cloud-gemini-lite": {
+          "name": "Gemini Lite",
+          "tools": true
+        },
+        "cloud-deepseek-fast": {
+          "name": "DeepSeek Fast",
+          "tools": true
+        },
+        "cloud-deepseek-strong": {
+          "name": "DeepSeek Strong",
+          "tools": true
         }
       }
     }
   },
   "agent": {
-    "planner": {
-      "model": "litellm/cloud-pro"
+    "build": {
+      "description": "Default coding agent. Makes local edits and runs safe commands with approval.",
+      "mode": "primary",
+      "model": "litellm/rx6800-coding",
+      "permission": {
+        "read": "allow",
+        "glob": "allow",
+        "grep": "allow",
+        "list": "allow",
+        "edit": "ask",
+        "write": "ask",
+        "bash": {
+          "*": "ask",
+          "pwd": "allow",
+          "ls *": "allow",
+          "find *": "allow",
+          "rg *": "allow",
+          "grep *": "allow",
+          "git status*": "allow",
+          "git diff*": "allow",
+          "git log*": "allow",
+          "git branch*": "allow",
+          "go test*": "ask",
+          "pytest*": "ask",
+          "git add*": "ask",
+          "git commit*": "ask",
+          "git push*": "deny",
+          "git reset --hard*": "deny",
+          "git reset*": "ask",
+          "git clean*": "deny",
+          "rm -rf *": "deny"
+        },
+        "webfetch": "deny",
+        "websearch": "deny",
+        "task": {
+          "*": "ask",
+          "explore": "allow"
+        }
+      }
     },
-    "primary": {
-      "model": "litellm/cloud-fast"
+    "plan": {
+      "description": "High-quality planning agent. Designs changes before implementation. It must not edit files or run commands.",
+      "mode": "primary",
+      "model": "litellm/cloud-deepseek-strong",
+      "permission": {
+        "read": "allow",
+        "glob": "allow",
+        "grep": "allow",
+        "list": "allow",
+        "edit": "deny",
+        "write": "deny",
+        "bash": "deny",
+        "webfetch": "deny",
+        "websearch": "deny",
+        "task": {
+          "*": "ask",
+          "explore": "allow"
+        }
+      }
+    },
+    "explore": {
+      "description": "Cheap read-only local codebase exploration. Use for finding files, symbols, dependencies, config, and project structure.",
+      "mode": "subagent",
+      "model": "litellm/rx6800-chat",
+      "permission": {
+        "read": "allow",
+        "glob": "allow",
+        "grep": "allow",
+        "list": "allow",
+        "edit": "deny",
+        "write": "deny",
+        "bash": {
+          "*": "deny",
+          "pwd": "allow",
+          "ls *": "allow",
+          "find *": "allow",
+          "rg *": "allow",
+          "grep *": "allow",
+          "git status*": "allow",
+          "git diff*": "allow",
+          "git log*": "allow",
+          "git branch*": "allow"
+        },
+        "webfetch": "deny",
+        "websearch": "deny"
+      }
     }
+  },
+  "watcher": {
+    "ignore": [
+      ".git/**",
+      "node_modules/**",
+      "dist/**",
+      "build/**",
+      "target/**",
+      ".next/**",
+      ".venv/**",
+      "__pycache__/**"
+    ]
   }
 }
