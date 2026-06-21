@@ -29,7 +29,7 @@ bindsym $mod+F1 exec ~/.local/bin/display-toggle.sh single
 bindsym $mod+F2 exec ~/.local/bin/display-toggle.sh dual
 bindsym $mod+F3 exec ~/.local/bin/display-toggle.sh triple
 
-{{ else if eq .machine.type "laptop" }}
+{{ else if eq .host "laptop" }}
 # === Display: Laptop ===
 output eDP-1 {
     mode 2560x1600
