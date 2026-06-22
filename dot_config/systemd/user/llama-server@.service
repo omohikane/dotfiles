@@ -9,8 +9,12 @@ ExecStart=%h/.local/src/llama.cpp/build-stable/bin/llama-server \
   -fa ${FA} -c ${CTX} -b ${BATCH} -ub ${UBATCH} \
   --host ${HOST} --port ${PORT} \
   --reasoning ${REASONING_MODE} \
-  --reasoning-budget ${REASONING_BUDGET} \
-  --reasoning-format ${REASONING_FORMAT}
+  --temp ${TEMP} \
+  --top-p ${TOP_P} \
+  --top-k ${TOP_K} \
+  --min-p ${MIN_P} \
+  --repeat-penalty ${REPEAT_PENALTY} \
+  --presence-penalty ${PRESENCE_PENALTY}
 Restart=on-failure
 RestartSec=5
 KillSignal=SIGTERM
