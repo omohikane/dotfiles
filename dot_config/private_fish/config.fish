@@ -110,6 +110,14 @@ if status is-interactive
     end
 end
 
+# Auto attach to Zellij main session
+if status is-interactive
+    if test "$AUTO_ZELLIJ" = "main"
+        if not set -q ZELLIJ
+            exec zellij attach main -c 
+        end
+    end
+end
 
 # plugin
 fzf_configure_bindings --history=ctrl-r

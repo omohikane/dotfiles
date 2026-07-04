@@ -2,6 +2,7 @@
 
 // デフォルトシェルの設定
 default_shell "fish"
+default_layout "main"
 
 // 他の設定があればここに追加
 // 例えば、キーのバインディングやテーマの設定など
