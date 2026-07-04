@@ -1,0 +1,39 @@
+layout {
+    default_tab_template {
+        pane size=1 borderless=true {
+            plugin location="zellij:tab-bar"
+        }
+
+        children
+
+        pane size=2 borderless=true {
+            plugin location="zellij:status-bar"
+        }
+    }
+
+    tab name="term" {
+        pane command="fish"
+    }
+
+    tab name="edit" focus=true {
+        pane command="fish"
+    }
+
+    tab name="ssh" {
+        pane command="fish" {
+            args "-lc" "echo 'ssh workspace'; exec fish"
+        }
+    }
+
+    tab name="ai" {
+        pane split_direction="vertical" {
+            pane command="fish" name="agent" {
+                args "-lc" "echo 'agent workspace'; exec fish"
+            }
+
+            pane command="fish" name="aux" {
+                args "-lc" "echo 'aux / logs / tests'; exec fish"
+            }
+        }
+    }
+}

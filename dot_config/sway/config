@@ -50,7 +50,7 @@ input type:keyboard {
 #
 # Basics:
 #
-    bindsym $mod+Return exec $term -e zellij
+    bindsym $mod+Return exec $term -e zellij attach main -c --layout main
     bindsym $mod+Shift+q kill
     bindsym mod1+space exec fuzzel
     bindsym Mod1+Shift+space exec bash ~/.config/wofi/launcher.sh
