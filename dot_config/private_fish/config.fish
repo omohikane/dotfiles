@@ -108,6 +108,9 @@ if status is-interactive
     if test -f "$HOME/.config/ai-personal/clients/fish-loader.fish"
         source "$HOME/.config/ai-personal/clients/fish-loader.fish"
     end
+
+    # Codename-Goose
+    abbr -a gp 'goose-pane'
 end
 
 # Auto attach to Zellij main session
