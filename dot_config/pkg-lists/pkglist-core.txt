@@ -14,6 +14,8 @@ tree
 which
 man-db
 man-pages
+ntfs-3g
+cifs-utils
 
 ## shell / UX
 

@@ -1,7 +1,8 @@
 ## AI / local inference
 
 ollama
-# (AUR) gemini-cli
+# (AUR) opencode
+# (AUR) codename-goose-bin
 
 ## compute libraries
 
