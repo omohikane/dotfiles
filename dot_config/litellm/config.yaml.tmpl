@@ -25,7 +25,7 @@ model_list:
   - model_name: rx6800-unlocked
     litellm_params:
       model: openai/qwen3.6-35b-heretic
-      api_base: http://endeavour-desktop-ryzen.netbird.cloud:11437/v1
+      api_base: http://endeavour-desktop-ryzen.netbird.cloud:11435/v1
       api_key: dummy
 
   # === RX6800: creative / aggressive ===
@@ -34,7 +34,7 @@ model_list:
   - model_name: rx6800-creative
     litellm_params:
       model: openai/qwen3.6-35b-aggressive
-      api_base: http://endeavour-desktop-ryzen.netbird.cloud:11438/v1
+      api_base: http://endeavour-desktop-ryzen.netbird.cloud:11435/v1
       api_key: dummy
 
 
@@ -104,3 +104,5 @@ litellm_settings:
   request_timeout: 60
   drop_params: true
   set_verbose: false
+  callbacks:
+    - llama_model_switcher.llama_model_switcher
