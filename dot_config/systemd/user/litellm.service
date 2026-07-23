@@ -5,6 +5,10 @@ Wants=network-online.target
 
 [Service]
 Type=simple
+
+WorkingDirectory=%h/.config/litellm
+Environment=PYTHONPATH=%h/.config/litellm
+
 ExecStart=%h/.local/bin/litellm --config %h/.config/litellm/config.yaml --port 4000 --host 127.0.0.1
 EnvironmentFile=%h/.config/secrets/api-keys.env
 Restart=on-failure
