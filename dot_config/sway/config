@@ -14,6 +14,12 @@ set $menu dmenu_path | wmenu | xargs swaymsg exec --
 #####################################################################
 output * bg /usr/share/backgrounds/sway/Sway_Wallpaper_Blue_1920x1080.png fill
 
+
+#####################################################################
+# Polkit authentication agent for Dolphin / udisks / mount operations
+#####################################################################
+exec_always /usr/lib/polkit-kde-authentication-agent-1
+
 #####################################################################
 ## Screen Lock
 #####################################################################
