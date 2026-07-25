@@ -1,8 +1,8 @@
 ## sway / core
 
 sway
-# (AUR) swaylock-effects
 # (AUR) wlogout
+swaylock
 
 ## sway / bar & notifications
 
