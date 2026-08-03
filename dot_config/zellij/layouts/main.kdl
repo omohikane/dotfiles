@@ -20,19 +20,16 @@ layout {
     }
 
     tab name="ssh" {
-        pane command="fish" {
-            args "-lc" "echo 'ssh workspace'; exec fish"
-        }
+        pane command="fish"
     }
 
+    // 左: term(ターミナル) / 右: 上下に agent(エージェント用) と aux(ログ・テスト用)
     tab name="ai" {
         pane split_direction="vertical" {
-            pane command="fish" name="agent" {
-                args "-lc" "echo 'agent workspace'; exec fish"
-            }
-
-            pane command="fish" name="aux" {
-                args "-lc" "echo 'aux / logs / tests'; exec fish"
+            pane command="fish" name="term"
+            pane split_direction="horizontal" {
+                pane command="fish" name="agent"
+                pane command="fish" name="aux"
             }
         }
     }
