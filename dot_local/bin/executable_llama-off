@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+systemctl --user stop llama-server@active.service
+echo "llama-server stopped"
