@@ -15,6 +15,9 @@ Global minimum rules only. Read files under `~/.config/opencode/skills/` only wh
 9. **Show results**: After editing, show the diff and briefly state what was changed and how it was verified.
 10. **Raise concerns when relevant**: For design decisions, risky work, broad tasks, or user-proposed plans, mention at least one concern, trade-off, or alternative view. Do not add objections to trivial requests.
 11. **Stop on confusion**: If the same operation fails 3 times with the same approach, the task scope keeps expanding without convergence, or the next step is unclear, stop and report the current status.
+12. **Use topic branches**: For non-trivial tasks, create a topic branch (e.g. `feat/<name>`, `refactor/<name>`) before editing. Merge it back to the working branch only after tests pass. Do not commit unrelated work to the main working branch.
+13. **Commit in meaningful units**: One logical change per commit (see the git-commit skill). Never bundle unrelated refactoring with behaviour changes into a single commit.
+14. **Remote actions need explicit instruction**: Do not push, open PRs, merge, or create releases unless the user explicitly asks. These are externally visible actions; confirm first.
 
 ## Tone
 

@@ -1,7 +1,18 @@
 {
   "$schema": "https://opencode.ai/config.json",
-  "model": "litellm/rx6800-coding",
-  "small_model": "litellm/rx6800-chat",
+  "model": "litellm/rx6800-fable",
+  "small_model": "litellm/rx6800-fable",
+  "snapshot": true,
+  "share": "manual",
+  "autoupdate": "notify",
+  "formatter": false,
+  "tool_output": {
+    "max_lines": 200,
+    "max_bytes": 8192
+  },
+  "compaction": {
+    "auto": true
+  },
   "provider": {
     "litellm": {
       "npm": "@ai-sdk/openai-compatible",
@@ -18,6 +29,30 @@
         },
         "rx6800-coding": {
           "name": "RX6800 Coding",
+          "tools": true
+        },
+        "rx6800-fable": {
+          "name": "RX6800 Fable",
+          "tools": true
+        },
+        "rx6800-mero": {
+          "name": "RX6800 Mero",
+          "tools": true
+        },
+        "rx6800-devstral": {
+          "name": "RX6800 Devstral",
+          "tools": true
+        },
+        "rx6800-gemma": {
+          "name": "RX6800 Gemma",
+          "tools": true
+        },
+        "rx6800-apex": {
+          "name": "RX6800 Apex",
+          "tools": true
+        },
+        "rx6800-qw-base": {
+          "name": "RX6800 Qwen Base",
           "tools": true
         },
         "meigao-coding": {
@@ -43,7 +78,7 @@
     "build": {
       "description": "Default coding agent. Makes local edits and runs safe commands with approval.",
       "mode": "primary",
-      "model": "litellm/rx6800-coding",
+      "model": "litellm/rx6800-fable",
       "permission": {
         "read": "allow",
         "glob": "allow",
@@ -62,28 +97,33 @@
           "git diff*": "allow",
           "git log*": "allow",
           "git branch*": "allow",
+          "git add*": "allow",
+          "git commit*": "allow",
+          "uv run*": "allow",
+          ".venv/bin/python*": "allow",
+          "timeout * python*": "allow",
+          "curl*": "allow",
           "go test*": "ask",
           "pytest*": "ask",
-          "git add*": "ask",
-          "git commit*": "ask",
           "git push*": "deny",
-          "git reset --hard*": "deny",
           "git reset*": "ask",
+          "git reset --hard*": "deny",
           "git clean*": "deny",
           "rm -rf *": "deny"
         },
-        "webfetch": "deny",
-        "websearch": "deny",
+        "webfetch": "allow",
+        "websearch": "allow",
         "task": {
           "*": "ask",
-          "explore": "allow"
+          "explore": "allow",
+          "general": "allow"
         }
       }
     },
     "plan": {
       "description": "High-quality planning agent. Designs changes before implementation. It must not edit files or run commands.",
       "mode": "primary",
-      "model": "litellm/cloud-deepseek-strong",
+      "model": "litellm/cloud-deepseek-fast",
       "permission": {
         "read": "allow",
         "glob": "allow",
