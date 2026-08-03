@@ -111,6 +111,9 @@ if status is-interactive
 
     # Codename-Goose
     abbr -a gp 'goose-pane'
+
+    # OpenCode
+    abbr -a ocp 'opencode-pane'
 end
 
 # Auto attach to Zellij main session
