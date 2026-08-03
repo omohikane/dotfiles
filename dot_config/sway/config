@@ -24,11 +24,21 @@ exec_always /usr/lib/polkit-kde-authentication-agent-1
 ## Screen Lock
 #####################################################################
 
-set $lock_cmd "LC_TIME=en_US.UTF-8 swaylock \
-    --image ~/.config/sway/assets/lockscreen.png \
-    --scaling fill \
-    --clock \
-    --indicator"
+#set $lock_cmd "LC_TIME=en_US.UTF-8 swaylock \
+#    --image ~/.config/sway/assets/lockscreen.png \
+#    --scaling fill \
+#    --clock \
+#    --indicator"
+#
+#exec "pkill swayidle; exec swayidle \
+#    timeout 3000 '$lock_cmd' \
+#    timeout 3300 'swaymsg output * dpms off' \
+#    resume 'swaymsg output * dpms on' \
+#    before-sleep '$lock_cmd'"
+#
+#bindsym $mod+Alt+l exec $lock_cmd
+
+set $lock_cmd "swaylock"
 
 exec "pkill swayidle; exec swayidle \
     timeout 3000 '$lock_cmd' \
