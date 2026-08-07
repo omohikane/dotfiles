@@ -1,0 +1,4 @@
+[user]
+    name = Your Name (Work)
+    email = your-name@company.com
+    # signingkey = ~/.ssh/id_ed25519_work.pub

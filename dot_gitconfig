@@ -1,6 +1,8 @@
 [user]
 	name = r1ppl3
 	email = 39819383+omohikane@users.noreply.github.com
+[includeIf "gitdir:~/src/work/"]
+    path = ~/.config/git/config-work
 [init]
 	defaultBranch = main
 [pull]
