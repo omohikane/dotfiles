@@ -52,6 +52,22 @@ model_list:
       api_base: http://endeavour-desktop-ryzen.netbird.cloud:11435/v1
       api_key: dummy
 
+  # === RX6800: OpenAI GPT-OSS ===
+  # openai_gpt-oss-20b-MXFP4.gguf (128K context, MoE 21B/3.6B)
+  - model_name: rx6800-gptoss
+    litellm_params:
+      model: openai/gpt-oss-20b
+      api_base: http://endeavour-desktop-ryzen.netbird.cloud:11435/v1
+      api_key: dummy
+
+  # === RX6800: North Mini Code ===
+  # North-Mini-Code-1.0-UD-IQ3_S.gguf (256K context, MoE 30B/3B)
+  - model_name: rx6800-nmini
+    litellm_params:
+      model: openai/north-mini-code
+      api_base: http://endeavour-desktop-ryzen.netbird.cloud:11435/v1
+      api_key: dummy
+
   # === Meigao ===
   - model_name: meigao-coding
     litellm_params:
