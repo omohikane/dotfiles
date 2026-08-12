@@ -1,0 +1,25 @@
+# --------------------------------------------------
+# Include
+# --------------------------------------------------
+Include ~/.ssh/conf.d/*
+
+# --------------------------------------------------
+# Global Service
+# --------------------------------------------------
+Host github.com
+  HostName github.com
+  User git
+  IdentityFile ~/.ssh/id_ed25519
+  IdentitiesOnly yes
+
+# --------------------------------------------------
+# Default Settings
+# --------------------------------------------------
+Host *
+  ServerAliveInterval 60
+  ServerAliveCountMax 3
+
+  IdentitiesOnly yes
+
+  # 1Passwordやssh-agent等のエージェントを使う場合
+  # IdentityAgent ~/.1password/agent.sock
