@@ -35,6 +35,14 @@ model_list:
       api_base: http://endeavour-desktop-ryzen.netbird.cloud:11435/v1
       api_key: dummy
 
+  # === RX6800: Qwen3-30B-A3B (MoE expert offload 検証用) ===
+  # Qwen3-30B-A3B-Q3_K_M.gguf + --override-tensor で expert 層を CPU へ
+  - model_name: rx6800-qwen30b-offload
+    litellm_params:
+      model: openai/qwen3-30b-a3b
+      api_base: http://endeavour-desktop-ryzen.netbird.cloud:11435/v1
+      api_key: dummy
+
 
   # === RX6800: Gemma roleplay  ===
   # G4-MeroMero-26B-A4B-IQ4_XS.gguf
@@ -90,6 +98,14 @@ model_list:
     litellm_params:
       model: openai/qwen3-coder-30b
       api_base: http://kokino-ai-series.netbird.cloud:11436/v1
+      api_key: dummy
+
+  # === Fuchu-LLM-Server (Vega 56) ===
+  # Qwen3.5-9B-UD-Q4_K_XL.gguf
+  - model_name: qwen35-9b
+    litellm_params:
+      model: openai/qwen35-9b
+      api_base: http://fuchu-llm-server.netbird.cloud:8080/v1
       api_key: dummy
 
   # === X13 optional / future ===
