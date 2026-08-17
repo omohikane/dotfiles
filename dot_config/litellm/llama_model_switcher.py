@@ -33,6 +33,7 @@ class LlamaModelSwitcher(CustomLogger):
         "rx6800-gptoss": "gpt-oss-20b.env",
         "rx6800-nmini": "north-mini-code.env",
         "rx6800-qwen38": "qwen38-27b.env",
+        "rx6800-qwen38-q2": "qwen38-27b-q2kxl.env",
     }
 
     def __init__(self) -> None:

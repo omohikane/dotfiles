@@ -1,7 +1,7 @@
 {
   "$schema": "https://opencode.ai/config.json",
-  "model": "litellm/rx6800-gptoss",
-  "small_model": "litellm/rx6800-gptoss",
+  "model": "litellm/rx6800-mero",
+  "small_model": "litellm/rx6800-mero",
   "snapshot": true,
   "share": "manual",
   "autoupdate": "notify",
@@ -63,6 +63,14 @@
           "name": "RX6800 North Mini Code1.0 ",
           "tools": true
         },
+        "rx6800-qwen38": {
+          "name": "RX6800 Qwen3.8-27B Q3_K_M",
+          "tools": true
+        },
+        "rx6800-qwen38-q2": {
+          "name": "RX6800 Qwen3.8-27B Q2_K_XL",
+          "tools": true
+        },
         "meigao-coding": {
           "name": "Meigao Coding",
           "tools": true
@@ -86,7 +94,7 @@
     "build": {
       "description": "Default coding agent. Makes local edits and runs safe commands with approval.",
       "mode": "primary",
-      "model": "litellm/rx6800-gptoss",
+      "model": "litellm/rx6800-mero",
       "permission": {
         "read": "allow",
         "glob": "allow",
@@ -124,6 +132,17 @@
           ".venv/bin/python*": "allow",
           "timeout * python*": "allow",
           "curl*": "allow",
+          "systemctl --user is-active *": "allow",
+          "systemctl --user is-enabled *": "allow",
+          "systemctl --user status *": "allow",
+          "systemctl --user *": "ask",
+          "journalctl --user -u *": "allow",
+          "journalctl *": "ask",
+          "free *": "allow",
+          "env *": "allow",
+          "ln -sfn *": "ask",
+          "timeout *": "ask",
+          "python3 -c *": "ask",
           "go test*": "ask",
           "pytest*": "ask",
           "git push*": "deny",
@@ -164,7 +183,7 @@
     "explore": {
       "description": "Cheap read-only local codebase exploration. Use for finding files, symbols, dependencies, config, and project structure.",
       "mode": "subagent",
-      "model": "litellm/rx6800-gptoss",
+      "model": "litellm/rx6800-mero",
       "permission": {
         "read": "allow",
         "glob": "allow",
