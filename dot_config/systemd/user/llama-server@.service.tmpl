@@ -4,7 +4,7 @@ After=network.target
 
 [Service]
 EnvironmentFile=%h/.config/llama-server/%i.env
-ExecStart=%h/.local/src/llama.cpp/build-stable/bin/llama-server \
+ExecStart={{ if eq .host "server" }}/usr/bin/llama-server{{ else }}%h/.local/src/llama.cpp/build-stable/bin/llama-server{{ end }} \
   -m ${MODEL} -ngl ${NGL} --device ${DEVICE} \
   -fa ${FA} -c ${CTX} -b ${BATCH} -ub ${UBATCH} \
   --host ${HOST} --port ${PORT} \
