@@ -14,7 +14,8 @@ ExecStart={{ if eq .host "server" }}/usr/bin/llama-server{{ else }}%h/.local/src
   --top-k ${TOP_K} \
   --min-p ${MIN_P} \
   --repeat-penalty ${REPEAT_PENALTY} \
-  --presence-penalty ${PRESENCE_PENALTY}
+  --presence-penalty ${PRESENCE_PENALTY} \
+  --cache-ram ${CACHE_RAM}
 Restart=on-failure
 RestartSec=5
 KillSignal=SIGTERM
