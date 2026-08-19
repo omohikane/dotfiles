@@ -23,52 +23,20 @@
         "timeout": 600000
       },
       "models": {
-        "rx6800-chat": {
-          "name": "RX6800 Chat",
-          "tools": true
-        },
-        "rx6800-coding": {
-          "name": "RX6800 Coding",
-          "tools": true
-        },
-        "rx6800-fable": {
-          "name": "RX6800 Fable",
-          "tools": true
-        },
         "rx6800-mero": {
           "name": "RX6800 Mero",
-          "tools": true
-        },
-        "rx6800-devstral": {
-          "name": "RX6800 Devstral",
-          "tools": true
-        },
-        "rx6800-gemma": {
-          "name": "RX6800 Gemma",
-          "tools": true
-        },
-        "rx6800-apex": {
-          "name": "RX6800 Apex",
           "tools": true
         },
         "rx6800-qw-base": {
           "name": "RX6800 Qwen Base",
           "tools": true
         },
-        "rx6800-gptoss": {
-          "name": "RX6800 GPT-OSS 20B",
-          "tools": true
-        },
-        "rx6800-nmini": {
-          "name": "RX6800 North Mini Code1.0 ",
-          "tools": true
-        },
         "rx6800-qwen38": {
           "name": "RX6800 Qwen3.8-27B Q3_K_M",
           "tools": true
         },
-        "rx6800-qwen38-q2": {
-          "name": "RX6800 Qwen3.8-27B Q2_K_XL",
+        "rx6800-qwen38-xhigh": {
+          "name": "RX6800 Qwen3.8-27B xhigh",
           "tools": true
         },
         "meigao-coding": {

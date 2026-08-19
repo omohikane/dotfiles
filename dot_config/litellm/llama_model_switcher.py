@@ -25,15 +25,9 @@ class LlamaModelSwitcher(CustomLogger):
     # LiteLLM上のモデル名 -> envファイル名
     MODEL_MAP = {
         "rx6800-qw-base": "qwen36-base.env",
-        "rx6800-fable": "qwen36-27b-fable.env",
         "rx6800-mero": "g4-meromero.env",
-        "rx6800-devstral": "devstral-24b.env",
-        "rx6800-apex": "qwen36-heretic.env",
-        "rx6800-gemma": "gemma4-26b.env",
-        "rx6800-gptoss": "gpt-oss-20b.env",
-        "rx6800-nmini": "north-mini-code.env",
         "rx6800-qwen38": "qwen38-27b.env",
-        "rx6800-qwen38-q2": "qwen38-27b-q2kxl.env",
+        "rx6800-qwen38-xhigh": "qwen38-27b-xhigh.env",
     }
 
     def __init__(self) -> None:

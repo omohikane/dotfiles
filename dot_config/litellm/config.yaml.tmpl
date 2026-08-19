@@ -10,15 +10,6 @@ model_list:
       api_base: http://endeavour-desktop-ryzen.netbird.cloud:11435/v1
       api_key: dummy
 
-  # === RX6800: qwen3.6 Fable train ===
-  # Qwen3.6-27B-Fable-Fus-711-UnHeretic-NM-DAU-NEO-MAX-NEO-IQ3_M.gguf
-  - model_name: rx6800-fable
-    litellm_params:
-      model: openai/qwen36-27b-fable
-      api_base: http://endeavour-desktop-ryzen.netbird.cloud:11435/v1
-      api_key: dummy
-
-
   # === RX6800: Qwen3.8-27B ===
   # Qwen3.8-27B-Q3_K_M.gguf (no-think 運用)
   - model_name: rx6800-qwen38
@@ -27,69 +18,20 @@ model_list:
       api_base: http://endeavour-desktop-ryzen.netbird.cloud:11435/v1
       api_key: dummy
 
-  # === RX6800: Qwen3.8-27B Q2_K_XL ===
-  # Qwen3.8-27B-UD-Q2_K_XL.gguf (比較用)
-  - model_name: rx6800-qwen38-q2
+  # === RX6800: Qwen3.8-27B xhigh（じっくり考える用）===
+  # Qwen3.8-27B-Q3_K_M.gguf + reasoning_effort=xhigh
+  # 難しい問題をじっくり考えさせたい時に選択。11-12 t/s と遅い
+  - model_name: rx6800-qwen38-xhigh
     litellm_params:
-      model: openai/qwen38-27b-q2
+      model: openai/qwen38-27b
       api_base: http://endeavour-desktop-ryzen.netbird.cloud:11435/v1
       api_key: dummy
-
-  # === RX6800: Qwen3-30B-A3B (MoE expert offload 検証用) ===
-  # Qwen3-30B-A3B-Q3_K_M.gguf + --override-tensor で expert 層を CPU へ
-  - model_name: rx6800-qwen30b-offload
-    litellm_params:
-      model: openai/qwen3-30b-a3b
-      api_base: http://endeavour-desktop-ryzen.netbird.cloud:11435/v1
-      api_key: dummy
-
 
   # === RX6800: Gemma roleplay  ===
   # G4-MeroMero-26B-A4B-IQ4_XS.gguf
   - model_name: rx6800-mero
     litellm_params:
       model: openai/g4-meromero
-      api_base: http://endeavour-desktop-ryzen.netbird.cloud:11435/v1
-      api_key: dummy
-
-  # === RX6800: Coding devstral ===
-  # Devstral-Small-2-24B-Instruct-2512-UD-Q4_K_XL.gguf
-  - model_name: rx6800-devstral
-    litellm_params:
-      model: openai/devstral-24b
-      api_base: http://endeavour-desktop-ryzen.netbird.cloud:11435/v1
-      api_key: dummy
-
-
-  # === RX6800: qwen3 heretic-APEX ===
-  # Qwen3.6-35B-A3B-uncensored-heretic-Native-MTP-Preserved-APEX-I-Compact.gguf
-  - model_name: rx6800-apex
-    litellm_params:
-      model: openai/qwen36-heretic
-      api_base: http://endeavour-desktop-ryzen.netbird.cloud:11435/v1
-      api_key: dummy
-
-  # === RX6800: Gemma-uncensored ===
-  # gemma-4-26B-A4B-it-ultra-uncensored-heretic-Q3_K_L.gguf
-  - model_name: rx6800-gemma
-    litellm_params:
-      model: openai/gemma4-26b
-      api_base: http://endeavour-desktop-ryzen.netbird.cloud:11435/v1
-      api_key: dummy
-
-  # === RX6800: OpenAI GPT-OSS ===
-  # openai_gpt-oss-20b-MXFP4.gguf (128K context, MoE 21B/3.6B)
-  - model_name: rx6800-gptoss
-    litellm_params:
-      model: openai/gpt-oss-20b
-      api_base: http://endeavour-desktop-ryzen.netbird.cloud:11435/v1
-      api_key: dummy
-
-  # === RX6800: North Mini Code ===
-  # North-Mini-Code-1.0-UD-IQ3_S.gguf (256K context, MoE 30B/3B)
-  - model_name: rx6800-nmini
-    litellm_params:
-      model: openai/north-mini-code
       api_base: http://endeavour-desktop-ryzen.netbird.cloud:11435/v1
       api_key: dummy
 
