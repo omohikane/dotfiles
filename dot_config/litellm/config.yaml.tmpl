@@ -11,7 +11,7 @@ model_list:
       api_key: dummy
 
   # === RX6800: Qwen3.8-27B ===
-  # Qwen3.8-27B-Q3_K_M.gguf (no-think 運用)
+  # Qwen3.8-27B-UD-IQ4_XS.gguf (no-think 運用)
   - model_name: rx6800-qwen38
     litellm_params:
       model: openai/qwen38-27b
@@ -19,8 +19,8 @@ model_list:
       api_key: dummy
 
   # === RX6800: Qwen3.8-27B xhigh（じっくり考える用）===
-  # Qwen3.8-27B-Q3_K_M.gguf + reasoning_effort=xhigh
-  # 難しい問題をじっくり考えさせたい時に選択。11-12 t/s と遅い
+  # Qwen3.8-27B-UD-IQ4_XS.gguf + reasoning_effort=xhigh
+  # 難しい問題をじっくり考えさせたい時に選択。~10 t/s と遅い
   - model_name: rx6800-qwen38-xhigh
     litellm_params:
       model: openai/qwen38-27b
@@ -32,6 +32,14 @@ model_list:
   - model_name: rx6800-mero
     litellm_params:
       model: openai/g4-meromero
+      api_base: http://endeavour-desktop-ryzen.netbird.cloud:11435/v1
+      api_key: dummy
+
+  # === RX6800: Ornith-1.5-35B-A3B ===
+  # bartowski IQ4_XS + --jinja --n-cpu-moe 8 / KV q8 / CTX 65536 (parallel 1)
+  - model_name: rx6800-ornith
+    litellm_params:
+      model: openai/ornith-35b
       api_base: http://endeavour-desktop-ryzen.netbird.cloud:11435/v1
       api_key: dummy
 

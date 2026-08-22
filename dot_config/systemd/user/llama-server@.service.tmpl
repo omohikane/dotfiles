@@ -18,7 +18,8 @@ ExecStart={{ if eq .host "server" }}/usr/bin/llama-server{{ else }}%h/.local/src
   --cache-ram ${CACHE_RAM} \
   --parallel ${PARALLEL} \
   --cache-type-k ${CACHE_K} \
-  --cache-type-v ${CACHE_V}
+  --cache-type-v ${CACHE_V} \
+  $EXTRA_ARGS
 Restart=on-failure
 RestartSec=5
 KillSignal=SIGTERM

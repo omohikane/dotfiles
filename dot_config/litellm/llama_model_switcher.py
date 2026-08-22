@@ -28,6 +28,7 @@ class LlamaModelSwitcher(CustomLogger):
         "rx6800-mero": "g4-meromero.env",
         "rx6800-qwen38": "qwen38-27b.env",
         "rx6800-qwen38-xhigh": "qwen38-27b-xhigh.env",
+        "rx6800-ornith": "ornith-35b.env",
     }
 
     def __init__(self) -> None:

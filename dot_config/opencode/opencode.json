@@ -27,6 +27,10 @@
           "name": "RX6800 Mero",
           "tools": true
         },
+        "rx6800-ornith": {
+          "name": "RX6800 Ornith 35B",
+          "tools": true
+        },
         "rx6800-qw-base": {
           "name": "RX6800 Qwen Base",
           "tools": true
