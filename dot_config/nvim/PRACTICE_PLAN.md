@@ -78,13 +78,10 @@ This plan is designed to help you internalize your Neovim configuration through 
 ## 🗓️ Session 5: Advanced AI & Terminal
 **Goal**: Integrate AI assistance and manage external tools.
 
-1.  **AI Chat (CodeCompanion)**:
-    - Open the AI chat with `<Leader>ac`.
-    - Ask a question about your current buffer.
-    - Select a model with `<Leader>aM` if needed.
-2.  **AI Inline Edit**:
-    - Select a block of code and press `<Leader>ai`.
-    - Ask the AI to "Refactor this to be more efficient".
+1.  **AI Agent (sidekick + opencode)**:
+    - Toggle the opencode TUI with `<Leader>at`.
+    - Send the current selection with `<Leader>as` and ask for improvements.
+    - Return to the editor with `<C-z>` and re-focus with `<Leader>ao`.
 3.  **Terminal Management**:
     - Open a floating terminal with `<Leader>tt`.
     - Open `lazygit` directly with `<Leader>tg`.

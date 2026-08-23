@@ -162,7 +162,6 @@ return {
 		"L3MON4D3/LuaSnip",
 		dependencies = { "rafamadriz/friendly-snippets" },
 	},
-	{ "rafamadriz/friendly-snippets" },
 	{
 		"stevearc/conform.nvim",
 		event = "BufWritePre",
@@ -349,7 +348,7 @@ return {
 			require("config.mini_surround").setup()
 		end,
 	},
-	{ "windwp/nvim-ts-autotag", event = { "BufReadPost", "InsertEnter" } },
+	{ "windwp/nvim-ts-autotag", event = { "BufReadPost", "InsertEnter" }, config = true },
 	{
 		"folke/trouble.nvim",
 		cmd = "Trouble",
@@ -368,21 +367,11 @@ return {
 		end,
 	},
 	{
-		"lambdalisue/nvim-aibo",
-		config = function()
-			require("config.aibo").setup()
-		end,
-	},
-	{
-		"olimorris/codecompanion.nvim",
-		cmd = { "CodeCompanion", "CodeCompanionChat" },
-		config = function()
-			require("config.codecompanion").setup()
-		end,
-	},
-	{
 		"folke/sidekick.nvim",
-		cmd = { "Sidekick", "SidekickChat", "SidekickInline", "SidekickPrompt" },
+		event = "VeryLazy",
+		config = function()
+			require("config.sidekick").setup()
+		end,
 	},
 	{
 		"swaits/zellij-nav.nvim",

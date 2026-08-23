@@ -16,9 +16,11 @@ A complete, high-performance Neovim environment (v0.12 ready) with seamless Zell
 - **Seamless Navigation**: Move between Neovim and Zellij panes with `Alt-h/j/k/l`.
 - **Auto-Sync**: Neovim now automatically reloads files (`autoread`) when external AI tools (like `aider`) modify them in another Zellij pane.
 
-### 4. Dual AI Workflows
-- **Quick Assistant**: Use **`<Leader>ai`** to open a quick AI assistant (`nvim-aibo`) inside Neovim for short questions.
-- **Full-Pane AI**: Dedicate a Zellij pane to `aider` or `claude-code` for intensive project-wide tasks.
+### 4. AI Workflow (sidekick.nvim + opencode)
+- **Integrated CLI**: `opencode` runs in a right-side split inside Neovim (`<Leader>at`).
+- **Context-Aware**: Send cursor position, file, or selection directly to the AI (`<Leader>aa`, `<Leader>af`, `<Leader>as`).
+- **Prompt Library**: Predefined prompts via `<Leader>ap`.
+- **Zellij Optional**: Sessions can be persisted in Zellij by enabling `mux.enabled` in `lua/config/sidekick.lua`.
 
 ### 5. Custom Lightweight Scratchpad
 - **Fast & Robust**: Replaced heavy plugins with a custom Lua implementation (`<Leader>s`).
@@ -32,7 +34,9 @@ A complete, high-performance Neovim environment (v0.12 ready) with seamless Zell
 | --- | --- |
 | `<Leader>s` | **Toggle Scratchpad** (Floating Org-mode) |
 | `q` | Close many floating windows (Scratch, AI, etc.) |
-| `<Leader>ai` | **Open AI Assistant** (nvim-aibo) |
+| `<Leader>at` | **Toggle opencode** (sidekick, right split) |
+| `<Leader>ao` | Focus opencode (without hiding) |
+| `<C-z>` | Blur back to editor (inside opencode TUI) |
 | `Alt + h/j/k/l` | **Zellij Navigation** (Navigate panes/Vim) |
 | `<Leader>e` | Toggle File Explorer (Neo-tree) |
 | `<Leader>ff` | Search Files (Telescope) |

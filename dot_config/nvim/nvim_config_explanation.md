@@ -98,7 +98,7 @@
 - **言語特化**: `go.nvim` (Go), `rustaceanvim` (Rust), `elixir-tools.nvim` (Elixir), `typescript-tools.nvim` (TypeScript) など、言語ごとに強力な開発支援を導入。
 - **ターミナル**: `toggleterm.nvim`がフローティングや分割ウィンドウでターミナルを瞬時に呼び出します。
 - **診断情報**: `trouble.nvim`がエラーや警告の一覧を分かりやすく表示します。
-- **AI**: `codecompanion.nvim`, `sidekick.nvim` を導入し、AIによるコーディング支援を活用。
+- **AI**: `sidekick.nvim` + `opencode`（LiteLLM 経由のローカル LLM）で、エディタ内から AI エージェントを操作。
 - **日本語入力**: `skkeleton` (SKKエンジン) と `kensaku.vim` (日本語検索) を導入し、日本語環境を整備。
 - **メモ**: `obsidian.nvim`を導入し、高機能メモアプリObsidianとの連携を実現。
 

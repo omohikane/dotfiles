@@ -5,7 +5,7 @@ A modular, modern, and highly functional Neovim configuration focused on speed, 
 ## 🚀 Key Features
 
 - **Modern & Clean UI**: `noice.nvim`, `alpha-nvim`, `barbar.nvim`.
-- **AI-Powered Workflows**: `CodeCompanion`, `nvim-aibo`, and `sidekick.nvim`.
+- **AI-Powered Workflows**: `sidekick.nvim` + `opencode` (local LLM via LiteLLM).
 - **Superior Japanese Input**: `skkeleton` (SKK) and `kensaku`.
 - **Workflow Persistence**: `Zellij` integration via `zellij-nav.nvim`.
 
@@ -94,9 +94,13 @@ A modular, modern, and highly functional Neovim configuration focused on speed, 
 ### 🤖 AI & Tools
 | Plugin | Key | Action |
 | --- | --- | --- |
-| **CodeCompanion**| `<Leader>ac` | AI Chat |
-| | `<Leader>ai` | AI Inline |
-| | `<Leader>aM` | Select AI Model |
+| **Sidekick** | `<Leader>at` | Toggle opencode TUI (right split) |
+| | `<Leader>ao` | Focus opencode without toggling |
+| | `<Leader>aa` | Send `{this}` (cursor position / selection) |
+| | `<Leader>af` | Send current file |
+| | `<Leader>as` | Send visual selection |
+| | `<Leader>ap` | Prompt library |
+| | `<C-z>` | Blur back to editor (inside opencode TUI) |
 | **ToggleTerm** | `<Leader>tt` | Floating Terminal |
 | | `<Leader>tg` | Lazygit (Floating) |
 | **Trouble** | `<Leader>xx` | Toggle Diagnostics Panel |
