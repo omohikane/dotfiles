@@ -1,0 +1,15 @@
+# ==========================================
+# 仕事用SSH設定テンプレート
+# このファイルを `work` にコピーして実際の値を設定すること
+# (※ `work` ファイルは .chezignore によりGit管理外になります)
+# ==========================================
+
+# Host company-bastion
+#   HostName bastion.example.com
+#   User your_username
+#   IdentityFile ~/.ssh/id_ed25519_work
+
+# Host company-internal-server
+#   HostName 10.0.1.50
+#   User your_username
+#   ProxyJump company-bastion
