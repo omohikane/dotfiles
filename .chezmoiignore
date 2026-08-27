@@ -1,5 +1,7 @@
 .config/nvim/lazy-lock.json
 .config/nvim/.env*
 .config/secrets/api-keys.env
+.pi/agent/auth.json
+.pi/agent/models-store.json
 
 
