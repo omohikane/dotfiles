@@ -1,0 +1,7 @@
+{
+  "defaultProvider": "litellm",
+  "defaultModel": "rx6800-mero",
+  "defaultThinkingLevel": "off",
+  "enableInstallTelemetry": false,
+  "externalEditor": "nvim"
+}

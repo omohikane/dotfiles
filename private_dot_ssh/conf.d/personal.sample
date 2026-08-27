@@ -1,0 +1,22 @@
+# ==========================================
+# 個人開発・自宅インフラ用 SSH設定サンプル
+# 
+# 【ポイント】
+# ・IPアドレスを直書きせず、DNS(*.home)やmDNS(*.local)で名前解決させる
+# ・共通設定はワイルドカードでまとめて、個別に違う部分だけ上書きする
+# ==========================================
+
+# 自宅ネットワーク・ローカル開発マシン全般
+Host *.home *.local
+  User admin
+  IdentityFile ~/.ssh/id_ed25519_personal
+  ServerAliveInterval 60
+
+# 個別にユーザーやポートを変えたい場合の上書き例
+# Host router.home
+#   User root
+
+# クラウド・VPS・自宅外サーバー例
+# Host my-vps.example.com
+#   User ubuntu
+#   IdentityFile ~/.ssh/id_ed25519_personal

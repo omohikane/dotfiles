@@ -1,0 +1,21 @@
+{
+  "providers": {
+    "litellm": {
+      "name": "LiteLLM",
+      "baseUrl": "http://endeavour-desktop-ryzen.netbird.cloud:4000/v1",
+      "api": "openai-completions",
+      "apiKey": "$LITELLM_MASTER_KEY",
+      "models": [
+        { "id": "rx6800-mero", "name": "RX6800 Mero" },
+        { "id": "rx6800-ornith", "name": "RX6800 Ornith 35B" },
+        { "id": "rx6800-qw-base", "name": "RX6800 Qwen Base" },
+        { "id": "rx6800-qwen38", "name": "RX6800 Qwen3.8-27B Q3_K_M" },
+        { "id": "rx6800-qwen38-xhigh", "name": "RX6800 Qwen3.8-27B xhigh" },
+        { "id": "meigao-coding", "name": "Meigao Coding" },
+        { "id": "cloud-gemini-lite", "name": "Gemini Lite" },
+        { "id": "cloud-deepseek-fast", "name": "DeepSeek Fast" },
+        { "id": "cloud-deepseek-strong", "name": "DeepSeek Strong" }
+      ]
+    }
+  }
+}

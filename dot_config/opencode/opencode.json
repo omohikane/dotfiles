@@ -18,8 +18,8 @@
       "npm": "@ai-sdk/openai-compatible",
       "name": "LiteLLM",
       "options": {
-        "baseURL": "http://127.0.0.1:4000/v1",
-        "apiKey": "dummy",
+        "baseURL": "http://endeavour-desktop-ryzen.netbird.cloud:4000/v1",
+        "apiKey": "{env:LITELLM_MASTER_KEY}",
         "timeout": 600000
       },
       "models": {
@@ -51,11 +51,11 @@
           "name": "Gemini Lite",
           "tools": true
         },
-        "cloud-deepseek-Flash": {
+        "cloud-deepseek-fast": {
           "name": "DeepSeek Fast",
           "tools": true
         },
-        "cloud-deepseek-Pro": {
+        "cloud-deepseek-strong": {
           "name": "DeepSeek Strong",
           "tools": true
         }
@@ -135,7 +135,7 @@
     "plan": {
       "description": "High-quality planning agent. Designs changes before implementation. It must not edit files or run commands.",
       "mode": "primary",
-      "model": "litellm/cloud-deepseek-Flash",
+      "model": "litellm/cloud-deepseek-fast",
       "permission": {
         "read": "allow",
         "glob": "allow",
