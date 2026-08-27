@@ -102,6 +102,10 @@ model_list:
   #     model: openrouter/z-ai/glm-5.2
   #     api_key: os.environ/OPENROUTER_API_KEY
 
+general_settings:
+  # netbird越しクライアントからのアクセス用。実値は ~/.config/secrets/api-keys.env で管理
+  master_key: os.environ/LITELLM_MASTER_KEY
+
 router_settings:
   num_retries: 1
   cooldown_time: 60
