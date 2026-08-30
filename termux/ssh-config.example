@@ -1,0 +1,20 @@
+# Termux ~/.ssh/config example - copy to ~/.ssh/config and adjust
+Host endeavour
+  HostName endeavour-desktop-ryzen.netbird.cloud
+  User r1ppl3
+  IdentityFile ~/.ssh/id_ed25519
+  ServerAliveInterval 60
+  ServerAliveCountMax 3
+
+Host fuchu
+  HostName fuchu-llm-server.netbird.cloud
+  User r1ppl3
+  IdentityFile ~/.ssh/id_ed25519
+  ServerAliveInterval 60
+
+# Short alias for zellij attach:
+# ssh -t endeavour "zellij attach -c main"
+# mosh endeavour -- zellij attach -c main
+
+Host *
+  IdentitiesOnly yes

@@ -1,0 +1,26 @@
+layout {
+    default_tab_template {
+        pane size=1 borderless=true {
+            plugin location="zellij:tab-bar"
+        }
+        children
+        pane size=2 borderless=true {
+            plugin location="zellij:status-bar"
+        }
+    }
+
+    // スマホ狭幅向け: 1ペインのみ。分割は手動で
+    tab name="main" focus=true {
+        pane command="fish"
+    }
+
+    tab name="edit" {
+        pane command="fish"
+    }
+
+    tab name="ai" {
+        // 縦分割だと潰れるので、スマホではタブで分ける想定
+        // 必要なら Ctrl+p → n で新規ペイン
+        pane command="fish"
+    }
+}
