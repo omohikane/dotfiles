@@ -1,33 +1,24 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-# termux/setup.sh - Termux one-shot setup for razr 50 + Clicks
-# Usage (on Termux):
-#   pkg update -y && pkg install -y git openssh
-#   git clone https://github.com/omohikane/dotfiles.git ~/dotfiles
-#   cd ~/dotfiles/termux && bash setup.sh
-# Or via chezmoi: this file lives under chezmoi source at termux/setup.sh
+# termux/setup.sh - minimal SSH-client setup for Termux (razr 50 + Clicks)
+# Usage (on Termux): pkg update -y && pkg install -y git openssh; git clone https://github.com/omohikane/dotfiles.git ~/dotfiles; cd ~/dotfiles/termux && bash setup.sh
+# 補足: リモート開発用SSHクライアントとして使うだけなので、fish/zellij等は入れない
 
 DOTFILES_DIR="$(cd "$(dirname "$0")/.." && pwd)"
-# When run via ~/dotfiles/termux/setup.sh, DOTFILES_DIR is ~/dotfiles
-# When run via chezmoi source, fallback to expected Termux dotfiles path
 if [[ ! -d "$DOTFILES_DIR/termux" ]]; then
   DOTFILES_DIR="$HOME/dotfiles"
 fi
 
 echo "==> Dotfiles dir: $DOTFILES_DIR"
-echo "==> Updating packages (Termux)..."
-if command -v pkg >/dev/null 2>&1; then
-  pkg update -y && pkg upgrade -y
-else
-  echo "[WARN] pkg not found - are you on Termux? Skipping pkg update."
-fi
 
-echo "==> Installing essentials..."
 if command -v pkg >/dev/null 2>&1; then
-  pkg install -y git openssh mosh fish zellij termux-api termux-tools bat fzf ripgrep openssh 2>/dev/null || pkg install -y git openssh mosh fish zellij termux-api
-  # starship/zoxideは任意
-  pkg install -y starship zoxide 2>/dev/null || true
+  echo "==> Installing essentials (git + openssh + mosh)..."
+  # 最小構成: git, openssh, mosh(任意だが切断対策で推奨)。fish/zellijは不要
+  pkg update -y && pkg upgrade -y
+  pkg install -y git openssh mosh || pkg install -y git openssh
+else
+  echo "[WARN] pkg not found - not on Termux? Skipping pkg install."
 fi
 
 echo "==> Setting up Termux properties..."
@@ -36,52 +27,40 @@ if [[ -f "$DOTFILES_DIR/termux/termux.properties" ]]; then
   ln -sf "$DOTFILES_DIR/termux/termux.properties" ~/.termux/termux.properties
   echo "  linked termux.properties"
 fi
-if [[ -f "$DOTFILES_DIR/termux/termux-styling.properties" ]] && [[ -f "$DOTFILES_DIR/termux/colors.properties" ]]; then
-  ln -sf "$DOTFILES_DIR/termux/colors.properties" ~/.termux/colors.properties
-fi
-
 if command -v termux-reload-settings >/dev/null 2>&1; then
   termux-reload-settings || true
-  echo "  termux-reload-settings done"
-fi
-
-echo "==> Setting up fish config (Termux)..."
-mkdir -p ~/.config/fish/conf.d
-if [[ -f "$DOTFILES_DIR/termux/fish-termux.fish" ]]; then
-  ln -sf "$DOTFILES_DIR/termux/fish-termux.fish" ~/.config/fish/conf.d/termux-phone.fish
-  echo "  linked fish-termux.fish -> ~/.config/fish/conf.d/termux-phone.fish"
 fi
 
 echo "==> Setting up SSH (Termux -> Home)..."
 mkdir -p ~/.ssh && chmod 700 ~/.ssh
-# Termux側のSSH鍵が無ければ生成を促す。既存鍵は上書きしない
 if [[ ! -f ~/.ssh/id_ed25519 ]]; then
-  echo "  [INFO] No ~/.ssh/id_ed25519 found. Generating one..."
+  echo "  No ~/.ssh/id_ed25519 found. Generating..."
   ssh-keygen -t ed25519 -f ~/.ssh/id_ed25519 -N "" -C "termux-razr50-$(date +%Y%m%d)"
-  echo "  Generated. Add this public key to your home server's authorized_keys:"
+  echo "  Generated. Copy this to home server authorized_keys:"
   echo "  ---"
   cat ~/.ssh/id_ed25519.pub
   echo "  ---"
-  echo "  On home server (Endeavour): cat >> ~/.ssh/authorized_keys"
 else
-  echo "  Existing key found: ~/.ssh/id_ed25519 (skip)"
+  echo "  Existing key: ~/.ssh/id_ed25519 (skip)"
 fi
 
-# Homeへのssh config雛形
 if [[ ! -f ~/.ssh/config ]] && [[ -f "$DOTFILES_DIR/termux/ssh-config.example" ]]; then
   cp "$DOTFILES_DIR/termux/ssh-config.example" ~/.ssh/config
   chmod 600 ~/.ssh/config
-  echo "  installed ssh config template -> ~/.ssh/config (edit HostName/User as needed)"
+  echo "  installed ssh config -> ~/.ssh/config"
 elif [[ -f "$DOTFILES_DIR/termux/ssh-config.example" ]]; then
-  echo "  [INFO] ~/.ssh/config already exists. Compare with template:"
-  echo "        $DOTFILES_DIR/termux/ssh-config.example"
+  echo "  [INFO] ~/.ssh/config exists. Compare with $DOTFILES_DIR/termux/ssh-config.example"
+fi
+
+# shell aliases (bash/zsh) - fish不要でも使える
+if [[ -f "$DOTFILES_DIR/termux/aliases.sh" ]]; then
+  echo "  [INFO] To enable hs/hsp aliases, add to ~/.bashrc:"
+  echo "        source ~/dotfiles/termux/aliases.sh"
 fi
 
 echo ""
-echo "All set! Next steps:"
-echo "  1. Ensure NetBird on Termux/Android is connected (netbird.cloud)"
-echo "  2. Copy ~/.ssh/id_ed25519.pub to home server: ssh-copy-id or manual append"
-echo "  3. Test: ssh r1ppl3@endeavour-desktop-ryzen.netbird.cloud"
-echo "  4. Then: ssh -t r1ppl3@endeavour-desktop-ryzen.netbird.cloud 'zellij attach -c main'"
-echo "     or phone layout: ssh -t r1ppl3@endeavour-desktop-ryzen.netbird.cloud 'zellij --layout phone attach -c phone'"
-echo "  5. Optional: set default fish shell: chsh -s fish"
+echo "Done! Next:"
+echo "  1. NetBird Androidアプリを接続"
+echo "  2. cat ~/.ssh/id_ed25519.pub を自宅PCの ~/.ssh/authorized_keys に追記"
+echo "  3. ssh endeavour  # or ssh r1ppl3@endeavour-desktop-ryzen.netbird.cloud"
+echo "  4. ssh -t endeavour 'zellij --layout phone attach -c phone'  # スマホ用レイアウト"

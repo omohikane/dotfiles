@@ -1,49 +1,40 @@
-# Termux Phone Setup (razr 50 + Clicks)
+# Termux Phone Setup (razr 50 + Clicks) - minimal
 
-PC側で準備済み。スマホ側はクローンして `setup.sh` を叩くだけ。
+PC側で用意、スマホ側は `git clone + setup.sh` だけでSSHクライアントとして使える。
+
+## 最小構成
+
+- Termux側に必要なのは `git` + `openssh` (+任意で `mosh`) のみ
+- `fish`/`zellij`/`starship` は不要（自宅PC側のzellijに繋ぐため）
+- 重いdotfiles全体はクローン不要、浅いcloneでOK
 
 ## PC側（済）
 
-- `termux/termux.properties` : Clicks物理キーボード向け extra-keys / enforce-char-based-input
-- `termux/setup.sh` : pkg一括導入 + symlink + SSH鍵生成
-- `termux/fish-termux.fish` : NetBird経由 `hs`/`hsp` エイリアス
-- `dot_config/zellij/layouts/phone.kdl` : 狭幅1ペイン用レイアウト
-- `termux/ssh-config.example` : `endeavour`/`fuchu` ホスト雛形
+- `termux/termux.properties` : 最小 extra-keys のみ
+- `termux/setup.sh` : `git/openssh/mosh` だけを `pkg install` + symlink + 鍵生成
+- `termux/aliases.sh` : `hs`/`hsp` 等のbashエイリアス（fish不要）
+- `termux/ssh-config.example` : `endeavour`/`fuchu` 雛形
+- `dot_config/zellij/layouts/phone.kdl` : サーバ側の狭幅レイアウト
+
+`fish-termux.fish` はフル構成用に残置（今回は使わない）。
 
 ## スマホ側（Termux）
 
 ```bash
 pkg update -y && pkg install -y git openssh
-git clone https://github.com/omohikane/dotfiles.git ~/dotfiles
+# 軽量clone（履歴不要）
+git clone --depth 1 https://github.com/omohikane/dotfiles.git ~/dotfiles
 cd ~/dotfiles/termux
 bash setup.sh
-# 出力された id_ed25519.pub を自宅PCの ~/.ssh/authorized_keys に追記
-cat ~/.ssh/id_ed25519.pub  # これをコピー
+cat ~/.ssh/id_ed25519.pub  # これをPCの ~/.ssh/authorized_keys に追記
+
+# お好みでエイリアス有効化（bash）
+echo 'source ~/dotfiles/termux/aliases.sh' >> ~/.bashrc
+source ~/.bashrc
 
 # NetBird Androidアプリで接続後
-ssh endeavour          # or ssh r1ppl3@endeavour-desktop-ryzen.netbird.cloud
-ssh -t endeavour "zellij attach -c main"          # PCと同じセッション
-ssh -t endeavour "zellij --layout phone attach -c phone"  # スマホ用狭幅レイアウト
+ssh endeavour
+ssh -t endeavour "zellij --layout phone attach -c phone"  # or hsp
 ```
 
-Fishを常用するなら:
-```bash
-chsh -s fish
-# 再起動後、hs / hsp が使える
-hs    # = ssh -t endeavour "zellij attach -c main"
-hsp   # = phone layout
-```
-
-## NetBird補足
-
-- NetBird Setup Keyはダッシュボードで発行 (https://app.netbird.io)
-- `endeavour-desktop-ryzen.netbird.cloud` は `~/.ssh/conf.d/personal.conf` の `ThinkpadX13g6`/`Fuchu-LLM-Server` と同様にMagicDNSで解決
-
-## mosh（任意）
-
-モバイル回線で切断が多い場合:
-```bash
-pkg install mosh
-mosh endeavour -- zellij attach -c main
-```
-サーバ側は `sudo pacman -S mosh` が必要。
+フル構成が必要になったら `bash setup-full.sh`（旧setup）を用意するので声をかけてください。
