@@ -51,7 +51,7 @@ bindsym $mod+Alt+l exec $lock_cmd
 #####################################################################
 ## Clipboard
 #####################################################################
-exec clipman store --no-persist
+exec command -v cliphist >/dev/null && wl-paste --watch cliphist store
 
 #####################################################################
 ## Output Display management
@@ -75,7 +75,8 @@ input type:keyboard {
 #
     bindsym $mod+Return exec env AUTO_ZELLIJ=main $term -e fish
     bindsym $mod+Shift+q kill
-    bindsym mod1+space exec fuzzel
+    bindsym mod1+space exec ~/.local/bin/fuzzel-combi.sh
+    bindsym mod1+Tab exec ~/.local/bin/fuzzel-window-switch.sh
     bindsym Mod1+Shift+space exec bash ~/.config/wofi/launcher.sh
 
     floating_modifier $mod normal
