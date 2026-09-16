@@ -26,9 +26,15 @@ wlr-randr
 
 fuzzel
 wl-clipboard
+cliphist
+wtype
 
 ## sway / screenshot & recording
 
 grim
 slurp
 wf-recorder
+
+
+
+
