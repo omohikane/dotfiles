@@ -1,10 +1,12 @@
 #!/bin/bash
 # sway combi launcher (rofi -show combi 風)。
-# Alt+Space 一発で window / app / clipboard履歴 / snippet を選ぶ。アイコン付き。
-# window → focus、app → 起動(起動中は除外)、clip/snip → 貼付け(wtype) or コピー。
+# Alt+Space 一発で window / app / web検索 / file検索 / emoji / clipboard履歴 / snippet を選ぶ。アイコン付き。
+# window → focus、app → 起動(起動中は除外)、emoji/clip/snip → 貼付け(wtype) or コピー。
 set -u
 
 SNIPDIR="${HOME}/.config/snippets"
+export EMOJIFILE="${HOME}/.config/fuzzel/emoji.txt"
+SEARCH_DIRS=("$HOME/Projects" "$HOME/Documents" "$HOME/Downloads")
 
 choice="$(python3 <<'PYEOF' | fuzzel --dmenu --prompt 'launch: ' --with-nth=1 --accept-nth=2
 import json, subprocess, os, configparser
@@ -116,6 +118,23 @@ if os.path.isdir(snipdir):
     for f in sorted(os.listdir(snipdir)):
         if f.endswith(".txt"):
             emit(f'[snip] {f[:-4]}', "S", f[:-4], "text-x-generic")
+
+emit('[web] Web検索...', "B", "web", "web-browser")
+emit('[file] ファイル検索...', "F", "file", "system-file-manager")
+
+emojifile = os.path.expanduser(os.environ.get("EMOJIFILE", "~/.config/fuzzel/emoji.txt"))
+try:
+    with open(emojifile, encoding="utf-8") as fh:
+        for line in fh:
+            line = line.strip()
+            if not line or line.startswith("#"):
+                continue
+            parts = line.split(None, 1)
+            char = parts[0]
+            kw = parts[1] if len(parts) > 1 else char
+            emit(f'[emoji] {char} {kw}', "E", char, "face-smile")
+except FileNotFoundError:
+    pass
 PYEOF
 )" || exit 0
 [ -z "${choice:-}" ] && exit 0
@@ -158,5 +177,28 @@ case "$kind" in
     S)
         f="${SNIPDIR}/${rest}.txt"
         [ -f "$f" ] && paste_or_copy "$(cat "$f")"
+        ;;
+    E)
+        [ -n "${rest:-}" ] && paste_or_copy "$rest"
+        ;;
+    B)
+        q="$(printf '' | fuzzel --dmenu --prompt 'web: ')" || exit 0
+        [ -z "${q:-}" ] && exit 0
+        case "$q" in
+            http://*|https://*) url="$q" ;;
+            *) enc="$(printf '%s' "$q" | python3 -c 'import sys,urllib.parse; print(urllib.parse.quote(sys.stdin.read().strip()))')"
+               url="https://www.google.com/search?q=${enc}" ;;
+        esac
+        swaymsg exec -- xdg-open "$url" >/dev/null
+        ;;
+    F)
+        list="$(for d in "${SEARCH_DIRS[@]}"; do
+            [ -d "$d" ] || continue
+            fd --type f --hidden --exclude .git --exclude node_modules --exclude __pycache__ . "$d" 2>/dev/null
+        done)"
+        [ -z "${list:-}" ] && { notify-send "combi" "ファイルが見つかりません"; exit 0; }
+        sel="$(printf '%s\n' "$list" | fuzzel --dmenu --prompt 'file: ')" || exit 0
+        [ -z "${sel:-}" ] && exit 0
+        swaymsg exec -- xdg-open "$sel" >/dev/null
         ;;
 esac

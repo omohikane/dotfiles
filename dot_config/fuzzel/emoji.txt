@@ -1,0 +1,107 @@
+# emoji辞書 (fuzzel-combi.sh用)。形式: <絵文字> <キーワード...>
+# fuzzelでキーワードを打って絞り込み、選択でコピー(将来wtype導入で自動貼付け)。
+😄 smile happy grin
+😆 laugh lol
+😂 joy tears laugh
+🙂 slight smile
+😉 wink
+😊 blush smile
+😍 heart eyes love
+😘 kiss
+🤔 think hmm
+😐 neutral meh
+🙄 roll eyes
+😴 sleep tired
+🤯 mind blown shock
+😱 scream shock
+😭 cry sob tears
+😢 cry tear sad
+😞 disappointed sad
+😠 angry mad
+😎 cool sunglasses
+🤓 nerd glasses
+😇 halo angel innocent
+🤖 robot bot
+👍 thumbsup good plus1
+👎 thumbsdown bad minus1
+👏 clap applause
+🙏 pray thanks please
+👋 wave hello hi bye
+✋ hand stop highfive
+👌 ok perfect
+✌ victory peace
+🤝 handshake deal
+💪 muscle strong flex
+👀 eyes look watch
+🧠 brain smart
+❤ heart love red
+💔 broken heart
+💯 hundred perfect score
+⭐ star favorite
+🔥 fire hot lit
+🎉 party tada celebrate congrats
+✅ check done ok
+❌ cross ng no
+⚠ warning caution
+❓ question what help
+❗ exclamation alert
+💡 idea bulb hint
+📌 pin pushpin memo
+📎 clip attach
+✂ scissors cut
+📝 memo note write pencil
+📅 calendar date schedule
+⏰ alarm clock time
+💻 laptop pc computer
+⌨ keyboard typing
+🖱 mouse click
+📱 phone smartphone mobile
+🔋 battery charge
+🔌 plug power cable
+🌐 globe web internet
+🔍 search magnifier find
+🔒 lock secure private
+🔑 key password
+🚀 rocket launch ship fast
+🐛 bug issue debug
+✨ sparkles new shiny
+🎨 art palette design color
+📊 chart graph data
+📦 package box delivery
+🛠 tools fix wrench hammer
+💾 save floppy disk
+☁ cloud upload
+⬇ download down arrow
+🎵 music note song
+🎧 headphones listen
+📷 camera photo
+🖼 picture image gallery
+👤 user person account
+👥 users team group
+🏠 home house
+🏢 office building company
+☕ coffee tea break
+🍺 beer drink cheers
+🍔 burger food lunch
+🚶 walk move
+🏃 run dash hurry
+✅ done task todo
+🔁 repeat loop retry
+⏳ hourglass wait loading
+💤 sleep zzz idle
+🌙 moon night dark
+☀ sun day sunny bright
+🌧 rain weather
+❄ snow winter cold
+🌸 flower spring sakura
+🎂 birthday cake celebrate
+🎁 gift present
+🏆 trophy win award
+🥇 gold medal first
+👑 crown king
+💰 money cash pay
+💳 card credit pay
+📧 mail email envelope
+💬 chat comment message speech
+🔔 bell notify notice
+🔕 mute silent off
