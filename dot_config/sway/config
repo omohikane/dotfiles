@@ -222,7 +222,6 @@ bindsym XF86AudioStop exec playerctl stop
 # Auto Start apps:
 #####################################################################
 exec fcitx5 -d
-exec swaync
 exec blueman-applet
 for_window [app_id="blueman-manager"] floating enable
 
