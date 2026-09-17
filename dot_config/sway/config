@@ -66,6 +66,10 @@ input type:keyboard {
     xkb_model "pc101"
     xkb_options "ctrl:nocaps"
 }
+input type:touchpad {
+    tap enabled
+    dwt enabled
+}
 
 #####################################################################
 ### Key bindings
@@ -77,6 +81,11 @@ input type:keyboard {
     bindsym $mod+Shift+q kill
     bindsym mod1+space exec ~/.local/bin/fuzzel-combi.sh
     bindsym mod1+Tab exec ~/.local/bin/fuzzel-window-switch.sh
+    # Touchpad gestures (sway 1.12: hold/pinch/swipe のみ、tapは未対応)
+    bindgesture swipe:3:right workspace prev
+    bindgesture swipe:3:left workspace next
+    bindgesture swipe:3:up exec ~/.local/bin/fuzzel-window-switch.sh
+    bindgesture swipe:3:down exec ~/.local/bin/fuzzel-combi.sh
     bindsym Mod1+Shift+space exec bash ~/.config/wofi/launcher.sh
 
     floating_modifier $mod normal
