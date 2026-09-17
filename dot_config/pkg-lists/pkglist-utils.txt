@@ -3,9 +3,13 @@
 glances
 inxi
 lnav
+btop
 
 ## misc
 
 obsidian
 httpie
 broot
+yazi
+lazygit
+eza
