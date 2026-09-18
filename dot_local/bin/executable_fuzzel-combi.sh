@@ -121,6 +121,7 @@ if os.path.isdir(snipdir):
 
 emit('[web] Web検索...', "B", "web", "web-browser")
 emit('[file] ファイル検索...', "F", "file", "system-file-manager")
+emit('[memo] quick-add (scrap)...', "M", "memo", "text-x-generic")
 
 emojifile = os.path.expanduser(os.environ.get("EMOJIFILE", "~/.config/fuzzel/emoji.txt"))
 try:
@@ -180,6 +181,9 @@ case "$kind" in
         ;;
     E)
         [ -n "${rest:-}" ] && paste_or_copy "$rest"
+        ;;
+    M)
+        ~/.local/bin/fuzzel-quick-add.sh
         ;;
     B)
         q="$(printf '' | fuzzel --dmenu --prompt 'web: ')" || exit 0
