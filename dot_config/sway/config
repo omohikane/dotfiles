@@ -213,6 +213,7 @@ bindsym XF86AudioStop exec playerctl stop
 
     bindsym Mod1+o exec obsidian
     assign [app_id='obsidian'] 8
+    bindsym $mod+m exec ~/.local/bin/fuzzel-quick-add.sh
 
     bindsym Print exec grim -g "$(slurp)" - | wl-copy
 
@@ -222,7 +223,8 @@ bindsym XF86AudioStop exec playerctl stop
 # Auto Start apps:
 #####################################################################
 exec fcitx5 -d
-exec blueman-applet
+# waybarのtrayより先に立つとアイコンが出ないため遅延起動
+exec sh -c 'sleep 3; exec blueman-applet'
 for_window [app_id="blueman-manager"] floating enable
 
 include ~/.config/sway/host.conf
