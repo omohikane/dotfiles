@@ -45,7 +45,7 @@ for d in (os.path.expanduser("~/.local/share/applications"), "/usr/share/applica
     for f in sorted(os.listdir(d)):
         if not f.endswith(".desktop"):
             continue
-        cp = configparser.ConfigParser(interpolation=None)
+        cp = configparser.ConfigParser(interpolation=None, strict=False)
         cp.optionxform = str
         try:
             cp.read(os.path.join(d, f), encoding="utf-8")
