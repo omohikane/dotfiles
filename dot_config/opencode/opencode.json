@@ -55,10 +55,6 @@
           "name": "RX7900 Qwen3.8-27B xhigh",
           "tools": true
         },
-        "meigao-coding": {
-          "name": "Meigao Coding",
-          "tools": true
-        },
         "cloud-gemini-lite": {
           "name": "Gemini Lite",
           "tools": true
