@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+# strata-off: stop Strata (chezmoi managed). Use before games / VRAM hogs.
+set -euo pipefail
+
+pkill -f '[s]erve/server.py' || true
+pkill -f '[e]ngine/strata --serve' || true
+echo "strata stopped"

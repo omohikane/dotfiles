@@ -43,6 +43,14 @@ model_list:
       api_base: http://endeavour-desktop-ryzen.netbird.cloud:11435/v1
       api_key: dummy
 
+  # === Strata: Qwen3.8-Flash-Next IQ2_XS (ESP on) ===
+  # Strata engine on :8080, OpenAI-compat, model name anything
+  - model_name: local-strata-flash
+    litellm_params:
+      model: openai/qwen3.8-flash-next
+      api_base: http://127.0.0.1:8080/v1
+      api_key: dummy
+
   # === Meigao ===
   - model_name: meigao-coding
     litellm_params:

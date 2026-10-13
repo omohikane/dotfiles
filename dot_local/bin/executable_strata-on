@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+# strata-on: start Strata (Flash-Next IQ2_XS) on :8080 (chezmoi managed)
+set -euo pipefail
+
+cd "$HOME/.local/src/Strata"
+nohup .venv/bin/python serve/server.py --engine strata \
+  --config "$HOME/.local/src/Strata/strata-iq2_xs.json" \
+  --port 8080 > /tmp/opencode/strata-8080.log 2>&1 &
+echo "strata started (log: /tmp/opencode/strata-8080.log)"

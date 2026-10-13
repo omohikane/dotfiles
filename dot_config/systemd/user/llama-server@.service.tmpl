@@ -4,7 +4,7 @@ After=network.target
 
 [Service]
 EnvironmentFile=%h/.config/llama-server/%i.env
-ExecStart={{ if eq .host "server" }}/usr/bin/llama-server{{ else }}%h/.local/src/llama.cpp/build-stable/bin/llama-server{{ end }} \
+ExecStart={{ if eq .host "server" }}/usr/bin/llama-server \
   -m ${MODEL} -ngl ${NGL} --device ${DEVICE} \
   -fa ${FA} -c ${CTX} -b ${BATCH} -ub ${UBATCH} \
   --host ${HOST} --port ${PORT} \
@@ -19,7 +19,7 @@ ExecStart={{ if eq .host "server" }}/usr/bin/llama-server{{ else }}%h/.local/src
   --parallel ${PARALLEL} \
   --cache-type-k ${CACHE_K} \
   --cache-type-v ${CACHE_V} \
-  $EXTRA_ARGS
+  $EXTRA_ARGS{{ else }}%h/.local/bin/llama-run %i{{ end }}
 Restart=on-failure
 RestartSec=5
 KillSignal=SIGTERM

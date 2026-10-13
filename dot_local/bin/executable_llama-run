@@ -1,0 +1,35 @@
+#!/usr/bin/env bash
+# llama-run <env-name>: backend-aware llama-server launcher (chezmoi managed)
+# Reads ~/.config/llama-server/<env-name>.env, picks HIP (default) or Vulkan binary.
+set -euo pipefail
+
+ENV_NAME="${1:?usage: llama-run <env-name>}"
+ENV_FILE="$HOME/.config/llama-server/${ENV_NAME}.env"
+# shellcheck disable=SC1090
+source "$ENV_FILE"
+
+BACKEND="${BACKEND:-hip}"
+BIN_DIR="$HOME/.local/src/llama.cpp"
+
+ARGS=(
+  -m "${MODEL}"
+  -ngl "${NGL:-99}"
+  -fa "${FA:-on}"
+  -c "${CTX:-32768}"
+  -b "${BATCH:-1024}" -ub "${UBATCH:-512}"
+  --host "${HOST:-0.0.0.0}" --port "${PORT:?PORT missing}"
+  --reasoning "${REASONING_MODE:-off}"
+  --temp "${TEMP:-0.8}" --top-p "${TOP_P:-0.95}" --top-k "${TOP_K:-40}"
+  --min-p "${MIN_P:-0.05}" --repeat-penalty "${REPEAT_PENALTY:-1.05}"
+  --presence-penalty "${PRESENCE_PENALTY:-0.0}"
+  --cache-ram "${CACHE_RAM:-0}" --parallel "${PARALLEL:-1}"
+  --cache-type-k "${CACHE_K:-q8_0}" --cache-type-v "${CACHE_V:-q8_0}"
+)
+
+if [ "$BACKEND" = "hip" ]; then
+  # shellcheck disable=SC2086
+  exec "$BIN_DIR/build-hip/bin/llama-server" "${ARGS[@]}" ${EXTRA_ARGS:-}
+else
+  # shellcheck disable=SC2086
+  exec "$BIN_DIR/build-stable/bin/llama-server" "${ARGS[@]}" --device "${DEVICE:?DEVICE missing for vulkan}" ${EXTRA_ARGS:-}
+fi
