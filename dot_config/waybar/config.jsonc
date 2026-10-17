@@ -11,10 +11,15 @@
     "custom/vpn",
     "custom/updates",
     "cpu",
+    "memory",
     "temperature",
+    "custom/gpu",
+    "custom/llm",
     "pulseaudio",
     "network",
+    "bluetooth",
     "battery",
+    "idle_inhibitor",
     "clock",
     "custom/notification",
     "tray"
@@ -22,7 +27,7 @@
   "clock": {
     "format": "{:%Y-%m-%d %H:%M}",
     "format-alt": "{:%A %H:%M:%S}",
-    "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>",
+    "tooltip-format": "<tt><small>{calendar}</small></tt>",
     "calendar": {
       "mode": "month",
       "mode-mon-col": 3,
@@ -85,11 +90,43 @@
     "on-click": "alacritty -e yay -Syu"
   },
   "custom/vpn": {
-    "exec": "~/.config/waybar/scripts/vpn_status.sh",
+    "exec": "~/.config/waybar/scripts/wireguard_status.sh",
     "interval": 30,
     "format": "{}",
     "return-type": "json",
     "tooltip": true
+  },
+  "memory": {
+    "format": "MEM {}%",
+    "tooltip": true
+  },
+  "bluetooth": {
+    "format": "BT",
+    "format-connected": "BT {num_connections}",
+    "format-on": "BT",
+    "format-off": "BT-off",
+    "format-disabled": "BT-dis",
+    "tooltip-format-connected": "{device_enumerate}",
+    "on-click": "blueman-manager"
+  },
+  "idle_inhibitor": {
+    "format": "INHIBIT",
+    "tooltip": true
+  },
+  "custom/llm": {
+    "exec": "~/.config/waybar/scripts/llm_status.sh",
+    "interval": 10,
+    "format": "{}",
+    "return-type": "json",
+    "tooltip": true
+  },
+  "custom/gpu": {
+    "exec": "~/.config/waybar/scripts/gpu_vram.sh",
+    "interval": 5,
+    "format": "{}",
+    "return-type": "json",
+    "tooltip": true,
+    "on-click": "lact gui"
   },
   "custom/notification": {
     "tooltip": false,
