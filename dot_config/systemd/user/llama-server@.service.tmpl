@@ -3,7 +3,12 @@ Description=llama-server (%i)
 After=network.target
 
 [Service]
+{{- if eq .host "server" }}
+# server: ExecStart expands ${VAR} from this file
 EnvironmentFile=%h/.config/llama-server/%i.env
+{{- end }}
+# client: do NOT export the env file. TEMP=0.8 in it segfaults HIP init
+# (libamdhip64) on kernel 7.2.x; llama-run sources the file itself.
 ExecStart={{ if eq .host "server" }}/usr/bin/llama-server \
   -m ${MODEL} -ngl ${NGL} --device ${DEVICE} \
   -fa ${FA} -c ${CTX} -b ${BATCH} -ub ${UBATCH} \
