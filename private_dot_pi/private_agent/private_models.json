@@ -6,15 +6,108 @@
       "api": "openai-completions",
       "apiKey": "$LITELLM_MASTER_KEY",
       "models": [
-        { "id": "rx6800-mero", "name": "RX6800 Mero" },
-        { "id": "rx6800-ornith", "name": "RX6800 Ornith 35B" },
-        { "id": "rx6800-qw-base", "name": "RX6800 Qwen Base" },
-        { "id": "rx6800-qwen38", "name": "RX6800 Qwen3.8-27B Q3_K_M" },
-        { "id": "rx6800-qwen38-xhigh", "name": "RX6800 Qwen3.8-27B xhigh" },
-        { "id": "meigao-coding", "name": "Meigao Coding" },
-        { "id": "cloud-gemini-lite", "name": "Gemini Lite" },
-        { "id": "cloud-deepseek-fast", "name": "DeepSeek Fast" },
-        { "id": "cloud-deepseek-strong", "name": "DeepSeek Strong" }
+        {
+          "id": "rx7900-qwen38",
+          "name": "Qwen3.8-27B 公式 (主力・IQ4_XS)",
+          "contextWindow": 131072,
+          "maxTokens": 16384
+        },
+        {
+          "id": "rx7900-qwen38-draft",
+          "name": "Qwen3.8-27B 高速 (draft 付き)",
+          "contextWindow": 65536,
+          "maxTokens": 16384
+        },
+        {
+          "id": "rx7900-ornith",
+          "name": "Ornith 1.5 35B-A3B (MoE枠)",
+          "contextWindow": 65536,
+          "maxTokens": 8192
+        },
+        {
+          "id": "rx7900-mero",
+          "name": "G4-Mero 26B-A4B (会話)",
+          "contextWindow": 131072,
+          "maxTokens": 8192
+        },
+        {
+          "id": "rx7900-orca-unc",
+          "name": "Orca Uncensored 27B (creative)",
+          "contextWindow": 131072,
+          "maxTokens": 8192
+        },
+        {
+          "id": "rx7900-orca-cyber",
+          "name": "Orca Cyber 27B (cyber)",
+          "contextWindow": 131072,
+          "maxTokens": 8192
+        },
+        {
+          "id": "minis-qwen38",
+          "name": "minis Qwen3.8-35B-A3B (780M・64K)",
+          "contextWindow": 65536,
+          "maxTokens": 8192
+        },
+        {
+          "id": "local-strata-flash",
+          "name": "Strata 公式 Flash-Next (128K)",
+          "contextWindow": 131072,
+          "maxTokens": 8192
+        },
+        {
+          "id": "rx7900-qwen38-xhigh",
+          "name": "Qwen3.8-27B 長考 (xhigh)",
+          "contextWindow": 65536,
+          "maxTokens": 8192
+        },
+        {
+          "id": "rx7900-qw-base",
+          "name": "Qwen3.6 35B ベース (予備)",
+          "contextWindow": 65536,
+          "maxTokens": 8192
+        },
+        {
+          "id": "qwen35-9b",
+          "name": "Fuchu Qwen3.5-9B",
+          "contextWindow": 32768,
+          "maxTokens": 4096
+        },
+        {
+          "id": "x13-local",
+          "name": "X13 Qwen3 Small",
+          "contextWindow": 32768,
+          "maxTokens": 4096
+        },
+        {
+          "id": "cloud-gemini-lite",
+          "name": "Gemini Lite",
+          "contextWindow": 128000,
+          "maxTokens": 16384
+        },
+        {
+          "id": "cloud-deepseek-fast",
+          "name": "DeepSeek Fast",
+          "contextWindow": 128000,
+          "maxTokens": 16384
+        },
+        {
+          "id": "cloud-deepseek-strong",
+          "name": "DeepSeek Strong",
+          "contextWindow": 128000,
+          "maxTokens": 16384
+        },
+        {
+          "id": "cloud-or-kimi-code",
+          "name": "OpenRouter Kimi Code",
+          "contextWindow": 128000,
+          "maxTokens": 16384
+        },
+        {
+          "id": "cloud-or-glm-strong",
+          "name": "OpenRouter GLM Strong",
+          "contextWindow": 128000,
+          "maxTokens": 16384
+        }
       ]
     }
   }

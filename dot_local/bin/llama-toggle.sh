@@ -1,9 +1,13 @@
 #!/usr/bin/env bash
-UNIT='llama-server@qwen3-30b'
+# llama-toggle: llama-server@active の起動/停止を切り替える（旧 unit 名を修正）
+set -euo pipefail
+UNIT='llama-server@active.service'
 if systemctl --user is-active --quiet "$UNIT"; then
   systemctl --user stop "$UNIT"
-  notify-send "llama-server" "stopped"
+  command -v notify-send >/dev/null && notify-send "llama-server" "stopped"
+  echo "stopped"
 else
   systemctl --user start "$UNIT"
-  notify-send "llama-server" "started"
+  command -v notify-send >/dev/null && notify-send "llama-server" "started ($(readlink -f "$HOME/.config/llama-server/active.env" | xargs basename | sed 's/\.env$//'))"
+  echo "started"
 fi

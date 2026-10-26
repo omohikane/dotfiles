@@ -27,21 +27,53 @@ model_list:
       api_base: http://endeavour-desktop-ryzen.netbird.cloud:11435/v1
       api_key: dummy
 
-  # === RX7900: Gemma roleplay  ===
-  # G4-MeroMero-26B-A4B-IQ4_XS.gguf
+  # === RX7900: Gemma roleplay / 会話 ===
+  # G4-MeroMero-26B-A4B-IQ4_XS.gguf / active.env = g4-meromero.env
   - model_name: rx7900-mero
     litellm_params:
       model: openai/g4-meromero
       api_base: http://endeavour-desktop-ryzen.netbird.cloud:11435/v1
       api_key: dummy
 
-  # === RX7900: Ornith-1.5-35B-A3B ===
-  # bartowski IQ4_XS + --jinja --n-cpu-moe 8 / KV q8 / CTX 65536 (parallel 1)
+  # === RX7900: Ornith-1.5-35B-A3B（MoE 枠）===
+  # IQ4_XS / active.env = ornith-hip.env / CTX 65536 (parallel 1)
   - model_name: rx7900-ornith
     litellm_params:
       model: openai/ornith-35b
       api_base: http://endeavour-desktop-ryzen.netbird.cloud:11435/v1
       api_key: dummy
+
+  # === RX7900: Qwen3.8-27B（主力プロファイル名。実体は active.env）===
+  # qwen38-27b.env / qwen38-27b-draft.env / qwen38-unc-iq4.env のどれをロードしても良い
+  - model_name: rx7900-qwen38-draft
+    litellm_params:
+      model: openai/qwen38-27b-draft
+      api_base: http://endeavour-desktop-ryzen.netbird.cloud:11435/v1
+      api_key: dummy
+
+  # === RX7900: OrcaRouter 系（profile 名。実体は active.env が決める）===
+  # Uncensored IQ4_XS / active.env = qwen38-unc-iq4.env
+  - model_name: rx7900-orca-unc
+    litellm_params:
+      model: openai/qwen38-27b-uncensored
+      api_base: http://endeavour-desktop-ryzen.netbird.cloud:11435/v1
+      api_key: dummy
+
+  # OrcaSAQ-2 Cyber 27B / active.env = orca-cyber.env
+  - model_name: rx7900-orca-cyber
+    litellm_params:
+      model: openai/orcasaq-2-27b
+      api_base: http://endeavour-desktop-ryzen.netbird.cloud:11435/v1
+      api_key: dummy
+
+
+  # === minis-llm (Radeon 780M / Vulkan) ===
+  # Qwen3.8-35B-A3B-Distill IQ4_XS, :8080, API キーは api-keys.env の MINIS_LLAMA_API_KEY
+  - model_name: minis-qwen38
+    litellm_params:
+      model: openai/qwen38-35b-a3b
+      api_base: http://minis-llm.netbird.cloud:8080/v1
+      api_key: os.environ/MINIS_LLAMA_API_KEY
 
   # === Strata: Qwen3.8-Flash-Next IQ2_XS (ESP on) ===
   # Strata engine on :8080, OpenAI-compat, model name anything

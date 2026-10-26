@@ -23,12 +23,25 @@ class LlamaModelSwitcher(CustomLogger):
     """
 
     # LiteLLM上のモデル名 -> envファイル名
+    # 2026-10-25: RX7900 の現行 alias に更新（旧 rx6800-* は残す）
     MODEL_MAP = {
+        # --- 旧名（互換のため残す）---
         "rx6800-qw-base": "qwen36-base.env",
         "rx6800-mero": "g4-meromero.env",
         "rx6800-qwen38": "qwen38-27b.env",
         "rx6800-qwen38-xhigh": "qwen38-27b-xhigh.env",
         "rx6800-ornith": "ornith-35b.env",
+        # --- 現行 ---
+        "rx7900-qwen38": "qwen38-27b.env",
+        "rx7900-qwen38-draft": "qwen38-27b-draft.env",
+        "rx7900-qwen38-xhigh": "qwen38-27b-xhigh.env",
+        "rx7900-ornith": "ornith-hip.env",
+        "rx7900-mero": "g4-meromero.env",
+        "rx7900-qw-base": "qwen36-base.env",
+        "rx7900-orca-unc": "qwen38-unc-iq4.env",
+        "rx7900-orca-cyber": "orca-cyber.env",
+        # local-strata-flash は別サービス（:8080）なので対象外。
+        # 切り替えるには llama 停止 + strata-on が必要で、ここでは扱わない。
     }
 
     def __init__(self) -> None:
@@ -62,6 +75,18 @@ class LlamaModelSwitcher(CustomLogger):
         ],
     ) -> dict:
         requested_model = data.get("model")
+
+        # 2026-10-25: 評価ハーネス等が llama-server を直接起動している間は切り替えない。
+        #   そうしないと systemd 側が同じ :11435 を掴もうとして衝突する。
+        #   抑止: LLAMA_SWITCH_DISABLE=1、または /tmp/opencode/eval-active（6時間以内）の存在
+        sentinel = Path("/tmp/opencode/eval-active")
+        try:
+            guard = sentinel.exists() and (time.time() - sentinel.stat().st_mtime) < 6 * 3600
+        except OSError:
+            guard = False
+        if os.environ.get("LLAMA_SWITCH_DISABLE") == "1" or guard:
+            logger.info("Switch disabled (eval guard): model=%s", requested_model)
+            return data
 
         env_filename = self.MODEL_MAP.get(requested_model)
 

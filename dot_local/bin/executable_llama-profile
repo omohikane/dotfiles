@@ -1,0 +1,96 @@
+#!/usr/bin/env bash
+# llama-profile: active.env を切り替えて llama-server@active を再起動する
+#   引数なし / list : プロファイル一覧（* が現在）
+#   <profile>       : 切替（例: qwen38-27b, qwen38-27b-draft, ornith-hip, qwen38-unc-iq4, orca-cyber, g4-meromero）
+#   strata          : llama を止めて Strata を起動（VRAM を明け渡す）
+#   status          : 現在のプロファイルと稼働状態
+set -euo pipefail
+
+CONF_DIR="$HOME/.config/llama-server"
+ACTIVE="$CONF_DIR/active.env"
+UNIT="llama-server@active.service"
+HEALTH="http://127.0.0.1:11435/health"
+
+current() { readlink -f "$ACTIVE" 2>/dev/null | xargs -r basename | sed 's/\.env$//'; }
+
+list_profiles() {
+  local cur; cur=$(current || true)
+  printf "%-22s %-30s %-8s %s\n" "PROFILE" "MODEL" "CTX" "BACKEND"
+  local f n m c b mark
+  for f in "$CONF_DIR"/*.env; do
+    [ -e "$f" ] || continue
+    n=$(basename "$f" .env)
+    case "$n" in eval-*|active) continue;; esac
+    m=$(grep -m1 '^MODEL=' "$f" | cut -d= -f2- | xargs -r basename || true)
+    c=$(grep -m1 '^CTX=' "$f" | cut -d= -f2- || true)
+    b=$(grep -m1 '^BACKEND=' "$f" | cut -d= -f2- || true)
+    mark=""
+    [ "$n" = "$cur" ] && mark=" *"
+    printf "%-22s %-30s %-8s %s%s\n" "$n" "${m:-?}" "${c:-?}" "${b:-?}" "$mark"
+  done
+  echo
+  echo "* = current   (strata を指定すると Strata エンジンに切り替え)"
+}
+
+case "${1:-}" in
+  ""|-l|--list|list) list_profiles; exit 0;;
+  -h|--help|help) echo "usage: llama-profile [profile|strata|status|list]"; exit 0;;
+  status)
+    echo "profile: $(current)"
+    systemctl --user is-active "$UNIT" 2>/dev/null || true
+    if curl -sf -m 3 "$HEALTH" >/dev/null 2>&1; then echo "health: ok"; else echo "health: down"; fi
+    exit 0;;
+esac
+
+PROFILE="$1"
+
+if [ "$PROFILE" = "strata" ]; then
+  systemctl --user stop "$UNIT" 2>/dev/null || true
+  "$HOME/.local/bin/strata-on"
+  exit 0
+fi
+
+ENV_FILE="$CONF_DIR/$PROFILE.env"
+if [ ! -f "$ENV_FILE" ]; then
+  echo "unknown profile: $PROFILE" >&2
+  list_profiles >&2
+  exit 1
+fi
+
+# Strata が VRAM を掴んでいる場合は先に止める
+if ss -ltn 2>/dev/null | grep -q ':8080 '; then
+  echo "stopping Strata to free VRAM"
+  "$HOME/.local/bin/strata-off" >/dev/null 2>&1 || true
+  sleep 3
+fi
+
+ln -sfn "$ENV_FILE" "$ACTIVE"
+echo "active -> $PROFILE"
+
+if systemctl --user is-active --quiet "$UNIT"; then
+  systemctl --user restart "$UNIT"
+else
+  systemctl --user start "$UNIT"
+fi
+
+for _ in $(seq 1 90); do
+  curl -sf -m 2 "$HEALTH" >/dev/null 2>&1 && break
+  sleep 2
+done
+
+if curl -sf -m 3 "$HEALTH" >/dev/null 2>&1; then
+  python3 - "$PROFILE" <<'PY'
+import json, sys, urllib.request
+try:
+    with urllib.request.urlopen("http://127.0.0.1:11435/props", timeout=5) as r:
+        d = json.load(r)
+    mp = d.get("model_path", "?")
+    ctx = d.get("default_generation_settings", {}).get("n_ctx")
+    print(f"loaded: {mp.split('/')[-1]} | n_ctx: {ctx} | profile: {sys.argv[1]}")
+except Exception as e:  # noqa: BLE001
+    print(f"started, but could not read /props: {e}")
+PY
+else
+  echo "WARN: health check failed. see: journalctl --user -u $UNIT -n 30" >&2
+  exit 2
+fi

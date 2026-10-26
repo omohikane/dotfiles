@@ -1,7 +1,8 @@
 {
   "defaultProvider": "litellm",
-  "defaultModel": "rx6800-mero",
+  "defaultModel": "rx7900-qwen38",
   "defaultThinkingLevel": "off",
   "enableInstallTelemetry": false,
-  "externalEditor": "nvim"
+  "externalEditor": "nvim",
+  "lastChangelogVersion": "1.4.0"
 }

@@ -1,19 +1,25 @@
 {
   "$schema": "https://opencode.ai/config.json",
-  "model": "litellm/rx7900-mero",
-  "small_model": "litellm/rx7900-mero",
+  "model": "litellm/rx7900-qwen38",
+  "small_model": "litellm/rx7900-qwen38",
   "snapshot": true,
   "share": "manual",
   "autoupdate": "notify",
   "mcp": {
     "blender-mcp": {
       "type": "local",
-      "command": ["uvx", "blender-mcp"],
+      "command": [
+        "uvx",
+        "blender-mcp"
+      ],
       "enabled": true
     },
     "unity": {
       "type": "local",
-      "command": ["node", "/home/r1ppl3/Github/UnityMCP-VRC/unity-mcp-server/build/index.js"],
+      "command": [
+        "node",
+        "/home/r1ppl3/Github/UnityMCP-VRC/unity-mcp-server/build/index.js"
+      ],
       "enabled": true
     }
   },
@@ -35,24 +41,48 @@
         "timeout": 600000
       },
       "models": {
-        "rx7900-mero": {
-          "name": "RX7900 Mero",
+        "rx7900-qwen38": {
+          "name": "Qwen3.8-27B 公式 (主力・IQ4_XS)",
+          "tools": true
+        },
+        "rx7900-qwen38-draft": {
+          "name": "Qwen3.8-27B 高速 (draft 付き)",
           "tools": true
         },
         "rx7900-ornith": {
-          "name": "RX7900 Ornith 35B",
+          "name": "Ornith 1.5 35B-A3B (MoE枠)",
+          "tools": true
+        },
+        "rx7900-mero": {
+          "name": "G4-Mero 26B-A4B (会話)",
+          "tools": true
+        },
+        "rx7900-orca-unc": {
+          "name": "Orca Uncensored 27B (creative)",
+          "tools": true
+        },
+        "rx7900-orca-cyber": {
+          "name": "Orca Cyber 27B (cyber)",
+          "tools": true
+        },
+        "local-strata-flash": {
+          "name": "Strata 公式 Flash-Next (128K)",
+          "tools": true
+        },
+        "qwen35-9b": {
+          "name": "Fuchu Qwen3.5-9B (subagent用・32K)",
+          "tools": true
+        },
+        "minis-qwen38": {
+          "name": "minis Qwen3.8-35B-A3B (780M・64K)",
           "tools": true
         },
         "rx7900-qw-base": {
-          "name": "RX7900 Qwen Base",
-          "tools": true
-        },
-        "rx7900-qwen38": {
-          "name": "RX7900 Qwen3.8-27B Q3_K_M",
+          "name": "Qwen3.6 35B ベース (予備)",
           "tools": true
         },
         "rx7900-qwen38-xhigh": {
-          "name": "RX7900 Qwen3.8-27B xhigh",
+          "name": "Qwen3.8-27B 長考 (xhigh)",
           "tools": true
         },
         "cloud-gemini-lite": {
@@ -66,19 +96,15 @@
         "cloud-deepseek-strong": {
           "name": "DeepSeek Strong",
           "tools": true
-        },
-        "local-strata-flash": {
-          "name": "Strata Flash-Next IQ2_XS",
-          "tools": true
         }
       }
     }
   },
   "agent": {
     "build": {
-      "description": "Default coding agent. Makes local edits and runs safe commands with approval.",
+      "description": "Default coding agent. Model is whatever active.env loads on :11435 (default: qwen38-27b.env = Qwen3.8-27B).",
       "mode": "primary",
-      "model": "litellm/rx7900-mero",
+      "model": "litellm/rx7900-qwen38",
       "permission": {
         "read": "allow",
         "glob": "allow",
@@ -164,10 +190,129 @@
         }
       }
     },
-    "explore": {
-      "description": "Cheap read-only local codebase exploration. Use for finding files, symbols, dependencies, config, and project structure.",
-      "mode": "subagent",
+    "chat": {
+      "description": "Conversation only: no file edits, no shell. Requires MeroMero to be loaded (active.env = g4-meromero.env). If another model is loaded, this uses that model instead.",
+      "mode": "primary",
       "model": "litellm/rx7900-mero",
+      "permission": {
+        "edit": "deny",
+        "write": "deny",
+        "bash": "deny",
+        "webfetch": "deny",
+        "websearch": "deny",
+        "task": "deny"
+      }
+    },
+    "heavy": {
+      "description": "Heavy work: design, large refactors, penetration testing. Uses Strata on :8080 (run strata-on first; needs ~33GB RAM). 8/8 on the hard suite.",
+      "mode": "primary",
+      "model": "litellm/local-strata-flash",
+      "permission": {
+        "read": "allow",
+        "glob": "allow",
+        "grep": "allow",
+        "list": "allow",
+        "edit": "ask",
+        "write": "ask",
+        "bash": {
+          "*": "ask",
+          "git push*": "deny",
+          "git reset --hard*": "deny",
+          "git clean*": "deny",
+          "rm -rf *": "deny"
+        },
+        "webfetch": "allow",
+        "websearch": "allow",
+        "task": {
+          "*": "ask",
+          "explore": "allow",
+          "general": "allow"
+        }
+      }
+    },
+    "creative": {
+      "description": "Uncensored profile for creative/manual use. Do NOT use unattended: T9 unstable (1 of 3 runs wrote to ~/.bashrc). Requires active.env = qwen38-unc-iq4.env.",
+      "mode": "primary",
+      "model": "litellm/rx7900-orca-unc",
+      "permission": {
+        "read": "allow",
+        "glob": "allow",
+        "grep": "allow",
+        "list": "allow",
+        "edit": "ask",
+        "write": "ask",
+        "bash": {
+          "*": "ask",
+          "git push*": "deny",
+          "git reset --hard*": "deny",
+          "git clean*": "deny",
+          "rm -rf *": "deny"
+        },
+        "webfetch": "allow",
+        "websearch": "allow",
+        "task": {
+          "*": "ask",
+          "explore": "allow",
+          "general": "allow"
+        }
+      }
+    },
+    "minis": {
+      "description": "Parallel worker on minis-llm (Radeon 780M, Qwen3.8-35B-A3B-Distill IQ4_XS, 64K). Use it so the desktop GPU stays free for the main model.",
+      "mode": "primary",
+      "model": "litellm/minis-qwen38",
+      "permission": {
+        "read": "allow",
+        "glob": "allow",
+        "grep": "allow",
+        "list": "allow",
+        "edit": "ask",
+        "write": "ask",
+        "bash": {
+          "*": "ask",
+          "git push*": "deny",
+          "git reset --hard*": "deny",
+          "git clean*": "deny",
+          "rm -rf *": "deny"
+        },
+        "webfetch": "allow",
+        "websearch": "allow",
+        "task": {
+          "*": "ask",
+          "explore": "allow"
+        }
+      }
+    },
+    "explore-fuchu": {      "description": "Read-only exploration on Fuchu Qwen3.5-9B (remote, 32K ctx). Keeps the local GPU free and avoids model switching. Requires the Fuchu llama-server (PORT 8080) to be running.",
+      "mode": "subagent",
+      "model": "litellm/qwen35-9b",
+      "permission": {
+        "read": "allow",
+        "glob": "allow",
+        "grep": "allow",
+        "list": "allow",
+        "edit": "deny",
+        "write": "deny",
+        "bash": {
+          "*": "deny",
+          "pwd": "allow",
+          "ls *": "allow",
+          "find *": "allow",
+          "rg *": "allow",
+          "grep *": "allow",
+          "git status*": "allow",
+          "git diff*": "allow",
+          "git log*": "allow"
+        },
+        "webfetch": "deny",
+        "websearch": "deny",
+        "task": "deny"
+      }
+    },
+    "explore": {
+      "description": "Cheap read-only local codebase exploration. Uses whatever is loaded on :11435 (Ornith is best for this: 8.9s T1).",
+      "mode": "subagent",
+      "model": "litellm/rx7900-qwen38",
       "permission": {
         "read": "allow",
         "glob": "allow",
@@ -189,6 +334,25 @@
         },
         "webfetch": "deny",
         "websearch": "deny"
+      }
+    },
+    "l2test": {
+      "description": "Local-model evaluation agent: code-mode `execute` disabled (local LLMs loop on it).",
+      "mode": "primary",
+      "model": "litellm/rx7900-mero",
+      "steps": 40,
+      "permission": {
+        "execute": "deny",
+        "edit": "allow",
+        "write": "allow",
+        "bash": "allow",
+        "read": "allow",
+        "glob": "allow",
+        "grep": "allow",
+        "list": "allow",
+        "webfetch": "deny",
+        "websearch": "deny",
+        "task": "deny"
       }
     }
   },
