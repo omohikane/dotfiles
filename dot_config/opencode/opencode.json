@@ -32,6 +32,33 @@
     "auto": true
   },
   "provider": {
+    "plamo": {
+      "npm": "@ai-sdk/openai-compatible",
+      "name": "PLaMo",
+      "options": {
+        "baseURL": "https://api.platform.preferredai.jp/v1",
+        "apiKey": "{env:PLAMO_API_KEY}",
+        "timeout": 600000
+      },
+      "models": {
+        "plamo-3.1-prime": {
+          "name": "PLaMo 3.1 Prime (国産・最新)",
+          "limit": {
+            "context": 65536,
+            "output": 20480
+          },
+          "tools": true
+        },
+        "plamo-3.0-prime": {
+          "name": "PLaMo 3.0 Prime (国産・262K)",
+          "limit": {
+            "context": 262144,
+            "output": 20480
+          },
+          "tools": true
+        }
+      }
+    },
     "litellm": {
       "npm": "@ai-sdk/openai-compatible",
       "name": "LiteLLM",
