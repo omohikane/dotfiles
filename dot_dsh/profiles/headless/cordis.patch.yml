@@ -1,0 +1,35 @@
+# Your patch layer for this dsh profile, applied after every bundle layer:
+# a top-level YAML array of loader patch entries (id-targeted config
+# overrides, disables, and insert lists; `!!js` expressions allowed).
+#
+# 1) Registers the LiteLLM gateway as a custom model API (OpenAI Chat Completions).
+#    The credential is referenced by environment variable name, so no secret is
+#    stored here or in $DSH_HOME/.credentials.yaml.
+#    Source of the value: ~/.config/secrets/api-keys.env (LITELLM_MASTER_KEY).
+# 2) Points the default model at that gateway instead of the shipped
+#    DeepSeek official default (`deepseek-official` / `deepseek-flash`).
+#
+# This file is the same document the Web UI's Settings -> Models page writes.
+- id: llm-pi-ai
+  config:
+    providers:
+      litellm:
+        displayName: LiteLLM (local gateway)
+        apiKeyEnv: LITELLM_MASTER_KEY
+        api: openai-completions
+        baseURL: http://endeavour-desktop-ryzen.netbird.cloud:4000/v1
+        models:
+          - id: rx7900-mero
+          - id: rx7900-qwen38
+          - id: rx7900-qwen38-xhigh
+          - id: rx7900-qw-base
+          - id: rx7900-ornith
+          - id: local-strata-flash
+          - id: qwen35-9b
+          - id: cloud-deepseek-fast
+          - id: cloud-deepseek-strong
+          - id: cloud-gemini-lite
+- id: agent-default-model
+  config:
+    provider: litellm
+    model: rx7900-mero
