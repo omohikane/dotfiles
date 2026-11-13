@@ -1,8 +1,24 @@
 {
+  "$schema": "https://pi.dev/schemas/settings.schema.json",
   "defaultProvider": "litellm",
   "defaultModel": "rx7900-qwen38",
   "defaultThinkingLevel": "off",
-  "enableInstallTelemetry": false,
+  "defaultTools": [
+    "read",
+    "bash",
+    "edit",
+    "write",
+    "grep",
+    "find",
+    "ls"
+  ],
   "externalEditor": "nvim",
+  "hideThinkingBlock": true,
+  "fullscreenScrollbar": "hidden",
+  "httpIdleTimeoutMs": 600000,
+  "compaction": {
+    "enabled": true
+  },
+  "enableInstallTelemetry": false,
   "lastChangelogVersion": "1.4.0"
 }
