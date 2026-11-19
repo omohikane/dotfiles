@@ -222,6 +222,10 @@ bindsym XF86AudioStop exec playerctl stop
 #####################################################################
 # Auto Start apps:
 #####################################################################
+# Secret Service (org.freedesktop.secrets) を提供するデーモン。
+# sway セッションでは kwalletd を起動する主体がいないため明示的に起動する。
+# これが無いと Chromium 系 (Vivaldi) が暗号鍵を取得できず、ログイン/Cookie が毎回壊れる。
+exec --no-startup-id /usr/bin/ksecretd
 exec fcitx5 -d
 # waybarのtrayより先に立つとアイコンが出ないため遅延起動
 exec sh -c 'sleep 3; exec blueman-applet'
