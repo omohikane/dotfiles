@@ -1,7 +1,13 @@
 {
   "$schema": "https://opencode.ai/config.json",
-  "model": "litellm/rx7900-qwen38",
-  "small_model": "litellm/rx7900-qwen38",
+  "model": "opencode-go/deepseek-v4.1-flash",
+  "small_model": "opencode-go/deepseek-v4.1-flash",
+  "enabled_providers": [
+    "opencode-go",
+    "litellm",
+    "plamo",
+    "opencode"
+  ],
   "snapshot": true,
   "share": "manual",
   "autoupdate": "notify",
@@ -69,59 +75,51 @@
       },
       "models": {
         "rx7900-qwen38": {
-          "name": "Qwen3.8-27B 公式 (主力・IQ4_XS)",
+          "name": "ローカル RX7900: Qwen3.8-27B (主力・IQ4_XS)",
           "tools": true
         },
         "rx7900-qwen38-draft": {
-          "name": "Qwen3.8-27B 高速 (draft 付き)",
+          "name": "ローカル RX7900: Qwen3.8-27B (draft 付き)",
           "tools": true
         },
         "rx7900-ornith": {
-          "name": "Ornith 1.5 35B-A3B (MoE枠)",
+          "name": "ローカル RX7900: Ornith 1.5 35B-A3B (MoE枠)",
           "tools": true
         },
         "rx7900-mero": {
-          "name": "G4-Mero 26B-A4B (会話)",
+          "name": "ローカル RX7900: G4-Mero 26B-A4B (会話)",
           "tools": true
         },
         "rx7900-orca-unc": {
-          "name": "Orca Uncensored 27B (creative)",
+          "name": "ローカル RX7900: Orca Uncensored 27B (creative)",
           "tools": true
         },
         "rx7900-orca-cyber": {
-          "name": "Orca Cyber 27B (cyber)",
+          "name": "ローカル RX7900: Orca Cyber 27B (cyber)",
           "tools": true
         },
         "local-strata-flash": {
-          "name": "Strata 公式 Flash-Next (128K)",
+          "name": "ローカル (:8080): Strata Flash-Next 128K",
           "tools": true
         },
         "qwen35-9b": {
-          "name": "Fuchu Qwen3.5-9B (subagent用・32K)",
+          "name": "リモート Fuchu: Qwen3.5-9B (32K)",
           "tools": true
         },
         "minis-qwen38": {
-          "name": "minis Qwen3.8-35B-A3B (780M・64K)",
+          "name": "リモート minis (780M): Qwen3.8-35B-A3B 64K",
           "tools": true
         },
         "rx7900-qw-base": {
-          "name": "Qwen3.6 35B ベース (予備)",
+          "name": "ローカル RX7900: Qwen3.6 35B ベース (予備)",
           "tools": true
         },
         "rx7900-qwen38-xhigh": {
-          "name": "Qwen3.8-27B 長考 (xhigh)",
+          "name": "ローカル RX7900: Qwen3.8-27B 長考 (xhigh)",
           "tools": true
         },
         "cloud-gemini-lite": {
-          "name": "Gemini Lite",
-          "tools": true
-        },
-        "cloud-deepseek-fast": {
-          "name": "DeepSeek Fast",
-          "tools": true
-        },
-        "cloud-deepseek-strong": {
-          "name": "DeepSeek Strong",
+          "name": "クラウド: Gemini Lite",
           "tools": true
         }
       }
@@ -129,9 +127,9 @@
   },
   "agent": {
     "build": {
-      "description": "Default coding agent. Model is whatever active.env loads on :11435 (default: qwen38-27b.env = Qwen3.8-27B).",
+      "description": "Default coding agent. Uses OpenCode Go DeepSeek V4.1 Flash (cloud). Switch to a ローカル RX7900 model for offline/local work.",
       "mode": "primary",
-      "model": "litellm/rx7900-qwen38",
+      "model": "opencode-go/deepseek-v4.1-flash",
       "permission": {
         "read": "allow",
         "glob": "allow",
@@ -200,7 +198,7 @@
     "plan": {
       "description": "High-quality planning agent. Designs changes before implementation. It must not edit files or run commands.",
       "mode": "primary",
-      "model": "litellm/cloud-deepseek-fast",
+      "model": "opencode-go/deepseek-v4.1-flash",
       "permission": {
         "read": "allow",
         "glob": "allow",
@@ -310,7 +308,8 @@
         }
       }
     },
-    "explore-fuchu": {      "description": "Read-only exploration on Fuchu Qwen3.5-9B (remote, 32K ctx). Keeps the local GPU free and avoids model switching. Requires the Fuchu llama-server (PORT 8080) to be running.",
+    "explore-fuchu": {
+      "description": "Read-only exploration on Fuchu Qwen3.5-9B (remote, 32K ctx). Keeps the local GPU free and avoids model switching. Requires the Fuchu llama-server (PORT 8080) to be running.",
       "mode": "subagent",
       "model": "litellm/qwen35-9b",
       "permission": {
