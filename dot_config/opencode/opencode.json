@@ -180,7 +180,7 @@
           "python3 -c *": "ask",
           "go test*": "ask",
           "pytest*": "ask",
-          "git push*": "deny",
+          "git push*": "ask",
           "git reset*": "ask",
           "git reset --hard*": "deny",
           "git clean*": "deny",
@@ -241,7 +241,7 @@
         "write": "ask",
         "bash": {
           "*": "ask",
-          "git push*": "deny",
+          "git push*": "ask",
           "git reset --hard*": "deny",
           "git clean*": "deny",
           "rm -rf *": "deny"
@@ -268,7 +268,7 @@
         "write": "ask",
         "bash": {
           "*": "ask",
-          "git push*": "deny",
+          "git push*": "ask",
           "git reset --hard*": "deny",
           "git clean*": "deny",
           "rm -rf *": "deny"
@@ -295,7 +295,7 @@
         "write": "ask",
         "bash": {
           "*": "ask",
-          "git push*": "deny",
+          "git push*": "ask",
           "git reset --hard*": "deny",
           "git clean*": "deny",
           "rm -rf *": "deny"
